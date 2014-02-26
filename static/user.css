@@ -1,0 +1,130 @@
+.navbar-nav {
+font-size: 20px;
+}
+
+        /* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #EBE6ED;
+}
+h1 {
+	font-size: 90px;
+	font-family: Cambria;
+	font-weight: bold;
+	color: #301830;
+	text-align: center;
+	width: 60%;
+	margin-right:auto;
+	margin-left:auto;
+	padding-top:20px;
+	}
+	
+h2 {
+	font-family: Cambria;
+	}
+	
+	
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+          position: relative;
+          min-height: 100%;
+        }
+        body {
+          /* Margin bottom by footer height */
+          margin-bottom: 60px;
+        }
+        #footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 60px;
+          background-color: #f5f5f5;
+        }
+        
+        
+       /* For Dragon Drop */
+       .dd-folder-icon {
+           font-size: 4em;
+       }
+
+       .draggable {
+          color: #301830;
+          background-color: #ddd;
+          margin-bottom: 4px;
+       }
+       
+       .f-drop {
+          color: #79697A;
+       }
+       .folder-name{
+          font-size: 14px;
+		  color: #301830;
+		  margin-top: -10px;
+       }
+
+ul {
+list-style-type: none;
+font-size: 16px;
+
+}
+
+/*.container {
+background-color: pink;
+padding-top:30px;
+}*/
+
+img {
+float: right;
+width: 20%;
+height: 20%;
+
+padding-bottom: 50px;
+}
+
+.col-md-3{
+
+background-color: #F9F2FA;
+
+}
+
+
+.col-md-6{
+
+margin-top: -20px;
+
+}
+
+.navbar-fixed-bottom {
+font-size: 24px;
+background-color: #EBE6ED;
+}
+
+.navbar-nav li {
+padding: 10px;
+}
+
+.glyphicon-search {
+
+font-size: 4em;
+}
+
+.navbar-inverse {
+  background-color: #EBE6ED;
+  border: none;
+  width: 30%;
+  margin-left: 380px;
+}
+
+.navbar-collapse {
+  width: 30%;
+}
+
+.user-name {
+font-size: 24px;
+}
+
+.navbar-header {
+}
