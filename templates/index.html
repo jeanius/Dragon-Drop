@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,10 +14,10 @@
     <title>Sign in - Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
 
     <!-- Custom styles for this template -->
-    <link href="css/signin.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static "css/signin.css" %}" />
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -30,7 +33,7 @@
 
     <div class="container">
    
-   	<img src="../Dragon-Drop/static/dragon-logo-small.png"   alt="Responsive image" > 
+   	<img src="{% static "dragon-logo-small.png" %}"   alt="Dragon Drop" > 
 
 	<h1>Dragon Drop</h1>
       <form class="form-signin" role="form">

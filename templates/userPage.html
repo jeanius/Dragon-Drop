@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,9 +14,11 @@
     <title>User Page Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
-    <link href="../static/user.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" />
+	<link rel="stylesheet" href="{% static "css/user.css" %}" />
+	<link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
+	
     <!-- Custom styles for this template -->
    
 
@@ -60,7 +65,7 @@
     </div>
 	  
 	  	
-		   	<img src="../static/dragon-logo-small.png"   alt="Responsive image" > 
+		   	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
         <h1>Dragon Drop</h1>
       </div>
 
