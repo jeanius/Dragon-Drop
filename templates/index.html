@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-
-{% load static %}
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -14,10 +11,10 @@
     <title>Sign in - Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel ="stylesheet" href="{% static "bootstrap.css" %}"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link rel ="stylesheet" href="{% static "signin.css" %}"/>
+    <link href="css/signin.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -33,7 +30,7 @@
 
     <div class="container">
    
-   	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop Logo" /> 
+   	<img src="../Dragon-Drop/static/dragon-logo-small.png"   alt="Responsive image" > 
 
 	<h1>Dragon Drop</h1>
       <form class="form-signin" role="form">
@@ -41,12 +38,29 @@
         <input type="email" class="form-control" placeholder="Username" required autofocus>
         <input type="password" class="form-control" placeholder="Password" required>
 
-			<button class="btn btn-lg btn-primary-signin" type="submit">Sign in</button>
+			<button class="btn btn-lg btn-primary-signin  " type="submit">Sign in</button>
 	
-			<button class="btn btn-lg btn-primary-register" type="submit">Register</button>
+			<button class="btn btn-lg btn-primary-register  " type="submit">Register</button>
 	
       </form>
 
+	  
+	      <!-- bottom navigation panel -->
+    
+    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container">
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">About</a></li>
+            <li><a href="#about">Privacy</a></li>
+            <li><a href="#contact">Help</a></li>
+
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+	  
     </div> <!-- /container -->
 
 
