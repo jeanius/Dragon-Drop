@@ -1,8 +1,11 @@
+# This script defines the getHtmlTitle function, which downloads the web page
+# at a given URL and gets the page's title and description from the HTML.
+# This code should perhaps be moved within another Python script at a later date.
+
+
 import urllib2
 import re
 
-
-url = "http://stackoverflow.com/questions/19944506/java-incrementing-a-variable-inside-of-a-for-loop"
 
 def getHtmlTitle(url):
     req = urllib2.Request(url)
