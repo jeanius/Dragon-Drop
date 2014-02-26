@@ -1,0 +1,343 @@
+Gosel,Maps,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gosel,Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Jean,Miscellaneous visualizations,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/gbd-compare/,GBD Compare
+Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/mortality/,Mortality Visualization
+Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/cod/,COD Visualization
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-heatmap,GBD Heatmap
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-arrow-diagram,GBD Arrow Diagram
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-uncertainty-visualization,GBD Uncertainty Visualization
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-cause-patterns,GBD Cause Patterns
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-2010-healthy-years-lost-vs-life-expectancy,GBD 2010 healthy years lost vs life expectancy
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/life-expectancy-county-and-sex-us-country-comparison-global-1989-1999-2009,Life expectancy by county and sex (US) with country comparison
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-health-focus-area-global-1990-2009-interactiv,Development assistance for health by health focus area
+Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-channel-assistance-global-1990-2011-interacti,Development assistance for health by channel of assistance
+Gosel,Bar Chart,http://bl.ocks.org/mbostock/1283663,Hierarchical Bar Chart
+Gosel,Bar Chart,http://bl.ocks.org/mbostock/882152,Grouped Bar Chart
+Gosel,Bar Chart,http://bl.ocks.org/mbostock/1134768,Stacked Bar Chart
+Gosel,Bar Chart,http://bl.ocks.org/mbostock/1327441,Reorderable Stacked Bar Chart
+Gosel,Bar Chart,https://github.com/mlarocca/Dynamic-Charts,Dynamic Bar Charts
+Gosel,Bar Chart,http://theoldbeggar.com/aid/,"Sortable bars: Foreign aid, corruption and internet use"
+Gosel,Bar Chart,https://github.com/gencay/stackedGroupedChart,Grouped and Stacked Bar Chart
+Gosel,Bar Chart,http://bl.ocks.org/rsloan/7123450,Waterfall Chart
+Gosel,Bar Chart,https://github.com/liufly/Dual-scale-D3-Bar-Chart,Dual-scale Bar Chart
+Gosel,Histogram,https://github.com/gajus/interdependent-interactive-histograms,Reusable Interdependent Interactive Histograms
+Gosel,Histogram,http://bl.ocks.org/mbostock/1933560,Histogram Chart
+Gosel,Histogram,http://bl.ocks.org/mbostock/3048450,"Fixed-width Histogram, Irwin–Hall distribution"
+Gosel,Histogram,http://bl.ocks.org/mbostock/3048166,"Fixed-width Histogram of Durations, log-normal distribution"
+Gosel,Histogram,http://bl.ocks.org/mbostock/1624660,Variable-width Histogram
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1166403,Axis Component
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1157787,Small Multiples
+Gosel,Line and Area Chart,http://benjchristensen.com/2011/08/08/simple-sparkline-using-svg-path-and-d3-js/,Sparklines
+Gosel,Line and Area Chart,http://benjchristensen.com/2012/05/15/interactive-line-graph-using-d3-js/,Interactive Line Graph
+Gosel,Line and Area Chart,http://mpf.vis.ywng.cloudbees.net/,Comprehensive Line Graph
+Gosel,Line and Area Chart,http://benjchristensen.com/2012/05/02/line-graphs-using-d3-js/,Dual scale line chart
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1483226,Horizon Chart
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1629644,Line Chart with tooltips
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1314483,Stacked layout with time axis
+Gosel,Line and Area Chart,http://tympanus.net/codrops/2012/08/29/multiple-area-charts-with-d3-js/,Multiple Area Charts with D3.JS
+Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/4175202,Multiple time-series with object constancy
+Gosel,Line and Area Chart,http://bl.ocks.org/nswamy14/083a1e3181c81428f817,Overlapped distribution Area chart
+Gosel,Pie Chart,https://github.com/gajus/pie-chart,Reusable Pie Charts
+Gosel,Pie Chart,http://bl.ocks.org/mbostock/1305111,Pie Multiples
+Gosel,Pie Chart,http://bl.ocks.org/mbostock/1346395,Pie Chart Updating (Part 1)
+Gosel,Pie Chart,http://bl.ocks.org/4710330/94a7c0aeb6f09d681dbfdd0e5150578e4935c6ae,Hierarchical Pie Chart
+Gosel,Scatterplot and Bubble chart,http://www.ericbullington.com/articles/2012/01/31/kmeans-visualization,Scatterplot for K-Means clustering visualization
+Gosel,Scatterplot and Bubble chart,http://slodge.com/teach/,Animated bubble charts for school data analysis
+Gosel,Scatterplot and Bubble chart,http://jsfiddle.net/indiemaps/gzPDU/,Scatterplot and Heatmap
+Gosel,Scatterplot and Bubble chart,http://bl.ocks.org/mbostock/4481531,Scatterplot: Social trust vs ease of doing business
+Gosel,Scatterplot and Bubble chart,http://benjiec.github.io/scatter-matrix/demo/demo.html,Explore Matrix Data with Scatterplots
+Gosel,Scatterplot and Bubble chart,http://bl.ocks.org/llb4ll/8709363,k-Nearest-Neighbor Search with Quadtree
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://nickrabinowitz.com/projects/d3/alluvial/alluvial-dynamic.html,Animated Sankey Diagram (alluvial)
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3921009,Sankey diagram with cycles
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/1341281,Parallel Coordinates
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3290263,Parallel coordinates with fisheye distortion
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://www.jasondavies.com/parallel-sets/,Parallel Sets
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://www.theage.com.au/national/parsets,Parallel Sets with reorderable heading
+Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/4168921,Pair Contribution and Selection
+Wen,Parallel Coordinates Parallel sets and Sankey,http://charts.graphicbaseball.com/parallelbatting,Graphicbaseball: 2012 Batters
+Wen,Sunburst and Partition layout,http://bl.ocks.org/mbostock/910126,Sunburst Layout with Labels
+Wen,Sunburst and Partition layout,http://www.jasondavies.com/coffee-wheel/,Sunburst: Coffee Flavour Wheel
+Wen,Sunburst and Partition layout,http://bl.ocks.org/mbostock/1005873,Partition Layout (Zoomable Icicle)
+Wen,Sunburst and Partition layout,http://xliberation.com/parse/colortable/parsed3.html,Sunburst: Color schemer with parse.com integration
+Wen,Sunburst and Partition layout,http://bl.ocks.org/kerryrodden/7090426,Using a sunburst to analyze sequences of events
+Wen,Force Layout,http://bl.ocks.org/mbostock/1062383,Symbols
+Wen,Force Layout,http://bl.ocks.org/mbostock/1021841,Custom Forces
+Wen,Force Layout,http://bl.ocks.org/mbostock/1021953,Multiple Foci
+Wen,Force Layout,http://bl.ocks.org/mbostock/2920551,Multi Foci with Convex Hulls
+Wen,Force Layout,http://bl.ocks.org/mbostock/950642,Images and Labels
+Wen,Force Layout,http://bl.ocks.org/mbostock/2883411,Drag and Drop Support to set nodes to fixed position when dropped
+Wen,Force Layout,http://bl.ocks.org/mbostock/929623,Interactive Construction
+Wen,Force Layout,http://bl.ocks.org/mbostock/1062288,Collapsible Hierarchy
+Wen,Force Layout,http://bl.ocks.org/mbostock/1080941,From XML
+Wen,Force Layout,http://bl.ocks.org/mbostock/2846454,From Matrix Market format
+Wen,Force Layout,http://bl.ocks.org/mbostock/1153292,Directed Edges (Curves and Arrow Markers)
+Wen,Force Layout,http://bl.ocks.org/mbostock/1129492,Bounded Force Layout
+Wen,Force Layout,http://bl.ocks.org/mbostock/1377729,Force-Based Label Placement
+Wen,Force Layout,http://www.torlaune.de/euro-2012/spieler-relationen/,Groups and Labels showing relations of football players participating in Euro 2012
+Wen,Force Layout,http://www.christophermanning.org/projects/chicago-lobbyists-force-directed-graph-visualization/,Chicago Lobbyists
+Wen,Force Layout,http://fanfarefantastique.com/vishna/,Hacker News Visualisation
+Wen,Force Layout,http://pmsangal.tumblr.com/post/65499782255/visualizing-web-performance-1,Web performance
+Wen,Force Layout,http://fcc.github.io/calltraffic/traffic2011.html,2011 International Phone Traffic
+Wen,Force Layout,http://disqus.com/gravity,Gravity by Disqus
+Wen,Force Layout,http://xliberation.com/googlecharts/d3nodefocustagsite.html,Navigate site by tags focus
+Wen,Tree,http://blog.pixelingene.com/2011/07/building-a-tree-diagram-in-d3-js/,Building a tree diagram
+Wen,Tree,http://blog.pixelingene.com/2011/08/progressive-reveal-animations-in-svg-using-a-svgclippath/,Reveal animation on a tree with a clip path
+Wen,Tree,http://jsfiddle.net/murray_3/5q62y/8/,Collpase/expand nodes of a tree
+Wen,Tree,http://bl.ocks.org/mbostock/2966094,Pedigree Tree
+Wen,Tree,http://bl.ocks.org/mbostock/999346,Animated
+Wen,Tree,http://bl.ocks.org/mbostock/1061834,Collapsible
+Wen,Tree,http://bl.ocks.org/mbostock/1249394,"Collapsible, with Labels"
+Wen,Tree,http://bl.ocks.org/mbostock/1093025,Indented Tree (Collapsible)
+Wen,Misc Trees and Graphs,http://maxdemarzi.com/2012/03/08/connections-in-time/,Connections in time
+Wen,Misc Trees and Graphs,http://www.christophermanning.org/projects/voronoi-diagram-with-force-directed-nodes-and-delaunay-links/,Voronoi Diagram with Force Directed Nodes and Delaunay Links
+Wen,Misc Trees and Graphs,http://www.christophermanning.org/projects/building-cubic-hamiltonian-graphs-from-lcf-notation/,Building Cubic Hamiltonian Graphs from LCF Notation
+Wen,Misc Trees and Graphs,http://thepowerrank.com/visual/NCAA_Tournament_Predictions,Circular tree. Will your team win the NCAA Tournament?
+Wen,Misc Trees and Graphs,http://blockses.appspot.com/2503502,Bracket Layout
+Wen,Misc Trees and Graphs,http://bit.ly/PvWgUH,SCION simulation environment
+Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/972398,Treemap Layout in SVG
+Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/4092944,Circular tree of d3 src using burrow() for recursive nesting
+Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/4092944,Circular tree comparing the src directory for three versions of d3
+Wen,Misc Trees and Graphs,http://jimkang.com/quadtreevis/,Interactive visualization that shows changes in the internal node tree of a quadtree as points are added
+Wen,Chord Layout,http://www.tips-for-excel.com/MCFC/Passes.html,Football passes
+Wen,Chord Layout,http://www.nu.nl/files/datajournalistiek/ek/ek2012.htm#.UKJ5yuOe8ww,Selecties EK 2012
+Wen,Chord Layout,http://www.torre.nl/remittances/,Remittance flows
+Wen,Chord Layout,http://bl.ocks.org/mbostock/1046712,Dependencies Between Classes
+Wen,Chord Layout,http://bost.ocks.org/mike/uberdata/,Uber Rides by Neighborhood
+Wen,Chord Layout,http://exposedata.com/tutorial/chord/latest.html,Updating data
+Wen,Chord Layout,http://fleetinbeing.net/d3e/chord.html,Updating data
+Wen,Chord Layout,http://livecoding.io/3419309,Fade on Hover
+Wen,Chord Layout,http://bl.ocks.org/mbostock/4062006,Fade on Hover
+Wen,Chord Layout,http://www.javainc.com/projects/dex/examples/vis/d3/presidents/presidentPartyChord.html,Fade on Hover
+Wen,Chord Layout,http://bl.ocks.org/1046712,Static
+Wen,Chord Layout,http://bl.ocks.org/1308257,Static
+Jean,Chord Layout,http://fleetinbeing.net/d3e/chord.html,Chord Layout Transitions
+Jean,Chord Layout,http://www.rjbaxley.com/p/publications.html,Co-Authors Chords
+Jean,Chord Layout,http://radialsets.org,Visualizing Overlapping Sets
+Jean,Chord Layout,http://redotheweb.com/DependencyWheel/,Visualizing Package Dependencies
+Jean,Chord Layout,http://nbremer.blogspot.nl/2014/02/switching-behavior-between-phone-brands.html,Switching behavior between phone brands of the Dutch 
+Jean,Maps,http://bl.ocks.org/mbostock/2206590,Click-to-Zoom with Albers Projection
+Jean,Misc Charts,http://bl.ocks.org/mbostock/1067636,Venn Diagram using Clipping
+Jean,Misc Charts,http://bl.ocks.org/mbostock/1067616,Venn Diagram using Opacity
+Jean,Misc Charts,http://bl.ocks.org/mbostock/1005090,Marimekko Chart
+Jean,Misc Charts,http://tomerdoron.blogspot.com/2011/12/google-style-gauges-using-d3js.html,Gauge
+Jean,Misc Charts,http://bl.ocks.org/mbostock/2011590,Chernoff faces
+Jean,Misc Charts,http://bl.ocks.org/mbostock/1962173,Swimlane Chart
+Jean,Misc Charts,http://bl.ocks.org/mbostock/2280295,Pictograms
+Jean,Misc Charts,http://dyninc.github.com/d3-smokechart/,Smoke charts
+Jean,Misc Charts,http://bl.ocks.org/d/3779574/,Sankey Diagram with Overlap
+Jean,Misc Charts,http://bl.ocks.org/mbostock/1044242,Hierarchical Edge Bundling
+Jean,Misc Charts,http://bl.ocks.org/mbostock/3543186,Spiral for John Hunter
+Jean,Misc Charts,http://nbremer.blogspot.com/2013/07/self-organizing-maps-adding-boundaries.html,Hexagonal Heatmaps for e.g. Self Organizing Maps
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1021103,Superformula Explorer
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1020902,Superformula Tweening
+Jean,Miscellaneous visualizations,http://mohdaslam.com/lte-rrc-rlc-mac-visualization-using-bubble-pack-layout/,LTE Protocol visualization
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1062544,OMG Particles!
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1016220,Line Tension
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1117287,Segmented Lines and Slope Coloring
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/849853,Raindrops
+Jean,Miscellaneous visualizations,http://ggruiz.me/weeknd3/,Weeknd3
+Jean,Miscellaneous visualizations,http://ggruiz.me/explosions/,Explosions
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1086421,Linear Gradients
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1073373,Force Directed States of America
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1123639,Rounded Rectangles
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1136236,Spermatozoa
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1182434,"Spline, Zoom and Pan"
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1098617,Arc Tweens
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1256572,Show Reel
+Jean,Miscellaneous visualizations,http://vvvvjs.quasipartikel.at/,VVVV viewer
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1243323,Merge Sort
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1353700,Epicyclic Gearing
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1276463,DOM-to-Canvas
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1345853,Transform Transitions
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1386444,Square Circle Spiral Illusion
+Jean,Miscellaneous visualizations,https://github.com/enjalot/adventures_in_d3,Adventures in D3
+Jean,Miscellaneous visualizations,https://github.com/boorad/d3-tsline,Time Series
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1405439,Voronoi-based point picker
+Jean,Miscellaneous visualizations,http://www.larsko.org/v/euc/,Radar chart
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1629464,Drag rectangle
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1706523,Elastic collisions
+Jean,Miscellaneous visualizations,http://blog.latentflip.com/post/18195267992/d3-collider,Collider - a d3.js game
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/1552725,alpha-shapes aka concave hulls
+Jean,Miscellaneous visualizations,http://markmarkoh.com/rhok,Conway's Game of life as a scrolling background
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/3287802,Simple Dashboard Example
+Jean,Miscellaneous visualizations,http://bollwyvl.github.com/blockd3/,Dataflow programming with D3 and Blockly
+Jean,Miscellaneous visualizations,http://dan.iel.fm/xkcd/,XKCD-style plots
+Jean,Miscellaneous visualizations,http://latentflip.github.com/violin/,Violin: Instrumenting JavaScript
+Jean,Miscellaneous visualizations,http://exposedata.com/hypercube/rotate/,Rotating hypercube in orthogonal projection and parallel coordinates
+Jean,Miscellaneous visualizations,http://blog.lightjs.org/2012/10/welcome-to-webplatform-animation-d3js/,Webplatform dancing logo
+Jean,Miscellaneous visualizations,http://metro.ezyang.com/,Metro Maps of the News
+Jean,Miscellaneous visualizations,http://bl.ocks.org/d/2361485/,Life expectancy: small multiples
+Jean,Miscellaneous visualizations,http://bl.ocks.org/mbostock/4589092,Semi-manual force layout of cablegate reference graphs
+Jean,Miscellaneous visualizations,http://jklabz.com/d3/digital_clock/digital_clock.html,Digital Clock By Virtual Force
+Jean,Miscellaneous visualizations,http://bl.ocks.org/nbremer/raw/6506614/,Radar Chart or Spider Chart
+Jean,Useful snippets,http://gist.github.com/plandem/5683951,Correct zoom for layout
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1071269,Date Ticks
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1503463,Masking with external svg elements
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1367999,PJAX
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1226718,Table Sorting
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1846692,Automatically sizing text
+Jean,Useful snippets,http://bl.ocks.org/mbostock/2295155,"Templating ala Mustache, with Chernoff faces example"
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1343714,Bay Area earthquake responses by zip code: loading external file through Yahoo Pipes
+Jean,Useful snippets,http://jsfiddle.net/7WQjr/,Simple HTML data tables
+Jean,Useful snippets,http://jsfiddle.net/shawnbot/BJLe6/,Responsive SVG resizing without re-rendering
+Jean,Useful snippets,http://bl.ocks.org/mbostock/1691430,Automatic floating labels using d3 force-layout
+Jean,Useful snippets,http://bl.ocks.org/3689677,Long Scroll
+Jean,Useful snippets,http://bl.ocks.org/mbostock/3310323,Custom Line Interpolation
+Jean,Useful snippets,http://d3export.cancan.cshl.edu/,Export to SVG/PNG/PDF server-side using Perl
+Jean,Useful snippets,http://bl.ocks.org/mbostock/4053096,Constraint relaxation 1
+Jean,Useful snippets,http://bl.ocks.org/mbostock/4047002,Custom Path and Area Generator
+Jean,Useful snippets,http://bl.ocks.org/mbostock/3605124,Axis Examples
+Jean,Useful snippets,http://bl.ocks.org/mbostock/3173233,Loading Adobe Photoshop ASE color palette
+Jean,Useful snippets,http://jsfiddle.net/shawnbot/BJLe6/,Render sever-side using Phantomjs
+Jean,Useful snippets,http://bl.ocks.org/mbostock/4236639,Reusable text rotation
+Jean,Useful snippets,http://ollieglass.com/2012/04/21/bieber-fever-meter-with-html5s-web-socket-d3-js-and-pusher/,"Bieber Fever Meter with HTML5's Web Socket, d3.js and Pusher"
+Jean,Useful snippets,http://bl.ocks.org/mbostock/4246925,Reverse Geocoding Plug-in using an offline canvas
+Jean,Useful snippets,http://bl.ocks.org/mbostock/4149176,Custom Multi Scale Time Format Axis
+Jean,Interoperability,http://blogs.infoecho.net/echo/2012/02/05/ipython-notebook-d3-js-mashup/,IPython-Notebook with d3.js
+Jean,Interoperability,https://github.com/mikedewar/d3py,Plotting library for python based on d3
+Jean,Interoperability,http://github.com/jakevdp/mpld3,mpld3: d3 visualizations of matplotlib (python) plots
+Jean,Interoperability,http://www.drewconway.com/zia/?p=2765,Visualizing NetworkX graphs in the browser using D3
+Jean,Interoperability,https://github.com/hhuuggoo/pushd3,Pushing d3 commands to the browser from iPython
+Jean,Interoperability,http://quasipartikel.at/2012/04/25/dancing-with-data/,Dance.js: D3 with Backbone and Data.js
+Jean,Interoperability,http://drsm79.github.com/Backbone-d3/index.html,Backbone-D3
+Jean,Interoperability,http://blog.ouseful.info/2012/05/11/viewing-openlearn-mindmaps-using-d3-js/,Viewing OpenLearn Mindmaps Using d3.js
+Jean,Interoperability,https://bitbucket.org/davidagraf/dartsplaytree/src,"Splay Tree animation with dart, d3, and local storage"
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/d3/sankey,Sankey diagrams from Excel
+Jean,Interoperability,https://github.com/davidcox/plotsk,Plotsk: A python/coffeescript/d3.js-based library for plotting data in a web browser
+Jean,Interoperability,http://blog.nextgenetics.net/?e=7,Data visualization with D3.js and python
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/d3/anyforce,d3.js force diagrams straight from Excel
+Jean,Interoperability,http://blog.echen.me/2012/03/05/instant-interactive-visualization-with-d3-and-ggplot2/,Instant interactive visualization with d3 + ggplot2
+Jean,Interoperability,http://excelramblings.blogspot.co.uk/2012/07/visualizing-system-integrations-using.html,d3.js force diagrams with markers straight from Excel
+Jean,Interoperability,http://www.benh.co.uk/datasift/visualising-a-datasift-feed-with-node-and-d3/,Visualising a real-time DataSift feed with Node and D3.js
+Jean,Interoperability,https://github.com/asutherland/d3-threeD,"Very limited, in-progress attempt to hook d3.js up to three.js"
+Jean,Interoperability,http://jsfiddle.net/plaliberte/HAXyd/,SVG to Canvas to PNG using Canvg
+Jean,Interoperability,http://exposedata.com/canvas/stacked.html,Canvas with d3 and Underscore
+Jean,Interoperability,http://bl.ocks.org/mbostock/1846692,Automatically sizing text
+Jean,Interoperability,http://bl.ocks.org/mbostock/2294676,SVG to Canvas
+Jean,Interoperability,https://github.com/mhemesath/r2d3/,d3 rendered with RaphaelJS for IE Compatibility
+Jean,Interoperability,http://webmonarch.github.com/d34raphael/usage.html,d34raphael
+Jean,Interoperability,http://www.dotuscomus.com/pergola/pergola_1.4.0/ExamplesHTML/D3/multiD3.html,D3 graphics in a Pergola SVG UI
+Jean,Interoperability,http://sammyd.github.com/blog/2012/09/16/visualising-conair-data-with-cubism-dot-js/,"Visualising ConAir Data With Cubism.js (Arduino, TempoDB, Sinatra)"
+Jean,Interoperability,http://css.dzone.com/articles/render-geographic-information,Render Geographic Information in 3D With Three.js and D3.js
+Jean,Interoperability,http://bl.ocks.org/mbostock/2759731,D3 heatmap using Backbone.js and CoffeeScript
+Jean,Interoperability,http://maxdemarzi.com/2012/02/13/visualizing-a-network-with-cypher/,Visualizing a network with Cypher and d3.js
+Jean,Interoperability,https://github.com/hadley/r2d3,ggplot2 + d3 = r2d3
+Jean,Interoperability,http://briantford.com/blog/angular-d3.html,Using the D3.js Visualization Library with AngularJS
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/d3/partition,Zoomable Partition Charts directly from Excel
+Jean,Interoperability,http://jllord.github.com/sheetsee.js/,SHEETSEE.JS: Fill up Websites with Stuff from Google Spreasheet
+Jean,Interoperability,http://timelyportfolio.blogspot.com/2012/12/d3-shiny-and-r-reporting-performance.html,Web reporting with D3js and R using RStudio Shiny
+Jean,Interoperability,http://dexvis.com,Dex the Data Explorer
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/parse/d3parse,d3.js partition chart serving data from parse.com
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/gassites/d3nodefocus,Force directed node focus generated from Excel
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/d3/flights,US Airline performance bigdata direct from Google Fusion
+Jean,Interoperability,http://ramblings.mcpher.com/Home/excelquirks/gassites/d3-concept-browser,Force directed site concept browser
+Jean,Online Editors,http://www.d3-generator.com/,Bar chart code generator and online editor
+Jean,Online Editors,http://www.bangongyun.com/chart,D3 bar chart online editor-Chinese
+Martyna,Online Editors,http://livecoding.gabrielflor.it,Live coding based on Bret Victor's Inventing on Principle talk
+Martyna,Online Editors,http://enjalot.com/tributary/2165875/sinwaves.js,Tributary
+Martyna,Online Editors,http://phrogz.net/JS/d3-playground/#BlankDefault,D3.js playground
+Martyna,Online Editors,http://fleetinbeing.net/beans/d3,A CoffeeScript console for d3.js visualization
+Martyna,Online Editors,http://cssdeck.com/labs/d3-repulsive,CSSdeck: Repulsion example
+Martyna,Products,http://www.ubiq.co,Ubiq Analytics: MySQL Analytics &amp; Reporting made easy
+Martyna,Products,https://www.droptask.com,DropTask: Visual task management application using D3 for visuals
+Martyna,Products,https://bitdeli.com/,Bitdeli: Custom analytics with Python and GitHub
+Martyna,Products,http://square.github.com/cube/,Cube: Time Series Data Collection &amp; Analysis
+Martyna,Products,http://square.github.com/tesseract/,Fast Multidimensional Filtering for Coordinated Views
+Martyna,Products,http://polychart.com/,Polychart: A browser-based platform for exploring data and creating charts
+Martyna,Products,http://plot.io/,Plot.io (swallowed by Platfora)
+Martyna,Products,http://chart.io/,Chart.io: The Easiest Business Dashboard You'll Ever Use
+Martyna,Products,http://trisul.org/,Trisul Network Analytic
+Martyna,Products,http://exploreanalytics.com/,Explore Analytics: cloud-based data analytics and visualization
+Martyna,Products,http://meshu.io/,Meshu turns your places into beautiful objects.
+Martyna,Products,http://www.simple.com/blog/Simple/announcing-reports,Reports for Simple
+Martyna,Products,http://nodal.me/login,Nodal is a fun way to view your GitHub network graph
+Martyna,Products,http://www.infocaptor.com,InfoCaptor Dashboards with D3 and canvas
+Martyna,Products,https://www.moh.io/,Mohiomap: A Visual Memory for Evernote
+Martyna,Products,http://mortgagebloom.com,MortgageBloom Calculator
+Martyna,Store Apps,http://apps.microsoft.com/windows/en-us/app/presentation-next/57c55802-1bdd-48c9-bf8b-e9e3c24cf051,Presentation Next: A Windows 8 HTML5/SVG Presentation Builder
+Martyna,Libraries,http://nickqizhu.github.com/dc.js/,Dc.js
+Martyna,Libraries,http://nvd3.org/,NVD3
+Martyna,Libraries,http://dimplejs.org/,Dimple
+Martyna,Libraries,http://square.github.com/cubism/,Cubism.js: Time Series Visualization
+Martyna,Libraries,http://square.github.com/crossfilter/,Crossfilter
+Martyna,Libraries,https://github.com/shutterstock/rickshaw,Rickshaw: JavaScript toolkit for creating interactive real-time graphs
+Martyna,Libraries,https://github.com/vogievetsky/DVL,Dynamic Visualization LEGO
+Martyna,Libraries,http://tenxer.github.com/xcharts/,xCharts: a D3-based library for building custom charts and graphs
+Martyna,Libraries,http://www.visualsedimentation.org/,"VisualSedimentation.js: visualizing streaming data, inspired by the process of physical sedimentation"
+Martyna,Libraries,https://github.com/ignacioola/insights,Insights: Interactive Force Graph Component
+Martyna,Libraries,http://sepans.com/sp/postes/lepracursor/,Lepracursor
+Martyna,Libraries,http://iop.io/iopctrl,iopctrl.js: User interface controls and gauges
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/nuitblanche.html,La Nuit Blanche
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/percolate.html,Percolation model
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/markov.html,Markov processes
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/ca.html,Cellular automata
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/life.html,Game of life
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/polya.html,The Polya process
+Martyna,Jerome Cukier,http://www.jeromecukier.net/projects/models/segregate.html,Schelling's segregation model
+Martyna,Jason Davies,http://www.jasondavies.com/maps/antipodes/,Antipodes
+Martyna,Jason Davies,http://www.jasondavies.com/maps/simplify/koch/,Quadratic Koch Island Simplification
+Martyna,Jason Davies,http://www.jasondavies.com/maps/random-points/,Random Points on a Sphere
+Martyna,Jason Davies,http://www.jasondavies.com/maps/simplify/,Topology-Preserving Geometry Simplification
+Martyna,Jason Davies,http://www.jasondavies.com/duplicates/,Detecting Duplicates in O(1) Space and O(n) Time
+Martyna,Jason Davies,http://www.jasondavies.com/factorisation-diagrams/,Factorisation Diagrams
+Martyna,Jason Davies,http://www.jasondavies.com/bubbles/,Bubbles
+Martyna,Jason Davies,http://www.jasondavies.com/set-partitions/,Set Partitions
+Martyna,Jason Davies,http://www.jasondavies.com/primos/,El Patrón de los Números Primos
+Martyna,Jason Davies,http://www.jasondavies.com/plasma/,Infinite Plasma Fractal
+Martyna,Jason Davies,http://www.jasondavies.com/random-arboretum/,Random Arboretum
+Martyna,Jason Davies,http://www.jasondavies.com/crayola/,Crayola Colour Chronology
+Martyna,Jason Davies,http://www.jasondavies.com/parallel-sets/,Parallel Sets
+Martyna,Jason Davies,http://www.jasondavies.com/rhodonea/,Rhodonea Curve
+Martyna,Jason Davies,http://www.jasondavies.com/wordcloud/#http%3A%2F%2Fsearch.twitter.com%2Fsearch.json%3Frpp%3D100%26q%3D%7Bword%7D=cloud,Tag Cloud
+Martyna,Jason Davies,http://www.jasondavies.com/necklaces/,Combinatorial Necklaces and Bracelets
+Martyna,Jason Davies,http://www.jasondavies.com/bml/,Biham-Middleton-Levine Traffic Model
+Martyna,Jason Davies,http://www.jasondavies.com/9patch/,9-Patch Quilt Generator
+James,Jason Davies,http://www.jasondavies.com/graph-music/,The Music of Graphs
+James,Jason Davies,http://www.jasondavies.com/planarity/,Planarity
+James,Jason Davies,http://www.jasondavies.com/mobile-lawsuits/,Mobile Patent Lawsuits
+James,Jason Davies,http://www.jasondavies.com/sunflower-phyllotaxis/,Sunflower Phyllotaxis
+James,Jason Davies,http://www.jasondavies.com/girko-circle/,Girko's Circular Law
+James,Jason Davies,http://www.jasondavies.com/calkin-wilf-tree/,Calkin–Wilf Tree
+James,Jason Davies,http://www.jasondavies.com/bloomfilter/,Bloom Filters
+James,Jason Davies,http://www.jasondavies.com/carotid/,Carotid-Kundalini Fractal Explorer
+James,Jason Davies,http://www.jasondavies.com/coffee-wheel/,Coffee Flavour Wheel
+James,Jason Davies,http://www.jasondavies.com/17x17/,Number of unique rectangle-free 4-colourings for an nxm grid
+James,Jason Davies,http://www.jasondavies.com/animated-quasicrystals/,Animated Quasicrystals
+James,Jason Davies,http://www.jasondavies.com/collatz-graph/,Collatz Graph: All Numbers Lead to One
+James,Jason Davies,http://www.jasondavies.com/hamming-quilt/,Hamming Quilt
+James,Jason Davies,"http://www.jasondavies.com/hilbert-stocks/#GOOG,AAPL,ADBE,NTFL,AMZN,INTC,ARMH,A",Hilbert Stocks
+James,Jason Davies,http://www.jasondavies.com/hilbert-curve/,Hilbert Curve
+James,Jason Davies,http://www.jasondavies.com/gaussian-primes/,Gaussian Primes
+James,Jason Davies,http://www.jasondavies.com/wave/,Wave
+James,Jason Davies,http://www.jasondavies.com/earthquakes/#3.00/20.00/805.00,Latest Earthquakes
+James,Jason Davies,http://www.jasondavies.com/tree-of-life/,Phylogenetic Tree of Life
+James,Jason Davies,http://www.jasondavies.com/voroboids/,Voronoi Boids: Voroboids
+James,Jason Davies,http://www.jasondavies.com/animated-bezier/,Animated Bézier Curves
+James,Jason Davies,http://www.jasondavies.com/animated-trig/,Animated Trigonometry
+James,Jason Davies,http://www.jasondavies.com/apollonian-gasket/,Apollonian Gasket
+James,Jason Davies,http://www.jasondavies.com/bifurcation/,Monte Carlo simulation of bifurcations in the logistic map
+James,Jason Davies,http://www.jasondavies.com/sorting/,Sorting Visualisations
+James,Jason Davies,http://www.jasondavies.com/complete-graphs/,Complete Graphs
+James,Jason Davies,http://www.jasondavies.com/leibniz-spiral/,Leibniz Spiral
+James,Jason Davies,http://www.jasondavies.com/morley-triangle/,Morley's trisector theorem
+James,Jason Davies,http://www.jasondavies.com/poincare-disc/,Poincaré Disc
+James,Jason Davies,http://www.jasondavies.com/pythagoras-proof/,Proof of Pythagoras’ Theorem
+James,Jason Davies,http://www.jasondavies.com/random-polygon-ellipse/,From Random Polygon to Ellipse
+James,Jason Davies,http://www.jasondavies.com/tuebingen/,Tübingen
+James,Jason Davies,http://www.jasondavies.com/american-forces-in-afghanistan-and-iraq/,American Forces in Afghanistan and Iraq
+James,Jim Vallandingham,http://flowingdata.com/2012/08/02/how-to-make-an-interactive-network-visualization/,How to Make an Interactive Network Visualization
+James,Jim Vallandingham,http://vallandingham.me/bubble_cloud/,Word Frequency Bubble Clouds
+James,Jim Vallandingham,http://vallandingham.me/vis/gates/,Animated Bubble Chart of Gates Educational Donations
+James,Jim Vallandingham,http://stowers.org/stowersreport/maps,Stowers Group Collaboration Network
+James,Jim Vallandingham,http://www.capitolmarkets.com/gsa-leased-investment-opportunity/,GSA-Leased Opportunity Dashboard
+James,Jim Vallandingham,http://vallandingham.me/feltronifier/,Feltronifier
+James,Jim Vallandingham,http://vallandingham.me/vis/movie,We're In The Money: How Much Do The Movies We Love Make?
+James,Jim Vallandingham,http://vallandingham.me/vis/racial_divide.html,Visualizing The Racial Divide
+James,Jim Vallandingham,http://vallandingham.me/vis/church_by_state.html,Composition of Church Membership by State: 1890
+James,Jim Vallandingham,http://vallandingham.me/vis/nationality_by_city.html,Proportion of Foreign Born in Large Cities: 1900
+James,Jim Vallandingham,http://vallandingham.me/vis/jobs_by_state.html,http://vallandingham.me/vis/jobs_by_state.html
+James,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
+Wen,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
+Jean,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
