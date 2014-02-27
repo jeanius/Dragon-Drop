@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Sign in - Dragon Drop</title>
+    <title>Register - Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
 	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
@@ -23,30 +23,46 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
 
     <div class="container">
    
-   	<img src="{% static "dragon-logo-small.png" %}"   alt="Dragon Drop" > 
+   	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
 
-	<h1>Dragon Drop</h1>
-      <form class="form-signin" role="form">
-    
-        <input type="email" class="form-control" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-
-			<button class="btn btn-lg btn-primary-signin  " type="submit">Sign in</button>
 	
-			<a href='dragondrop/register'><button class="btn btn-lg btn-primary-register  " type="submit">Register</button></a>
-	
-      </form>
+		{% if registered %}
+		
+		<h3>Your registration is complete - Welcome to Dragon Drop</h3>
+		
+		<a href='/dragondrop/userpage/{{ username }}'><button class="btn btn-lg btn-primary-signin" input type="submit" value="Continue"/>
+		Continue
+		</button></a>
 
+		{% else %}
+
+		<h2>Register for Dragon Drop</h2>
+		
+		<div class ="registerForm">
+		
+      <form id="user_form" class="form-signin" method="post" action="/dragondrop/register/">
+	  
+	  {% csrf_token %}
+	  
+	   {% for field in user_form.visible_fields %}
+            {{ field.errors }}
+            {{ field.label_tag }}: {{ field }} <br>
+		{% endfor %}
+		
+		<br>
+
+	   <button class="btn btn-lg btn-primary-signin" input type="submit" value="Register"/>Register</button>
+	  
+	  </form>
+	  </div>
+
+	  {% endif %}
 	  
 	      <!-- bottom navigation panel -->
     

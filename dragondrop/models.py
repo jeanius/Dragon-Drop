@@ -24,8 +24,6 @@ class BinFolder(models.Model):
     bbmID_fk = models.ManyToManyField(Bookmark, blank=True, null=True)
     
     def __unicode__(self):
-        return self.busername_fk.username        
+        return self.busername_fk.username
 
-from django.db import models
 
-# Create your models here.
