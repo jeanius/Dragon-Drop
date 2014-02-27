@@ -14,11 +14,11 @@
     <title>User Page Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
-	
-	<link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
-	<link rel="stylesheet" href="{% static "css/user.css" %}" />
-	<link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
-	
+    
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+    <link rel="stylesheet" href="{% static "css/user.css" %}" />
+    <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
+    
     <!-- Custom styles for this template -->
    
 
@@ -40,10 +40,10 @@
 
 
       <div class="container">
-	  
-	  
-	  
-	      <!-- Fixed USER navbar -->
+      
+      
+      
+          <!-- Fixed USER navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -63,9 +63,9 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
-	  
-	  	
-		   	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
+      
+          
+               <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
         <h1>Dragon Drop</h1>
       </div>
 
@@ -75,50 +75,69 @@
       <div class="row">
         <div class="col-md-3">
           <h2>Your folders</h2>
-          <p class="droppable"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></p>
-				<p class="folder-name">Programming</p>
-				
-          <p class="droppable"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></p>
-		  		  <p class="folder-name">Cooking</p>
+ 
+          <div class="row">
+            {% if folder_names %}
+              <!-- Display search results in an ordered list -->
+              <div style="clear: both;">
+                {% for folder_name in folder_names %}
+                  <div class="col-md-6 col-sm-3 col-xs-6 droppable">
+                      <span class="glyphicon glyphicon-folder-close dd-folder-icon"></span>
+                      <p class="folder-name">{{ folder_name }}</p>
+                      <p class="folder-message">&nbsp;</p>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}    
 
-          <p class="droppable"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></p>
-		  		  <p class="folder-name">Biology</p>
-
-          <p class="droppable"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></p>
-		  		  <p class="folder-name">Chemistry</p>
-
-
+          </div>
 
         </div>
         <div class="col-md-6">
-		
-      <form class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-		
-		<br />
-		<br />
-		
+        
+          <form role="search" method="post" >
+            {% csrf_token %}
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search" name="query" autofocus>
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary" >Fire away!</button>
+              </span>
+            </div>
+        
+          </form>
+     
           <h2>Search results</h2>
-          <ul>
-            <li class="draggable">Link 1</li>
-            <li class="draggable">Link 2</li>
-            <li class="draggable">Link 3</li>
-            <li class="draggable">Link 4</li>
-            <li class="draggable">Link 5</li>
-            <li class="draggable">Link 6</li>
-          </ul>
+          <p>
+            Note to team: I've set it up so that when you make the screen really narrow,
+            a drop-down list appears below each search result. I'm not sure if this is
+            a good idea, but we should have a think about how to make the site work on
+            touch-screen devices.
+          </p>
+          {% if search_results %}
+          <!-- Display search results in an ordered list -->
+          <div style="clear: both;">
+            {% for result in search_results %}
+                <div class="draggable">
+                    <strong><a href="{{ result.link }}">{{ result.title }}</a></strong><br />
+                    <em>{{ result.summary }}</em>
+                    <select class="visible-xs form-control">
+                      <option disabled selected>Move to folder...</option>
+                      {% for folder_name in folder_names %}
+                        <option value="{{ folder_name }}">{{ folder_name }}</option>
+                      {% endfor %}
+                    </select>
+               </div>
+            {% endfor %}
+          </div>
+          {% endif %}          
 
 
        </div>
         <div class="col-md-3">
           <h2>Bin space?</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-		  Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, 
-		  tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, 
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
@@ -157,25 +176,37 @@
 
           $(function() {
 
-            $( ".draggable" ).draggable({revert:"invalid"});
+            $( ".draggable" ).draggable({revert:true, revertDuration: 0});
             $( ".droppable" ).droppable({
               //hoverClass: "glyphicon glyphicon-folder-open dd-folder-icon",
               over: function( event, ui ) {
-			     $( this ).find("span").removeClass( "glyphicon-folder-close" );	
-				 $( this ).find("span").addClass( "glyphicon-folder-open" );    
-			  },
+                 $( this ).find("span").removeClass( "glyphicon-folder-close" );    
+                 $( this ).find("span").addClass( "glyphicon-folder-open" );    
+              },
               out: function( event, ui ) {
-			     $( this ).find("span").removeClass( "glyphicon-folder-open" );	
-				 $( this ).find("span").addClass( "glyphicon-folder-close" );    
-			  },
-			  //activeClass: "light-blue-folder",
+                 $( this ).find("span").removeClass( "glyphicon-folder-open" );    
+                 $( this ).find("span").addClass( "glyphicon-folder-close" );    
+              },
+              //activeClass: "light-blue-folder",
               tolerance: "intersect",
               drop: function( event, ui ) {
-                alert("dropped");
-			     $( this ).find("span").removeClass( "glyphicon-folder-open" );	
-				 $( this ).find("span").addClass( "glyphicon-folder-close f-drop" ); 
-                ui.draggable.hide();
-
+                 $( this ).find("span").removeClass( "glyphicon-folder-open" );    
+                 $( this ).find("span").addClass( "glyphicon-folder-close" );
+                 $( this ).animate({
+                    color: "#79697A",
+                    }, 300 );
+                 $( this ).find(".folder-message").text( "Adding link..." );
+                 ui.draggable.css('visibility', 'hidden');
+                 ui.draggable.slideUp();                 
+                 var that=this;
+                 window.setTimeout(function() {
+                                     $( that ).find(".folder-message").html( "&nbsp;" );
+                                     $( that ).animate({
+                                        color: "black",
+                                        }, 500 );
+                                   },
+                                   800);
+                 
               }
             });
           });

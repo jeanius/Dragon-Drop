@@ -3,6 +3,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from dragondrop.forms import UserForm
 from django.contrib.auth.models import User
+from dragondrop.bing_search import run_query
+
 
 def index(request):
      context = RequestContext(request)
@@ -14,6 +16,7 @@ def userpage(request, user_page_url):
      user_name = user_page_url.replace('_', ' ')
 
      context_dict = {'user_name': user_name}
+     context_dict['folder_names'] = ['Programming','Cooking','Biology','Chemistry']
 
      try:
           users = User.objects.get(username=user_name)
@@ -21,6 +24,12 @@ def userpage(request, user_page_url):
 
      except User.DoesNotExist:
           pass
+     
+     if request.method == 'POST':
+        query = request.POST['query'].strip()
+        if query:
+          # Run our Bing function to get the results list
+          context_dict['search_results'] = run_query(query)
      
      return render_to_response('userpage.html', context_dict, context)
 
