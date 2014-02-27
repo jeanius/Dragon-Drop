@@ -1,7 +1,4 @@
 Dragon-Drop
 ===========
 
-Possibly the greatest uni project that was ever created. 
-
-Welcome... to the FUTURE.
-
+A bookmarking site which will change the way you search.
