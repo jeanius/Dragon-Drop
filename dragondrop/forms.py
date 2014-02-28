@@ -10,3 +10,12 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password', 'email')
+
+
+        
+class PageForm(forms.ModelForm):
+    url = forms.URLField(max_length=200, help_text="Paste the URL of a page")
+
+    class Meta:
+        model = Bookmark
+        fields = ('url')
