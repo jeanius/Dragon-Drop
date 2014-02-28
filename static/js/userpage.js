@@ -47,11 +47,15 @@ $(function() {
          ui.draggable.slideUp();                 
          var that=this;
          
-      // THIS IS THE WRONG URL!!!!
-      $.post("/dragondrop/userpage/jea/",
-             {query: "a wee POST test"},
+
+      $.post("/dragondrop/ajax-drop-to-folder/",
+             { url: "http://www.codecogs.com/latex/eqneditor.php"//,
+               //foldername: $( this ).find(".folder-name").text()
+               //btitle: "",
+               //bdescr: ""
+             },
              function(data) {
-                alert( "success" );
+                alert( data );
       })
           .fail(function() {
             alert( "There was an error adding the bookmark" );

@@ -80,11 +80,11 @@
          {% if folders %}
               <!-- Display search results in an ordered list -->
               <div style="clear: both;">
-                {% for foldername in folders %}
+                {% for folder in folders %}
 				
                   <div class="col-md-6 col-sm-3 col-xs-6 droppable">
-                      <a href="{{folder_name}}"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></a>
-                      <p class="folder-name">{{ foldername }}</p>
+                      <a href="/dragondrop/{{folder.url}}/"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></a>
+                      <p class="folder-name">{{ folder }}</p>
                       <p class="folder-message">&nbsp;</p>
                   </div>
                 {% endfor %}

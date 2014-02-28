@@ -54,10 +54,10 @@
 
       <h2>Bookmarks in this folder</h2>
 
-      {% if folder_contents %}
+      {% if bookmarks %}
       <!-- Display search results in an ordered list -->
       <div style="clear: both;">
-        {% for bookmark in folder_contents %}
+        {% for bookmark in bookmarks %}
             <div class="draggable">
                 <strong><a href="{{ bookmark.url }}">{{ bookmark.btitle }}</a></strong><br />
                 <em>{{ bookmark.bdescr }}</em>
