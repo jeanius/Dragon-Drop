@@ -55,7 +55,7 @@ $(function() {
                //bdescr: ""
              },
              function(data) {
-                alert( data );
+                alert( data + '. All bookmarks are currently being saved to /dragondrop/Online_Editors/');
          })
             .fail(function() {
                alert( "There was an error adding the bookmark" );

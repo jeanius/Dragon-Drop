@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from dragondrop.bing_search import run_query
 from dragondrop.models import Folder, Bookmark
+from dragondrop.get_web_page_title import getHtmlTitle
+
 
 def index(request):
      context = RequestContext(request)
@@ -80,8 +82,22 @@ def folder(request, folder_page_url):
           pass
           
      if request.method == 'POST':
-         url = request.POST['url']
-         
+        url = request.POST['url']
+        bookmark_tuple = Bookmark.objects.get_or_create(url=url)
+        bookmark = bookmark_tuple[0]
+        
+        bookmark.saved_times += 1 
+        
+        if bookmark_tuple[1]:    # If bookmark didn't already exist, set its properties
+            titleAndDescription = getHtmlTitle(url)
+            bookmark.btitle = titleAndDescription[0]
+            bookmark.bdescr = titleAndDescription[1]
+               
+        bookmark.fname.add(Folder.objects.get(
+                               Q(foldername=folder_name),
+                               Q(fusername_fk=User.objects.get(username="Jean"))))
+     
+        bookmark.save()         
 
      return render_to_response('folder.html', context_dict, context)
 
@@ -93,15 +109,15 @@ def ajaxDropToFolder(request):
         url = request.POST['url']
         bookmark_tuple = Bookmark.objects.get_or_create(url=url)
         bookmark = bookmark_tuple[0]
-        #if !bookmark_tuple[1]:    # If bookmark already existed, increment saved_times
+
         bookmark.saved_times += 1 
 
-        search_result_for_this_url = filter(lambda x: x['link'] == url,
-                                            request.session['search_results'])[0]
-        bookmark.btitle = search_result_for_this_url['title']  #"The title should be here"
-        bookmark.bdescr = search_result_for_this_url['summary']  #"The description should be here"
-               
-        #bookmark.save()
+        if bookmark_tuple[1]:    # If bookmark didn't already exist, set its properties
+            search_result_for_this_url = filter(lambda x: x['link'] == url,
+                                                request.session['search_results'])[0]
+            bookmark.btitle = search_result_for_this_url['title']  #"The title should be here"
+            bookmark.bdescr = search_result_for_this_url['summary']  #"The description should be here"
+
         bookmark.fname.add(Folder.objects.get(
                                Q(foldername="Online Editors"),
                                Q(fusername_fk=User.objects.get(username="Jean"))))

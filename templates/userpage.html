@@ -123,8 +123,8 @@
                     <em>{{ result.summary }}</em>
                     <select class="visible-xs visible-sm form-control">
                       <option disabled selected>Move to folder...</option>
-                      {% for folder_name in folder_names %}
-                        <option value="{{ folder_name }}">{{ folder_name }}</option>
+                      {% for folder in folders %}
+                        <option value="{{ folder.url }}">{{ folder }}</option>
                       {% endfor %}
                     </select>
                </div>
