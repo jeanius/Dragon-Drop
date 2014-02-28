@@ -120,7 +120,7 @@
                 <div class="draggable">
                     <strong><a href="{{ result.link }}">{{ result.title }}</a></strong><br />
                     <em>{{ result.summary }}</em>
-                    <select class="visible-xs form-control">
+                    <select class="visible-xs visible-sm form-control">
                       <option disabled selected>Move to folder...</option>
                       {% for folder_name in folder_names %}
                         <option value="{{ folder_name }}">{{ folder_name }}</option>
@@ -190,8 +190,7 @@
               //activeClass: "light-blue-folder",
               tolerance: "intersect",
               drop: function( event, ui ) {
-                 $( this ).find("span").removeClass( "glyphicon-folder-open" );    
-                 $( this ).find("span").addClass( "glyphicon-folder-close" );
+
                  $( this ).animate({
                     color: "#79697A",
                     }, 300 );
@@ -204,6 +203,8 @@
                                      $( that ).animate({
                                         color: "black",
                                         }, 500 );
+                                     $( that ).find("span").removeClass( "glyphicon-folder-open" );    
+                                     $( that ).find("span").addClass( "glyphicon-folder-close" );
                                    },
                                    800);
                  
