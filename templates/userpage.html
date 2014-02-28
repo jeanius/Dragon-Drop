@@ -77,18 +77,19 @@
           <h2>Your folders</h2>
  
           <div class="row">
-            {% if folder_names %}
+         {% if folders %}
               <!-- Display search results in an ordered list -->
               <div style="clear: both;">
-                {% for folder_name in folder_names %}
+                {% for foldername in folders %}
+				
                   <div class="col-md-6 col-sm-3 col-xs-6 droppable">
-                      <span class="glyphicon glyphicon-folder-close dd-folder-icon"></span>
-                      <p class="folder-name">{{ folder_name }}</p>
+                      <a href="{{folder_name}}"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></a>
+                      <p class="folder-name">{{ foldername }}</p>
                       <p class="folder-message">&nbsp;</p>
                   </div>
                 {% endfor %}
               </div>
-            {% endif %}    
+            {% endif %}   
 
           </div>
 
