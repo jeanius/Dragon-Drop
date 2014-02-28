@@ -48,18 +48,18 @@ $(function() {
          var that=this;
          
 
-      $.post("/dragondrop/ajax-drop-to-folder/",
-             { url: "http://www.codecogs.com/latex/eqneditor.php"//,
+         $.post("/dragondrop/ajax-drop-to-folder/",
+             { url: ui.draggable.find("a").attr("href") //,
                //foldername: $( this ).find(".folder-name").text()
                //btitle: "",
                //bdescr: ""
              },
              function(data) {
                 alert( data );
-      })
-          .fail(function() {
-            alert( "There was an error adding the bookmark" );
-          });
+         })
+            .fail(function() {
+               alert( "There was an error adding the bookmark" );
+            });
 
 
          

@@ -60,7 +60,8 @@
         {% for bookmark in bookmarks %}
             <div class="draggable">
                 <strong><a href="{{ bookmark.url }}">{{ bookmark.btitle }}</a></strong><br />
-                <em>{{ bookmark.bdescr }}</em>
+                <em>{{ bookmark.bdescr }}</em><br>
+                Saved {{ bookmark.saved_times }} times
            </div>
         {% endfor %}
       </div>
