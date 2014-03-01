@@ -59,9 +59,10 @@
       <div style="clear: both;">
         {% for bookmark in bookmarks %}
             <div class="draggable">
-                <strong><a href="{{ bookmark.url }}">{{ bookmark.btitle }}</a></strong><br />
-                <em>{{ bookmark.bdescr }}</em><br>
-                Saved {{ bookmark.saved_times }} times
+                <strong><a href="{{ bookmark.url }}">{{ bookmark.btitle }}</a></strong>
+                <span class="domain-name">({{ bookmark.domain }})</span><br>
+                {{ bookmark.bdescr }}</em>
+                <b>Saved {{ bookmark.saved_times }} time{{ bookmark.saved_times|pluralize }}</b>
            </div>
         {% endfor %}
       </div>

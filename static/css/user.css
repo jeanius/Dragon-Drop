@@ -68,6 +68,10 @@ h2 {
 		  color: #301830;
 		  margin-top: -5px;
        }
+       
+       .domain-name {
+          color: #888;
+       }
 
 ul {
 list-style-type: none;
@@ -111,8 +115,7 @@ padding: 10px;
 }
 
 .glyphicon-search {
-
-font-size: 4em;
+/*font-size: 4em;*/
 }
 
 .navbar-inverse {

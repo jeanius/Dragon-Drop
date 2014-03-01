@@ -11,6 +11,8 @@ class Folder(models.Model):
 
 class Bookmark(models.Model):
     url = models.URLField(unique=True)
+    # I added the next line on 1 March - not sure if it's a good idea? James
+    domain = models.CharField(max_length=256, null=True)
     btitle = models.CharField(max_length=128, null=True)
     bdescr = models.CharField(max_length=1024, null=True)
     fname = models.ManyToManyField(Folder)

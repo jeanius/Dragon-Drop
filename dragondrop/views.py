@@ -7,6 +7,7 @@ from django.db.models import Q
 from dragondrop.bing_search import run_query
 from dragondrop.models import Folder, Bookmark
 from dragondrop.get_web_page_title import getHtmlTitle
+from dragondrop.get_domain_from_url import getDomain
 
 
 def index(request):
@@ -34,8 +35,10 @@ def userpage(request, user_page_url):
         query = request.POST['query'].strip()
         if query:
           # Run our Bing function to get the results list
-          context_dict['search_results'] = run_query(query)
-          request.session['search_results'] = context_dict['search_results']
+          search_results = run_query(query)
+          search_results = map(add_domain_to_search_result, search_results)
+          context_dict['search_results'] = search_results
+          request.session['search_results'] = search_results
      
      return render_to_response('userpage.html', context_dict, context)
 
@@ -67,39 +70,36 @@ def register(request):
                'register.html', {'registered': registered, 'username': username, 'user_form': user_form}, context)
 
 def folder(request, folder_page_url):
-     context = RequestContext(request)
+    context = RequestContext(request)
 
-     folder_name = decode_url(folder_page_url)
-     context_dict = {'folder_name': folder_name}
+    folder_name = decode_url(folder_page_url)
+    context_dict = {'folder_name': folder_name}
 
-     try:
-          folders = Folder.objects.filter(foldername = folder_name)
-          context_dict['folders'] = folders
-          bookmarks = Bookmark.objects.filter(fname = folders)
-          context_dict['bookmarks'] = bookmarks
+    try:
+        folders = Folder.objects.filter(foldername = folder_name)
+        context_dict['folders'] = folders
+        bookmarks = Bookmark.objects.filter(fname = folders)
+        context_dict['bookmarks'] = bookmarks
+        if request.method == 'POST':
+            url = request.POST['url']
+            bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
+            bookmark.saved_times += 1 
+            if bookmark_was_created:   # If bookmark didn't already exist, set its properties
+                titleAndDescription = getHtmlTitle(url)
+                bookmark.btitle = titleAndDescription[0]
+                bookmark.bdescr = titleAndDescription[1]
+                bookmark.domain = getDomain(url)
+            bookmark.fname.add(Folder.objects.get(
+                                   Q(foldername=folder_name),
+                                   Q(fusername_fk=User.objects.get(username="Jean"))))
+            bookmark.save()          
 
-     except Folder.DoesNotExist:
-          pass
+    except Folder.DoesNotExist:
+        pass
           
-     if request.method == 'POST':
-        url = request.POST['url']
-        bookmark_tuple = Bookmark.objects.get_or_create(url=url)
-        bookmark = bookmark_tuple[0]
-        
-        bookmark.saved_times += 1 
-        
-        if bookmark_tuple[1]:    # If bookmark didn't already exist, set its properties
-            titleAndDescription = getHtmlTitle(url)
-            bookmark.btitle = titleAndDescription[0]
-            bookmark.bdescr = titleAndDescription[1]
-               
-        bookmark.fname.add(Folder.objects.get(
-                               Q(foldername=folder_name),
-                               Q(fusername_fk=User.objects.get(username="Jean"))))
      
-        bookmark.save()         
 
-     return render_to_response('folder.html', context_dict, context)
+    return render_to_response('folder.html', context_dict, context)
 
 
 # This is a work in progress - when a search-result bookmark is dragged onto
@@ -110,13 +110,14 @@ def ajaxDropToFolder(request):
         bookmark_tuple = Bookmark.objects.get_or_create(url=url)
         bookmark = bookmark_tuple[0]
 
-        bookmark.saved_times += 1 
+        bookmark.saved_times += 1
 
         if bookmark_tuple[1]:    # If bookmark didn't already exist, set its properties
             search_result_for_this_url = filter(lambda x: x['link'] == url,
                                                 request.session['search_results'])[0]
-            bookmark.btitle = search_result_for_this_url['title']  #"The title should be here"
-            bookmark.bdescr = search_result_for_this_url['summary']  #"The description should be here"
+            bookmark.btitle = search_result_for_this_url['title']
+            bookmark.bdescr = search_result_for_this_url['summary']
+            bookmark.domain = search_result_for_this_url['domain']
 
         bookmark.fname.add(Folder.objects.get(
                                Q(foldername="Online Editors"),
@@ -132,3 +133,6 @@ def encode_url(str):
 def decode_url(str):
     return str.replace('_', ' ')
 
+def add_domain_to_search_result(search_result):
+    search_result['domain'] = getDomain(search_result['link'])
+    return search_result

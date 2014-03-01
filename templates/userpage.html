@@ -75,14 +75,12 @@
       <div class="row">
         <div class="col-md-3">
           <h2>Your folders</h2>
- 
+          <input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
           <div class="row">
          {% if folders %}
-              <!-- Display search results in an ordered list -->
               <div style="clear: both;">
                 {% for folder in folders %}
-				
-                  <div class="col-md-6 col-sm-3 col-xs-6 droppable">
+                  <div class="col-md-6 col-sm-3 col-xs-4 droppable">
                       <a href="/dragondrop/{{folder.url}}/"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></a>
                       <p class="folder-name">{{ folder }}</p>
                       <p class="folder-message">&nbsp;</p>
@@ -99,9 +97,9 @@
           <form role="search" method="post" >
             {% csrf_token %}
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search" name="query" autofocus>
+              <input type="text" class="form-control" placeholder="Search the web" name="query" autofocus>
               <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" >Fire away!</button>
+                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span></button>
               </span>
             </div>
         
@@ -119,8 +117,9 @@
           <div style="clear: both;">
             {% for result in search_results %}
                 <div class="draggable">
-                    <strong><a href="{{ result.link }}">{{ result.title }}</a></strong><br />
-                    <em>{{ result.summary }}</em>
+                    <strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
+                    <span class="domain-name">({{ result.domain }})</span><br>
+                    {{ result.summary }}
                     <select class="visible-xs visible-sm form-control">
                       <option disabled selected>Move to folder...</option>
                       {% for folder in folders %}

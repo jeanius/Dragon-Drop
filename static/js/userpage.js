@@ -22,7 +22,17 @@ $(function() {
         headers: { "X-CSRFToken": getCookie('csrftoken') }
     });
 
-
+    $( "#folder-filter" ).keyup(function() {
+        $( ".droppable" ).each (function() {
+            // If the typed string is in the name of this folder...
+            if ($(this).find(".folder-name").text().toLowerCase()
+                         .indexOf($( "#folder-filter" ).val().toLowerCase()) != -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 
     $( ".draggable" ).draggable({revert:true, revertDuration: 0});
     $( ".droppable" ).droppable({
@@ -36,7 +46,7 @@ $(function() {
          $( this ).find("span").addClass( "glyphicon-folder-close" );    
       },
       //activeClass: "light-blue-folder",
-      tolerance: "intersect",
+      tolerance: "pointer",
       drop: function( event, ui ) {
 
          $( this ).animate({
