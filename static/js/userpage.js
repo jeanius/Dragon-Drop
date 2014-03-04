@@ -38,12 +38,12 @@ $(function() {
     $( ".droppable" ).droppable({
       //hoverClass: "glyphicon glyphicon-folder-open dd-folder-icon",
       over: function( event, ui ) {
-         $( this ).find("span").removeClass( "glyphicon-folder-close" );    
-         $( this ).find("span").addClass( "glyphicon-folder-open" );    
+         $( this ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-close" );    
+         $( this ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-open" );    
       },
       out: function( event, ui ) {
-         $( this ).find("span").removeClass( "glyphicon-folder-open" );    
-         $( this ).find("span").addClass( "glyphicon-folder-close" );    
+         $( this ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-open" );    
+         $( this ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-close" );    
       },
       //activeClass: "light-blue-folder",
       tolerance: "pointer",
@@ -78,8 +78,8 @@ $(function() {
                              $( that ).animate({
                                 color: "black",
                                 }, 500 );
-                             $( that ).find("span").removeClass( "glyphicon-folder-open" );    
-                             $( that ).find("span").addClass( "glyphicon-folder-close" );
+                             $( that ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-open" );    
+                             $( that ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-close" );
                            },
                            800);
          

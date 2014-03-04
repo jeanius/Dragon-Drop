@@ -18,19 +18,16 @@ def userpage(request, user_page_url):
      context = RequestContext(request)
      
      user_name = decode_url(user_page_url)
+     
      context_dict = {'user_name': user_name}
-
+     
      try:
-          users = User.objects.get(username=user_name)
-          context_dict['user'] = users
-          folders = Folder.objects.filter(fusername_fk=users)
-          context_dict['folders'] = folders
-          for folder in folders:
-               folder.url = encode_url(folder.foldername)
-          
+          current_user = User.objects.get(username=user_name)
+          context_dict['user'] = current_user
+          context_dict['folders'] = getFolderList(current_user, None)
      except User.DoesNotExist:
           pass
-   
+     
      if request.method == 'POST':
         query = request.POST['query'].strip()
         if query:
@@ -76,9 +73,9 @@ def folder(request, folder_page_url):
     context_dict = {'folder_name': folder_name}
 
     try:
-        folders = Folder.objects.filter(foldername = folder_name)
-        context_dict['folders'] = folders
-        bookmarks = Bookmark.objects.filter(fname = folders)
+        this_folder = Folder.objects.filter(foldername = folder_name)
+        context_dict['folders'] = getFolderList(User.objects.get(username="Jean"), folder_name, True)
+        bookmarks = Bookmark.objects.filter(fname = this_folder)
         context_dict['bookmarks'] = bookmarks
         if request.method == 'POST':
             url = request.POST['url']
@@ -136,3 +133,19 @@ def decode_url(str):
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
     return search_result
+
+def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
+     try:
+          folders = Folder.objects.filter(fusername_fk=current_user)
+          for folder in folders:
+              if folder.foldername == current_folder_name:
+                  folder.url = None
+                  folder.glyphicon_name = "glyphicon-folder-open"
+                  if use_lighter_colour: folder.glyphicon_name += " keep-folder-open"
+              else:
+                  folder.glyphicon_name = "glyphicon-folder-close"
+                  if use_lighter_colour: folder.glyphicon_name += " lighter-colour"
+                  folder.url = encode_url(folder.foldername)
+          return folders
+     except User.DoesNotExist:
+          return None
