@@ -1,29 +1,6 @@
-.navbar-nav {
-font-size: 20px;
-}
 
-        /* Move down content because we have a fixed navbar that is 50px tall */
-body {
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #EBE6ED;
-}
-h1 {
-	font-size: 90px;
-	font-family: Cambria;
-	font-weight: bold;
-	color: #301830;
-	text-align: center;
-	width: 60%;
-	margin-right:auto;
-	margin-left:auto;
-	padding-top:20px;
-	}
-	
-h2 {
-	font-family: Cambria;
-	}
-	
+
+
 	
         /* Sticky footer styles
         -------------------------------------------------- */
@@ -46,15 +23,31 @@ h2 {
         
         
        /* For Dragon Drop */
-       .dd-folder-icon {
+       .dd-folder-icon	   {
            font-size: 4em;
+		   color: #412f41;
        }
+	   
+	   .btn-primary-search,
+	   .btn-primary-folder	   {
+		background-color: #412f41;
+		border-color: #382f41;
+		color: #fff;
+	   }
+	   
+
+	  
 
        .draggable {
-          color: #301830;
+          color: #412f41;
           background-color: rgba(255,255,255,0.6);
           margin-bottom: 4px;
        }
+	   
+	   .draggable a,
+	   .draggable a:hover {
+	   color: #412f41;
+	   }
        
        .droppable {
           padding-top:20px;
@@ -72,66 +65,61 @@ h2 {
        .domain-name {
           color: #888;
        }
-
+/*
 ul {
 list-style-type: none;
 font-size: 16px;
 
-}
+}*/
 
 /*.container {
 background-color: pink;
 padding-top:30px;
 }*/
 
-img {
-float: right;
-width: 20%;
-height: 20%;
 
-padding-bottom: 50px;
-}
-
-.col-md-3{
+/* columns for the user, folder pages */
+.col-md-3 {
 
 background-color: #F9F2FA;
 
+}
+
+.bin{
+z-index: 1;
 }
 
 
 .col-md-6{
 
 /*margin-top: -20px;*/
-
+z-index: 10;
 }
 
-.navbar-fixed-bottom {
+/*.navbar-fixed-bottom {
 font-size: 24px;
 background-color: #EBE6ED;
 }
 
 .navbar-nav li {
 padding: 10px;
-}
+}*/
 
 .glyphicon-search {
 /*font-size: 4em;*/
 }
 
+.logout {
+font-size: 12px;
+}
+
+/* top navigation - user details */
 .navbar-inverse {
   background-color: #EBE6ED;
   border: none;
   width: 30%;
   margin-left: 380px;
+  font-size: 20px;
 }
 
-.navbar-collapse {
-  width: 30%;
-}
 
-.user-name {
-font-size: 24px;
-}
-
-.navbar-header {
-}
