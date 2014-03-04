@@ -17,6 +17,7 @@
 	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
 
     <!-- Custom styles for this template -->
+	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
 	<link rel="stylesheet" href="{% static "css/signin.css" %}" />
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -38,12 +39,20 @@
 	<h1>Dragon Drop</h1>
       <form class="form-signin" role="form">
     
-        <input type="email" class="form-control" placeholder="Username" required autofocus>
+        <input type="email" class="form-control" placeholder="Email" required autofocus>
         <input type="password" class="form-control" placeholder="Password" required>
 
-			<button class="btn btn-lg btn-primary-signin  " type="submit">Sign in</button>
+		<!-- because the sign in button will be a link as well -->
+		
+		<button class="btn btn-lg btn-primary-signin  " type="submit">
+			<a href="#">Sign in<a/>
+		</button>
+		
 	
-			<a href='dragondrop/register'><button class="btn btn-lg btn-primary-register  " type="submit">Register</button></a>
+		<button class="btn btn-lg btn-primary-register  " type="submit">
+			<a href='dragondrop/register'>Register<a/>
+		</button>
+		
 	
       </form>
 
@@ -55,7 +64,7 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">About</a></li>
+            <li><a class="footer" href="#">About</a></li>
             <li><a href="#about">Privacy</a></li>
             <li><a href="#contact">Help</a></li>
 

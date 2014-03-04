@@ -16,6 +16,7 @@
     <!-- Bootstrap core CSS -->
     
     <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+    <link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
     <link rel="stylesheet" href="{% static "css/user.css" %}" />
     <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
     
@@ -46,42 +47,46 @@
           <!-- Fixed USER navbar -->
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand user-name" href="#">{{user_name}}</a>
-        </div>
+
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">Log out</a></li>
+			<li> <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span>  {{user_name}}</a> </li>
+            <li><a href="#">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
 
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
       
-          
-               <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
-        <h1>Dragon Drop</h1>
+			<!-- Dragon logo -->
+			<!-- the link URL needs fixing! -->
+              <a href="/dragondrop/index.html/"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
+			  
+		<!-- Dragon Drop header -->
+		<!-- the link URL needs fixing! -->
+        <h1><a href="/dragondrop/index.html/" alt="Dragon Drop">Dragon Drop<a/></h1>
       </div>
 
 
     <div class="container">
-      <!-- Example row of columns -->
+	
+      <!-- 3 columns -->
+	  
       <div class="row">
+	  
+	  <!-- left hand-side column-->
         <div class="col-md-3">
-          <h2>Your folders</h2>
+          <h3>Your folders</h3>
           <input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
-          <div class="row">
+          
+		  <div class="row" id="scrollable">
          {% if folders %}
               <div style="clear: both;">
                 {% for folder in folders %}
                   <div class="col-md-6 col-sm-3 col-xs-4 droppable">
-                      <a href="/dragondrop/{{folder.url}}/"><span class="glyphicon glyphicon-folder-close dd-folder-icon"></span></a>
+                      <a href="/dragondrop/{{folder.url}}/">
+						<span class="glyphicon glyphicon-folder-close dd-folder-icon"></span>
+					  </a>
                       <p class="folder-name">{{ folder }}</p>
                       <p class="folder-message">&nbsp;</p>
                   </div>
@@ -92,6 +97,8 @@
           </div>
 
         </div>
+		
+		<!-- middle column-->
         <div class="col-md-6">
         
           <form role="search" method="post" >
@@ -99,14 +106,20 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search the web" name="query" autofocus>
               <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-search"></span></button>
+                <button type="submit" class="btn btn-primary-search" >
+				<a href="#">
+					<span class="glyphicon glyphicon-search"></span>
+				</a>
+				</button>
               </span>
             </div>
         
           </form>
      
-          <h2>Search results</h2>
-          <p>
+          <h3>Search results</h3>
+          
+		  <div id="scrollable">
+		  <p>
             Note to team: I've set it up so that when you make the screen really narrow,
             a drop-down list appears below each search result. I'm not sure if this is
             a good idea, but we should have a think about how to make the site work on
@@ -132,17 +145,19 @@
           {% endif %}          
 
 
-       </div>
-        <div class="col-md-3">
-          <h2>Bin space?</h2>
+       </div> 
+	   </div>
+	   
+	   <!-- right hand-side column - BIN -->
+        <div class="col-md-3 bin">
+          <h3>Bin space?</h3>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
           Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, 
           tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-primary-se" href="#" role="button">View details &raquo;</a></p>
         </div>
       </div>
 
-      <hr>
 
 
     </div> <!-- /container -->
