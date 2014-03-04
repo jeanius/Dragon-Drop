@@ -34,7 +34,12 @@ $(function() {
         });
     });
 
-    $( ".draggable" ).draggable({revert:true, revertDuration: 0});
+    $( ".draggable" ).draggable({cursor: "move",
+                                 cursorAt: { top: 0, left: -12 },
+                                 helper: function( event ) {
+                                     return $( "<div class='ui-widget-header' style='background: yellow;box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3)'>Drag to a folder</div>" );
+                                 }
+                                });
     $( ".droppable" ).droppable({
       //hoverClass: "glyphicon glyphicon-folder-open dd-folder-icon",
       over: function( event, ui ) {
