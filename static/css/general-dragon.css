@@ -1,6 +1,15 @@
+/********
+
+GENERAL stylesheet
+
+***********/
+
+
+
+
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: #EBE6ED;
   font-family: Verdana;
 }
@@ -19,8 +28,9 @@ h1, h2{
 	padding-top:20px;
 	}
 	
-h1 {
-	font-size: 90px;
+h1.header {
+	font-size: 110px;
+	margin-top: -250px;
 	}
 
 h1 a,
@@ -161,3 +171,245 @@ margin-left: auto;
 margin-right: auto;
 overflow: auto;
 }
+
+/**********
+
+END of general stylesheet 
+
+*************/
+
+
+/***********
+
+Sign in page stylesheet
+
+***********/
+
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+
+/***********
+
+END OF Sign in page stylesheet
+
+***********/
+
+
+/***********
+
+User page stylesheet
+
+***********/
+
+
+
+
+	
+        /* Sticky footer styles
+        -------------------------------------------------- */
+        html {
+          position: relative;
+          min-height: 100%;
+        }
+        body {
+          /* Margin bottom by footer height */
+          margin-bottom: 60px;
+        }
+        #footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          /* Set the fixed height of the footer here */
+          height: 60px;
+          background-color: #f5f5f5;
+        }
+        
+        
+       /* For Dragon Drop */
+       .dd-folder-icon	   {
+           font-size: 4em;
+		   color: #412f41;
+       }
+	   
+	   .btn-primary-search,
+	   .btn-primary-folder	   {
+		background-color: #412f41;
+		border-color: #382f41;
+		color: #fff;
+	   }
+	   
+
+	  
+
+       .draggable {
+          color: #412f41;
+          background-color: #DBD0DD; /*rgba(255,255,255,0.6);*/
+          margin-bottom: 4px;
+       }
+	   
+	   .draggable a,
+	   .draggable a:hover {
+	   color: #412f41;
+	   }
+       
+       .droppable {
+          padding-top:20px;
+       }
+       
+       .f-drop {
+          color: #79697A;
+       }
+       .folder-name{
+          font-size: 14px;
+		  color: #301830;
+		  margin-top: -5px;
+       }
+       
+       .domain-name {
+          color: #888;
+       }
+/*
+ul {
+list-style-type: none;
+font-size: 16px;
+
+}*/
+
+/*.container {
+background-color: pink;
+padding-top:30px;
+}*/
+
+
+/* Dragon image */
+
+.behind-header {
+opacity:0.4;
+}
+
+.row {
+margin: 100px -15px 0 -15px;
+
+}
+/* columns for the user, folder pages */
+.col-md-3 {
+
+background-color: #DBD0DD;/*#F9F2FA;*/
+
+}
+
+.top-bookmarks{
+z-index: 1;
+}
+
+.bin {
+padding: 5px 20px;
+border-top: 10px solid #EBE6ED;
+margin-top: 30px;
+
+}
+
+.hover-bin {
+
+text-shadow: 0 0 0.2em #FCED7E, 0 0 0.2em #FFFFFD;
+}
+
+.bin span {
+
+display: block;
+font-size: 120px;
+color: #5F4864;
+padding: 80px 50px;
+text-align:center;
+}
+
+
+.col-md-6{
+
+/*margin-top: -20px;*/
+z-index: 10;
+}
+
+/*.navbar-fixed-bottom {
+font-size: 24px;
+background-color: #EBE6ED;
+}
+
+.navbar-nav li {
+padding: 10px;
+}*/
+
+.glyphicon-search {
+/*font-size: 4em;*/
+}
+
+.logout {
+font-size: 12px;
+}
+
+li.user-details {
+
+float: right;
+margin-right: 0px;
+
+
+}
+
+/* top navigation - user details */
+.navbar-inverse {
+  background-color: #EBE6ED;
+  border: none;
+  width: 30%;
+  margin-left: 380px;
+  font-size: 20px;
+}
+
+.lighter-colour {
+  opacity: 0.5;
+}
+
+@media (max-width: 1200px) {
+  .row {
+  margin: 10px -15px 0 -15px;
+  }
+}
+
+/***********
+
+END OF User page stylesheet
+
+***********/
