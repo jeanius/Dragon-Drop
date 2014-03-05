@@ -26,30 +26,13 @@
   <body>
 
 
-
       <div class="container">
       
-      
-      <!-- OLD top nav bar - USER 
-           Fixed USER navbar 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-			<li> <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-user"></span>  {{user_name}}</a> </li>
-            <li><a href="#">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-
-          </ul>
-        </div><!--/.nav-collapse 
-      </div>
-    </div>
-      -->
 			<!-- Dragon logo -->
-              <a href="/dragondrop/index"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
+        <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
 			  
 		<!-- Dragon Drop header -->
-        <h1 class="header"><a href="/dragondrop/index" alt="Dragon Drop">Dragon Drop</a></h1>
+        <h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>
       </div>
 
 
@@ -162,7 +145,7 @@
             <li><a href="/dragondrop/help">Help</a></li>
 			
 			
-			<li class="user-details"><a href="/dragondrop/logout/" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+			<li class="user-details"><a href="/dragondrop/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
 			<li class="user-details"> <a class="navbar-brand " href="#">
 				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> </li>
             

@@ -25,7 +25,7 @@ def index(request):
 
             if user is not None:
                    login(request, user)
-                   return HttpResponseRedirect('userpage/')
+                   return HttpResponseRedirect('userpage')
             
             else:
                  return render_to_response('index.html', {'login_form': LoginForm}, context)
@@ -61,7 +61,7 @@ def userpage(request):
         return render_to_response('userpage.html', context_dict, context)
 
      else:
-         return render_to_response('index.html')        
+         return render_to_response('index.html', {}, context)      
 
      
 def register(request):
@@ -93,16 +93,20 @@ def register(request):
 def folder(request, folder_page_url):
      context = RequestContext(request)
 
-     if not request.user.is_authenticated():
+     if request.user.is_authenticated():
 
           folder_name = decode_url(folder_page_url)
           context_dict = {'folder_name': folder_name}
+          current_user = request.user
+          bookmarklist = topten(request)  
+          context_dict = {'bookmarklist': bookmarklist}
 
           try:
              this_folder = Folder.objects.filter(foldername = folder_name)
-             context_dict['folders'] = getFolderList(User.objects.get(username="Jean"), folder_name, True)
+             context_dict['folders'] = getFolderList(current_user, folder_name, True)
              bookmarks = Bookmark.objects.filter(fname = this_folder)
              context_dict['bookmarks'] = bookmarks
+             
              if request.method == 'POST':
                  url = request.POST['url']
                  bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
@@ -114,7 +118,7 @@ def folder(request, folder_page_url):
                      bookmark.domain = getDomain(url)
                  bookmark.fname.add(Folder.objects.get(
                                    Q(foldername=folder_name),
-                                   Q(fusername_fk=User.objects.get(username="Jean"))))
+                                   Q(fusername_fk=current_user)))
                  bookmark.save()          
 
           except Folder.DoesNotExist:
@@ -123,7 +127,23 @@ def folder(request, folder_page_url):
           return render_to_response('folder.html', context_dict, context)
 
      else:
-          return render_to_response('index.html')       
+          return render_to_response('index.html')
+
+def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
+     try:
+          folders = Folder.objects.filter(fusername_fk=current_user)
+          for folder in folders:
+              if folder.foldername == current_folder_name:
+                  folder.url = None
+                  folder.glyphicon_name = "glyphicon-folder-open"
+                  if use_lighter_colour: folder.glyphicon_name += " keep-folder-open"
+              else:
+                  folder.glyphicon_name = "glyphicon-folder-close"
+                  if use_lighter_colour: folder.glyphicon_name += " lighter-colour"
+                  folder.url = encode_url(folder.foldername)
+          return folders
+     except User.DoesNotExist:
+          return None
 
 
 # This is a work in progress - when a search-result bookmark is dragged onto
@@ -149,8 +169,7 @@ def ajaxDropToFolder(request):
      
         bookmark.save()
         return HttpResponse('success adding ' + request.POST['url'] + ' to folder')               
-               
-     
+
 def encode_url(str):
     return str.replace(' ', '_')
 
@@ -162,9 +181,11 @@ def topten(request):
      return topbookmark
 
 def log_out(request):
+    context = RequestContext(request)
     if request.user.is_authenticated():
         logout(request)
-        return index(request)
+        print "Hello"
+        return render_to_response('index.html', {}, context)
 
 def help(request):
     return render_to_response('help.html') 
@@ -179,18 +200,4 @@ def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
     return search_result
 
-def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
-     try:
-          folders = Folder.objects.filter(fusername_fk=current_user)
-          for folder in folders:
-              if folder.foldername == current_folder_name:
-                  folder.url = None
-                  folder.glyphicon_name = "glyphicon-folder-open"
-                  if use_lighter_colour: folder.glyphicon_name += " keep-folder-open"
-              else:
-                  folder.glyphicon_name = "glyphicon-folder-close"
-                  if use_lighter_colour: folder.glyphicon_name += " lighter-colour"
-                  folder.url = encode_url(folder.foldername)
-          return folders
-     except User.DoesNotExist:
-          return None
+
