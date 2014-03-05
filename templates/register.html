@@ -18,12 +18,7 @@
 
     <!-- Custom styles for this template -->
 	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
-	<link rel="stylesheet" href="{% static "css/signin.css" %}" />
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   </head>
 
   <body>
@@ -31,13 +26,12 @@
     <div class="container">
    
    	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
-
 	
 		{% if registered %}
 		
 		<h3>Your registration is complete - Welcome to Dragon Drop</h3>
 		
-		<a href='/dragondrop/userpage/{{ username }}'><button class="btn btn-lg btn-primary-signin" input type="submit" value="Continue">
+		<a href='/dragondrop/userpage'><button class="btn btn-lg btn-primary-signin" input type="submit" value="Continue">
 		Continue
 		</button></a>
 
