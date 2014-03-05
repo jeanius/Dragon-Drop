@@ -10,6 +10,8 @@ DATABASE_PATH = os.path.join(PROJECT_PATH, 'dragondrop.db')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+LOGIN_URL = 'index'
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
