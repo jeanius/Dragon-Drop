@@ -18,7 +18,6 @@
 
     <!-- Custom styles for this template -->
 	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
-	<link rel="stylesheet" href="{% static "css/signin.css" %}" />
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -38,13 +37,13 @@
 
 	<h1>Dragon Drop</h1>
 	
-	<form id="LoginForm" method="post" action="/dragondrop/">
+	<form class="form-signin" id="LoginForm" method="post" action="/dragondrop/">
 	  
 	  {% csrf_token %}
 	  
-		Username: <input type="text" name="username" size="50" />
+		<input type="text" name="username" class="form-control" placeholder="Username" required autofocus size="50" />
 		<br>
-		Password: <input type="password" name="password" size="50" />
+		<input type="password" name="password" class="form-control" placeholder="Password" required size="50" />
 		<br>
 
 	  <button class="btn btn-lg btn-primary-signin" input type="submit" value="Login"/>Log in</button>
@@ -53,26 +52,6 @@
 	  </div>
 	
 	
-    <!--  SORRY MARTYNA, I HAD TO REDO THE FORM AS THE DJANGO STANDARD :(
-	<form class="form-signin" role="form">
-    
-        <input type="text" class="form-control" placeholder="Username" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
-
-		because the sign in button will be a link as well
-		
-		<button class="btn btn-lg btn-primary-signin  " type="submit">
-			<a href="#">Sign in<a/>
-		</button>
-		
-	
-		<button class="btn btn-lg btn-primary-register  " type="submit">
-			<a href='register'>Register<a/>
-		</button>
-		
-	
-      </form> -->
-
 	  
 	      <!-- bottom navigation panel -->
     
