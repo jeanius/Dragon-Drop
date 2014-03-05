@@ -17,7 +17,6 @@
     
     <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
     <link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
-    <link rel="stylesheet" href="{% static "css/user.css" %}" />
     <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
     
     <!-- Custom styles for this template -->
@@ -43,8 +42,8 @@
       <div class="container">
       
       
-      
-          <!-- Fixed USER navbar -->
+      <!-- OLD top nav bar - USER 
+           Fixed USER navbar 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
 
@@ -54,17 +53,17 @@
             <li><a href="#">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
 
           </ul>
-        </div><!--/.nav-collapse -->
+        </div><!--/.nav-collapse 
       </div>
     </div>
-      
+      -->
 			<!-- Dragon logo -->
 			<!-- the link URL needs fixing! -->
-              <a href="/dragondrop/index.html/"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
+              <a href="/dragondrop/index.html/"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
 			  
 		<!-- Dragon Drop header -->
 		<!-- the link URL needs fixing! -->
-        <h1><a href="/dragondrop/index.html/" alt="Dragon Drop">Dragon Drop</a></h1>
+        <h1 class="header"><a href="/dragondrop/index.html/" alt="Dragon Drop">Dragon Drop</a></h1>
       </div>
 
 
@@ -116,6 +115,13 @@
                     {{ result.summary }}
                     <select class="visible-xs visible-sm form-control">
                       <option disabled selected>Move to folder...</option>
+					 
+
+					 <!-- ADD BOOKMARK TO THE BIN!-->
+					  
+					  <option >Bin it!</option>
+					  
+					  
                       {% for folder in folders %}
                         <option value="{{ folder.url }}">{{ folder }}</option>
                       {% endfor %}
@@ -130,7 +136,9 @@
 	   </div>
 	   
 	   <!-- right hand-side column - BIN -->
-        <div class="col-md-3 bin">
+        <div class="col-md-3 ">
+		
+		<div class="top-bookmarks">
           <h3>Top Bookmarks</h3>
 		  {% if bookmarklist %}
 			<ol>
@@ -140,7 +148,16 @@
 			</ol>			
 		  {% endif %}
           <p></p>
-        </div>
+		</div>
+		
+		
+		
+		<div class="bin">
+		
+		<span class="glyphicon glyphicon-trash"></span>
+		</div>
+		
+       </div>
       </div>
 
 
@@ -157,7 +174,12 @@
             <li><a href="#">About</a></li>
             <li><a href="#about">Privacy</a></li>
             <li><a href="#contact">Help</a></li>
-
+			
+			
+			<li class="user-details"><a href="#" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+			<li class="user-details"> <a class="navbar-brand " href="#">
+				<span class="glyphicon glyphicon-user"></span>  {{user_name}}</a> </li>
+            
           </ul>
         </div><!--/.nav-collapse -->
       </div>
