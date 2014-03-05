@@ -166,6 +166,15 @@ def log_out(request):
         logout(request)
         return index(request)
 
+def help(request):
+    return render_to_response('help.html') 
+
+def privacy(request):
+    return render_to_response('privacy.html') 
+    
+def about(request):
+    return render_to_response('about.html') 
+
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
     return search_result

@@ -19,19 +19,7 @@
     <link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
     <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
     
-    <!-- Custom styles for this template -->
-   
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    
+    <!-- Custom styles for this template -->    
     
   </head>
 
@@ -58,12 +46,10 @@
     </div>
       -->
 			<!-- Dragon logo -->
-			<!-- the link URL needs fixing! -->
-              <a href="/dragondrop/index.html/"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
+              <a href="/dragondrop/index"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
 			  
 		<!-- Dragon Drop header -->
-		<!-- the link URL needs fixing! -->
-        <h1 class="header"><a href="/dragondrop/index.html/" alt="Dragon Drop">Dragon Drop</a></h1>
+        <h1 class="header"><a href="/dragondrop/index" alt="Dragon Drop">Dragon Drop</a></h1>
       </div>
 
 
@@ -171,14 +157,14 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="#">About</a></li>
-            <li><a href="#about">Privacy</a></li>
-            <li><a href="#contact">Help</a></li>
+            <li><a class="footer" href="/dragondrop/about">About</a></li>
+            <li><a href="/dragondrop/privacy">Privacy</a></li>
+            <li><a href="/dragondrop/help">Help</a></li>
 			
 			
-			<li class="user-details"><a href="#" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+			<li class="user-details"><a href="/dragondrop/logout/" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
 			<li class="user-details"> <a class="navbar-brand " href="#">
-				<span class="glyphicon glyphicon-user"></span>  {{user_name}}</a> </li>
+				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> </li>
             
           </ul>
         </div><!--/.nav-collapse -->
