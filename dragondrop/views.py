@@ -11,59 +11,54 @@ from dragondrop.get_domain_from_url import getDomain
 from django.contrib.auth import authenticate, login
 
 def index(request):
-    #return HttpResponse('Hello!')
     context = RequestContext(request)
 
     if request.method == 'POST':
-        #return HttpResponse('Hello!')
-        #login_form = LoginForm(data=request.POST)
         username = request.POST['username']
         password = request.POST['password']
 
         user = authenticate(username=username, password=password)
+        print user
 
         if user is not None:
-               #return HttpResponse('user is not None')
                login(request, user)
-               return render_to_response('userpage.html', {}, context)
+               return HttpResponseRedirect('userpage/')
+            
         else:
-             #return HttpResponse('user is None')
              return render_to_response('index.html', {'login_form': LoginForm}, context)
           
     else:
         return render_to_response('index.html', {'login_form': LoginForm}, context) 
-        #return render_to_response('index.html')
 
-def userpage(request, user_page_url):
+def userpage(request):
      context = RequestContext(request)
-     
-     if not request.user.is_authenticated():
-          user_name = decode_url(user_page_url)
-     
-          context_dict = {'user_name': user_name}
-     
-          try:
-               current_user = User.objects.get(username=user_name)
-               context_dict['user'] = current_user
-               context_dict['folders'] = getFolderList(current_user, None)
-               bookmarklist = topten(request)
-               context_dict = {'bookmarklist': bookmarklist}
-          except User.DoesNotExist:
+  
+     if request.user.is_authenticated():
+
+        current_user = request.user
+                 
+        try:
+            bookmarklist = topten(request)  
+            context_dict = {'bookmarklist': bookmarklist}
+            context_dict['user'] = current_user
+            context_dict['folders'] = getFolderList(current_user, None)   
+        except User.DoesNotExist:
                pass
      
-          if request.method == 'POST':
-             query = request.POST['query'].strip()
-             if query:
-               # Run our Bing function to get the results list
-               search_results = run_query(query)
-               search_results = map(add_domain_to_search_result, search_results)
-               context_dict['search_results'] = search_results
-               request.session['search_results'] = search_results
+        if request.method == 'POST':
+            
+            query = request.POST['query'].strip()
+            if query:
+                   # Run our Bing function to get the results list
+                   search_results = run_query(query)
+                   search_results = map(add_domain_to_search_result, search_results)
+                   context_dict['search_results'] = search_results
+                   request.session['search_results'] = search_results
 
-          return render_to_response('userpage.html', context_dict, context)
+        return render_to_response('userpage.html', context_dict, context)
 
      else:
-          return render_to_response('index.html')        
+         return render_to_response('index.html')        
 
      
 def register(request):
@@ -83,7 +78,6 @@ def register(request):
                registered = True
 
           else:
-               formerrors =  user_form.errors
                return render_to_response(
                       'register.html', {'registered': registered, 'user_form': user_form}, context)
 
