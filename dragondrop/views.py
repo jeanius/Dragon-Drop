@@ -8,27 +8,30 @@ from dragondrop.bing_search import run_query
 from dragondrop.models import Folder, Bookmark
 from dragondrop.get_web_page_title import getHtmlTitle
 from dragondrop.get_domain_from_url import getDomain
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 def index(request):
     context = RequestContext(request)
 
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('userpage')
 
-        user = authenticate(username=username, password=password)
-        print user
-
-        if user is not None:
-               login(request, user)
-               return HttpResponseRedirect('userpage/')
-            
-        else:
-             return render_to_response('index.html', {'login_form': LoginForm}, context)
-          
     else:
-        return render_to_response('index.html', {'login_form': LoginForm}, context) 
+        if request.method == 'POST':
+            username = request.POST['username']
+            password = request.POST['password']
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                   login(request, user)
+                   return HttpResponseRedirect('userpage/')
+            
+            else:
+                 return render_to_response('index.html', {'login_form': LoginForm}, context)
+          
+        else:
+            return render_to_response('index.html', {'login_form': LoginForm}, context) 
 
 def userpage(request):
      context = RequestContext(request)
@@ -157,6 +160,11 @@ def decode_url(str):
 def topten(request):
      topbookmark = Bookmark.objects.order_by('saved_times')[:10]
      return topbookmark
+
+def log_out(request):
+    if request.user.is_authenticated():
+        logout(request)
+        return index(request)
 
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])

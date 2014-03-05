@@ -7,4 +7,5 @@ urlpatterns = patterns('',
             url(r'^register/$', views.register, name='register'),
             url(r'^ajax-drop-to-folder/$', views.ajaxDropToFolder, name='ajaxDropToFolder'),
             url(r'^/(?P<folder_page_url>\w+)/$', views.folder, name='folderpage'),
+            url(r'^logout/$', views.log_out, name='log_out'),
 )
