@@ -1,44 +1,71 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from dragondrop.forms import UserForm #, BookmarkForm
+from dragondrop.forms import UserForm, LoginForm
 from django.contrib.auth.models import User
 from django.db.models import Q
 from dragondrop.bing_search import run_query
 from dragondrop.models import Folder, Bookmark
 from dragondrop.get_web_page_title import getHtmlTitle
 from dragondrop.get_domain_from_url import getDomain
-
+from django.contrib.auth import authenticate, login
 
 def index(request):
-     context = RequestContext(request)
-     return render_to_response('index.html')
+    #return HttpResponse('Hello!')
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        #return HttpResponse('Hello!')
+        #login_form = LoginForm(data=request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+               #return HttpResponse('user is not None')
+               login(request, user)
+               return render_to_response('userpage.html', {}, context)
+        else:
+             #return HttpResponse('user is None')
+             return render_to_response('index.html', {'login_form': LoginForm}, context)
+          
+    else:
+        return render_to_response('index.html', {'login_form': LoginForm}, context) 
+        #return render_to_response('index.html')
 
 def userpage(request, user_page_url):
      context = RequestContext(request)
      
-     user_name = decode_url(user_page_url)
+     if not request.user.is_authenticated():
+          user_name = decode_url(user_page_url)
      
-     context_dict = {'user_name': user_name}
+          context_dict = {'user_name': user_name}
      
-     try:
-          current_user = User.objects.get(username=user_name)
-          context_dict['user'] = current_user
-          context_dict['folders'] = getFolderList(current_user, None)
-     except User.DoesNotExist:
-          pass
+          try:
+               current_user = User.objects.get(username=user_name)
+               context_dict['user'] = current_user
+               context_dict['folders'] = getFolderList(current_user, None)
+               bookmarklist = topten(request)
+               context_dict = {'bookmarklist': bookmarklist}
+          except User.DoesNotExist:
+               pass
      
-     if request.method == 'POST':
-        query = request.POST['query'].strip()
-        if query:
-          # Run our Bing function to get the results list
-          search_results = run_query(query)
-          search_results = map(add_domain_to_search_result, search_results)
-          context_dict['search_results'] = search_results
-          request.session['search_results'] = search_results
-     
-     return render_to_response('userpage.html', context_dict, context)
+          if request.method == 'POST':
+             query = request.POST['query'].strip()
+             if query:
+               # Run our Bing function to get the results list
+               search_results = run_query(query)
+               search_results = map(add_domain_to_search_result, search_results)
+               context_dict['search_results'] = search_results
+               request.session['search_results'] = search_results
 
+          return render_to_response('userpage.html', context_dict, context)
+
+     else:
+          return render_to_response('index.html')        
+
+     
 def register(request):
      context = RequestContext(request)
      
@@ -67,36 +94,39 @@ def register(request):
                'register.html', {'registered': registered, 'username': username, 'user_form': user_form}, context)
 
 def folder(request, folder_page_url):
-    context = RequestContext(request)
+     context = RequestContext(request)
 
-    folder_name = decode_url(folder_page_url)
-    context_dict = {'folder_name': folder_name}
+     if not request.user.is_authenticated():
 
-    try:
-        this_folder = Folder.objects.filter(foldername = folder_name)
-        context_dict['folders'] = getFolderList(User.objects.get(username="Jean"), folder_name, True)
-        bookmarks = Bookmark.objects.filter(fname = this_folder)
-        context_dict['bookmarks'] = bookmarks
-        if request.method == 'POST':
-            url = request.POST['url']
-            bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
-            bookmark.saved_times += 1 
-            if bookmark_was_created:   # If bookmark didn't already exist, set its properties
-                titleAndDescription = getHtmlTitle(url)
-                bookmark.btitle = titleAndDescription[0]
-                bookmark.bdescr = titleAndDescription[1]
-                bookmark.domain = getDomain(url)
-            bookmark.fname.add(Folder.objects.get(
+          folder_name = decode_url(folder_page_url)
+          context_dict = {'folder_name': folder_name}
+
+          try:
+             this_folder = Folder.objects.filter(foldername = folder_name)
+             context_dict['folders'] = getFolderList(User.objects.get(username="Jean"), folder_name, True)
+             bookmarks = Bookmark.objects.filter(fname = this_folder)
+             context_dict['bookmarks'] = bookmarks
+             if request.method == 'POST':
+                 url = request.POST['url']
+                 bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
+                 bookmark.saved_times += 1 
+                 if bookmark_was_created:   # If bookmark didn't already exist, set its properties
+                     titleAndDescription = getHtmlTitle(url)
+                     bookmark.btitle = titleAndDescription[0]
+                     bookmark.bdescr = titleAndDescription[1]
+                     bookmark.domain = getDomain(url)
+                 bookmark.fname.add(Folder.objects.get(
                                    Q(foldername=folder_name),
                                    Q(fusername_fk=User.objects.get(username="Jean"))))
-            bookmark.save()          
+                 bookmark.save()          
 
-    except Folder.DoesNotExist:
-        pass
-          
-     
+          except Folder.DoesNotExist:
+             pass
 
-    return render_to_response('folder.html', context_dict, context)
+          return render_to_response('folder.html', context_dict, context)
+
+     else:
+          return render_to_response('index.html')       
 
 
 # This is a work in progress - when a search-result bookmark is dragged onto
@@ -129,6 +159,10 @@ def encode_url(str):
 
 def decode_url(str):
     return str.replace('_', ' ')
+
+def topten(request):
+     topbookmark = Bookmark.objects.order_by('saved_times')[:10]
+     return topbookmark
 
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])

@@ -37,12 +37,29 @@
    	<img src="{% static "dragon-logo-small.png" %}"   alt="Dragon Drop" > 
 
 	<h1>Dragon Drop</h1>
-      <form class="form-signin" role="form">
+	
+	<form id="LoginForm" method="post" action="/dragondrop/">
+	  
+	  {% csrf_token %}
+	  
+		Username: <input type="text" name="username" size="50" />
+		<br>
+		Password: <input type="password" name="password" size="50" />
+		<br>
+
+	  <button class="btn btn-lg btn-primary-signin" input type="submit" value="Login"/>Log in</button>
+	  <button class="btn btn-lg btn-primary-register"><a href='register'>Register<a/></button>
+	  </form>
+	  </div>
+	
+	
+    <!--  SORRY MARTYNA, I HAD TO REDO THE FORM AS THE DJANGO STANDARD :(
+	<form class="form-signin" role="form">
     
-        <input type="email" class="form-control" placeholder="Email" required autofocus>
+        <input type="text" class="form-control" placeholder="Username" required autofocus>
         <input type="password" class="form-control" placeholder="Password" required>
 
-		<!-- because the sign in button will be a link as well -->
+		because the sign in button will be a link as well
 		
 		<button class="btn btn-lg btn-primary-signin  " type="submit">
 			<a href="#">Sign in<a/>
@@ -50,11 +67,11 @@
 		
 	
 		<button class="btn btn-lg btn-primary-register  " type="submit">
-			<a href='dragondrop/register'>Register<a/>
+			<a href='register'>Register<a/>
 		</button>
 		
 	
-      </form>
+      </form> -->
 
 	  
 	      <!-- bottom navigation panel -->
