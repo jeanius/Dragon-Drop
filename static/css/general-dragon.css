@@ -413,3 +413,29 @@ margin-right: 0px;
 END OF User page stylesheet
 
 ***********/
+
+
+/******** 
+
+GENERAL pages:
+	- About
+	- Privacy
+	- Help
+
+*********/
+
+.general {
+
+background-color: rgb(219, 208, 221);
+margin-top: 100px;
+padding: 10px;
+width:inherit;
+
+}
+
+.general h2 {
+margin-top: 0;
+padding-top: 0;
+text-align: left;
+width: auto;
+}
