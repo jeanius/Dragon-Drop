@@ -26,7 +26,7 @@
 
   <body>
 
-    <div class="container">
+    <div class="container title-container">
 	      
 			<!-- Dragon logo -->
         <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
@@ -54,20 +54,6 @@
 
 
       <h3><b>{{ folder_name }}</b>:<br>Bookmarks in this folder</h3>
-      
-      {% if bookmarks %}
-          <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
-          <!-- Display search results in an ordered list -->
-          <div style="clear: both;">
-            {% for bookmark in bookmarks %}
-                <div class="draggable">
-                    <strong><a href="{{ bookmark.url }}">{{ bookmark.btitle }}</a></strong>
-                    <span class="domain-name">({{ bookmark.domain }})</span><br>
-                    {{ bookmark.bdescr }}</em>
-               </div>
-            {% endfor %}
-          </div>
-      {% endif %}          
 
       <form method="post" >
         {% csrf_token %}
@@ -79,8 +65,23 @@
 			</button>
           </span>
         </div>
-
       </form>
+      
+      {% if bookmarks %}
+          <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
+          <!-- Display search results in an ordered list -->
+          <div style="clear: both;">
+            {% for bookmark in bookmarks %}
+                <div class="draggable draggable-link">
+                    <strong><a href="{{ bookmark.url }}">{{ bookmark.niceName }}</a></strong>
+                    <span class="domain-name">({{ bookmark.bdomain }})</span><br>
+                    {{ bookmark.bdescr }}</em> Saved times (just for debugging): {{bookmark.saved_times}}
+               </div>
+            {% endfor %}
+          </div>
+      {% endif %}          
+
+
 
     </div>
 	
@@ -92,7 +93,7 @@
 		  {% if bookmarklist %}
 			<ol>
 				{% for bookmark in bookmarklist %}
-			 <li><a href="{{ bookmark.url }}">{{ bookmark.btitle}}</a></li>
+			 <li><a href="{{ bookmark.url }}">{{ bookmark.niceName}}</a></li>
 				{% endfor %}
 			</ol>			
 		  {% endif %}
@@ -124,7 +125,7 @@
 			
 			
 			<li class="user-details"><a href="/dragondrop/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-			<li class="user-details"> <a class="navbar-brand " href="#">
+			<li class="user-details"> <a class="navbar-brand " href="/dragondrop/userpage">
 				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> </li>
             
           </ul>

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from urlparse import urlparse
+from dragondrop.get_domain_from_url import getDomain
 
 class Folder(models.Model):
     foldername = models.CharField(max_length=128, null=False)
@@ -20,6 +21,9 @@ class Bookmark(models.Model):
 
     def bdomain(self):
         return getDomain(self.url)
+        
+    def niceName(self):
+        return self.btitle or self.url       
     
     def __unicode__(self):
         return self.url
@@ -36,13 +40,3 @@ class BinFolder(models.Model):
     
     def __unicode__(self):
         return self.busername_fk.username
-
-# Given a URL (e.g. http://www.bing.com/images), this function returns the domain
-# (e.g. bing.com). It's could probably be improved but hopefully works reasonably well.
-def getDomain(url):
-    domain = urlparse(url).netloc
-    domain_parts = domain.split('.')
-    if domain_parts[0] == "www":
-        return '.'.join(domain_parts[1:])
-    else:
-        return domain

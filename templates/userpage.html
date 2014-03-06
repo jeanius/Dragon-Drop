@@ -26,7 +26,7 @@
   <body>
 
 
-      <div class="container">
+      <div class="container title-container">
       
 			<!-- Dragon logo -->
         <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"> </a>
@@ -76,7 +76,7 @@
           </p>
           {% if search_results %}
           <!-- Display search results in an ordered list -->
-          <div style="clear: both;">
+          <div class="main-link-list" style="clear: both;">
             {% for result in search_results %}
                 <div class="draggable">
                     <strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
@@ -112,7 +112,7 @@
 		  {% if bookmarklist %}
 			<ol>
 				{% for bookmark in bookmarklist %}
-			 <li><a href="{{ bookmark.url }}">{{ bookmark.btitle}}</a></li>
+			 <li><a href="{{ bookmark.url }}">{{ bookmark.niceName}}</a></li>
 				{% endfor %}
 			</ol>			
 		  {% endif %}
