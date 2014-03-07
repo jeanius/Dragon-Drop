@@ -165,11 +165,11 @@ float: right;
 /* folder area - user page and folder pages */
 
 #scrollable {
-width: 100%;
 height: 400px;
 margin-left: auto;
 margin-right: auto;
-overflow: auto;
+overflow-y: auto;
+overflow-x: hidden;
 }
 
 /**********
@@ -236,7 +236,11 @@ User page stylesheet
 ***********/
 
 
-
+    .draggable-helper {
+        width: 140px;
+        background: yellow;
+        box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3)
+    }
 
 	
         /* Sticky footer styles
@@ -261,7 +265,7 @@ User page stylesheet
         
        /* For Dragon Drop */
        .dd-folder-icon	   {
-           font-size: 4em;
+           font-size: 1.3em;
 		   color: #412f41;
        }
 	   
@@ -277,7 +281,7 @@ User page stylesheet
 
        .draggable {
           color: #412f41;
-          background-color: #DBD0DD; /*rgba(255,255,255,0.6);*/
+          background-color: rgba(40,0,70,0.15); /*#DBD0DD;*/
           margin-bottom: 4px;
        }
 	   
@@ -287,7 +291,7 @@ User page stylesheet
 	   }
        
        .droppable {
-          padding-top:20px;
+          padding-top:12px;
        }
        
        .f-drop {
@@ -297,6 +301,10 @@ User page stylesheet
           font-size: 14px;
 		  color: #301830;
 		  margin-top: -5px;
+       }
+       
+       .droppable a:hover  {
+          text-decoration:none;
        }
        
        .domain-name {
@@ -322,7 +330,7 @@ opacity:0.4;
 }
 
 .row {
-margin: 100px -15px 0 -15px;
+//margin: 100px -15px 0 -15px;
 
 }
 /* columns for the user, folder pages */
@@ -343,9 +351,11 @@ margin-top: 30px;
 
 }
 
-.hover-bin {
-
-text-shadow: 0 0 0.2em #FCED7E, 0 0 0.2em #FFFFFD;
+.highlight-droppable {
+  text-shadow: 0 0 0.2em #FCED7E, 0 0 0.2em #FFFFFD;
+}
+.highlight-droppable-hover {
+  text-shadow: 0 0 15px yellow, 0 0 0.4em #FFFFFD;
 }
 
 .bin span {

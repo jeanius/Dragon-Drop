@@ -68,40 +68,40 @@
           <h3>Search results</h3>
           
 		  <div id="scrollable">
-		  <p>
-            Note to team: I've set it up so that when you make the screen really narrow,
-            a drop-down list appears below each search result. I'm not sure if this is
-            a good idea, but we should have a think about how to make the site work on
-            touch-screen devices.
-          </p>
-          {% if search_results %}
-          <!-- Display search results in an ordered list -->
-          <div class="main-link-list" style="clear: both;">
-            {% for result in search_results %}
-                <div class="draggable">
-                    <strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
-                    <span class="domain-name">({{ result.domain }})</span><br>
-                    {{ result.summary }}
-                    <select class="visible-xs visible-sm form-control">
-                      <option disabled selected>Move to folder...</option>
-					 
+              <p>
+                Note to team: I've set it up so that when you make the screen really narrow,
+                a drop-down list appears below each search result. I'm not sure if this is
+                a good idea, but we should have a think about how to make the site work on
+                touch-screen devices.
+              </p>
+              {% if search_results %}
+              <!-- Display search results in an ordered list -->
+              <div class="main-link-list" style="clear: both;">
+                {% for result in search_results %}
+                    <div class="draggable search-result">
+                        <strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
+                        <span class="domain-name">({{ result.domain }})</span><br>
+                        {{ result.summary }}
+                        <select class="visible-xs visible-sm form-control">
+                          <option disabled selected>Move to folder...</option>
+                         
 
-					 <!-- ADD BOOKMARK TO THE BIN!-->
-					  
-					  <option >Bin it!</option>
-					  
-					  
-                      {% for folder in folders %}
-                        <option value="{{ folder.url }}">{{ folder }}</option>
-                      {% endfor %}
-                    </select>
-               </div>
-            {% endfor %}
-          </div>
-          {% endif %}          
+                         <!-- ADD BOOKMARK TO THE BIN!-->
+                          
+                          <option >Bin it!</option>
+                          
+                          
+                          {% for folder in folders %}
+                            <option value="{{ folder.url }}">{{ folder }}</option>
+                          {% endfor %}
+                        </select>
+                   </div>
+                {% endfor %}
+              </div>
+              {% endif %}          
 
 
-       </div> 
+           </div> 
 	   </div>
 	   
 	   <!-- right hand-side column - BIN -->
@@ -122,8 +122,7 @@
 		
 		
 		<div class="bin">
-		
-		<span class="glyphicon glyphicon-trash"></span>
+		  <span class="glyphicon glyphicon-trash"></span>
 		</div>
 		
        </div>

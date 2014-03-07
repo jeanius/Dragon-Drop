@@ -20,7 +20,7 @@ $(function() {
 
     var removeMessageAfterShortDelay = function(that) {
         window.setTimeout(function() {
-                     $( that ).find(".folder-message").html( "&nbsp;" );
+                     $( that ).find(".folder-message").html( "" );
                      $( that ).animate({
                         color: "black",
                         }, 500 );
@@ -43,92 +43,121 @@ $(function() {
             }
         });
     });
+    $( "#bookmarks-filter" ).keyup(function() {
+        $( ".draggable" ).each (function() {
+            // If the typed string is in the name of this folder...
+            if ($(this).text().toLowerCase()
+                         .indexOf($( "#bookmarks-filter" ).val().toLowerCase()) != -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
 
+    var dragStart = function() {
+        $(".bin p").first().text("Drop here if you don't want to see this page in search results again.");
+        $(".bin span, .glyphicon-folder-open, .glyphicon-folder-close").addClass( "highlight-droppable" );
+    }
+    var dragStop = function() {
+        $(".bin p").first().text(originalBinText);
+        $(".bin span, .glyphicon-folder-open, .glyphicon-folder-close").removeClass( "highlight-droppable" );   
+    }
+    var draggableHelper = function(event) {
+        return $( "<div class='ui-widget-header draggable-helper'>Drag to a folder</div>" );    
+    }
     
-    $( ".draggable" ).draggable({cursor: "move",
-                                 cursorAt: { top: 0, left: -12 },
-                                 helper: function( event ) {
-                                     return $( "<div class='ui-widget-header' style='width: 140px;background: yellow;box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3)'>Drag to a folder</div>" );
-                                 },
-                                 start: function() {
-                                     $(".bin p").first().text("Drop here if you don't want to see this page in search results again.");
-                                     $(".bin span").addClass( "hover-bin" );
-                                 },
-                                 stop: function() {
-                                     $(".bin p").first().text(originalBinText);
-                                     $(".bin span").removeClass( "hover-bin" );
-                                 }
-                                });
+    $( "#sortable" ).sortable({start: dragStart,
+                               stop: dragStop
+                              });
+    
+    $( ".search-result" ).draggable({cursor: "move",
+                                     cursorAt: { top: 0, left: -12 },
+                                     helper: draggableHelper,
+                                     start: dragStart,
+                                     stop: dragStop
+                                    });
 
-    $( ".droppable" ).droppable({
-      //hoverClass: "glyphicon glyphicon-folder-open dd-folder-icon",
-      over: function( event, ui ) {
-         console.log(ui.draggable.attr('class'))
-         // The next line needs to be changed (first, give the draggable folders a more specific class name)
-         if (!ui.draggable.hasClass("droppable")) {
-             $( this ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-close" );    
-             $( this ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-open" );    
-         }
-      },
-      out: function( event, ui ) {
-         // The next line needs to be changed (first, give the draggable folders a more specific class name)
-         if (!ui.draggable.hasClass("droppable")) {
-             $( this ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-open" );    
-             $( this ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-close" );
-         }
-      },
-      //activeClass: "light-blue-folder",
-      tolerance: "pointer",
-      drop: function( event, ui ) {
-
-         $( this ).animate({
-            color: "#79697A",
-            }, 300 );
-         $( this ).find(".folder-message").text( "Adding link..." );
-         //ui.draggable.css('visibility', 'hidden');
-         //ui.draggable.slideUp();                 
-         var that=this;
-         
-         $.post("/dragondrop/ajax-drop-to-folder/",
-             { url: ui.draggable.find("a").attr("href"),
-               folder_name: $( that ).find(".folder-name").first().text() },
+    var makeDroppable = function() {
+        $( ".droppable" ).droppable({
+          over: function( event, ui ) {
+             var folderIcon = $( this ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
+             folderIcon.removeClass( "glyphicon-folder-close" );    
+             folderIcon.addClass( "glyphicon-folder-open" );
+             $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
+          },
+          out: function( event, ui ) {
+             var folderIcon = $( this ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
+             folderIcon.removeClass( "glyphicon-folder-open" );    
+             folderIcon.addClass( "glyphicon-folder-close" );
+             $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
+          },
+          //activeClass: "light-blue-folder",
+          tolerance: "pointer",
+          drop: function( event, ui ) {
+             $( this ).animate({
+                color: "#79697A",
+                }, 300 );
+             $( this ).find(".folder-message").text( "Adding link..." );                
+             var that=this;
+             
+             $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
+             var folderIcon = $( that ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
+             $.post("/dragondrop/ajax-drop-to-folder/",
+                 { url: ui.draggable.find("a").attr("href"),
+                   folder_name: $( that ).find(".folder-name").first().text() },
+                 function(data) {
+                    $( that ).find(".folder-message").text( "Link added" );
+                    folderIcon.removeClass( "glyphicon-folder-open" );    
+                    folderIcon.addClass( "glyphicon-folder-close" );
+                    removeMessageAfterShortDelay(that);
+                 })
+                    .fail(function() {
+                       $( that ).find(".folder-message").text( "Error adding bookmark" );
+                       folderIcon.removeClass( "glyphicon-folder-open" );    
+                       folderIcon.addClass( "glyphicon-folder-close" );
+                       removeMessageAfterShortDelay(that);
+                    });  
+          }
+        });
+    }
+    makeDroppable();
+    
+    $("#add-folder-button")
+        .click(function() {
+             var folderName = $("#new-folder-name-input").val();      
+             $.post("/dragondrop/ajax-create-folder/",
+             { folderName: folderName },
              function(data) {
-                $( that ).find(".folder-message").text( "Link added" );
-                $( that ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-open" );    
-                $( that ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-close" );
-                removeMessageAfterShortDelay(that);
+                $("#folder-add-message").text(data);
+                if (data==="Folder created") {
+                    $("#folder-list")
+                        .append(   '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
+                                 + ' <a href="/dragondrop/' + folderName.replace(" ", "_") + '/">'
+                                 + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
+                                 + '  <span class="folder-name">' + folderName + '</span>'
+                                 + ' </a>'
+                                 + ' <span class="folder-message"></span>'
+                                 + '</div>');
+                    makeDroppable();
+                }
+                $("#new-folder-name-input").val("");
              })
                 .fail(function() {
-                   $( that ).find(".folder-message").text( "Error adding bookmark" );
-                   $( that ).find("span").not(".keep-folder-open").removeClass( "glyphicon-folder-open" );    
-                   $( that ).find("span").not(".keep-folder-open").addClass( "glyphicon-folder-close" );
-                   removeMessageAfterShortDelay(that);
+                   $("#folder-add-message").text("An error occurred when attempting to add the folder. Please try again.");
                 });
-
-
-
-         
-      }
+    });
+    
+    // Add folder when Enter key is pressed
+    // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
+    $("#new-folder-name-input").keyup(function(event){
+        if(event.keyCode == 13){
+            $("#add-folder-button").click();
+        }
     });
     
     var originalBinText = $(".bin p").first().text();
-    // To do: Use a more descriptive class name for the draggable folders than .droppable
-    $( ".droppable" ).draggable({cursor: "move",
-                                 cursorAt: { top: 0, left: -12 },
-                                 helper: function( event ) {
-                                     return $( "<div class='ui-widget-header' style='width: 100px;z-index:30;background: yellow;box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3)'>Drag to the bin to delete</div>" );
-                                 },
-                                 start: function() {
-                                     $(".bin p").first().text("Drop here to delete");
-                                     $(".bin span").addClass( "hover-bin" );
-                                 },
-                                 stop: function() {
-                                     $(".bin p").first().text(originalBinText);
-                                     $(".bin span").removeClass( "hover-bin" );
-                                 }
-                                });
-                                
-                                                             
+                                                         
 });
 
 
@@ -136,9 +165,9 @@ $(function() {
 // I've moved this code to the events for dragging - James
 /*$( ".bin span" ).hover(
   function() {
-    $( this ).toggleClass( "hover-bin" );
+    $( this ).toggleClass( "highlight-droppable" );
   }, function() {
-    $( this ).removeClass( "hover-bin" );
+    $( this ).removeClass( "highlight-droppable" );
   }
 );*/
 

@@ -91,45 +91,43 @@ def register(request):
                'register.html', {'registered': registered, 'username': username, 'user_form': user_form}, context)
 
 def folder(request, folder_page_url):
-     context = RequestContext(request)
+    context = RequestContext(request)
 
-     if request.user.is_authenticated():
+    if request.user.is_authenticated():
 
-          folder_name = decode_url(folder_page_url)
-          context_dict = {'folder_name': folder_name}
-          current_user = request.user
-          bookmarklist = topten(request)  
-          context_dict = {'bookmarklist': bookmarklist}
+        folder_name = decode_url(folder_page_url)
+        context_dict = {'folder_name': folder_name}
+        current_user = request.user
+        bookmarklist = topten(request)  
+        context_dict['bookmarklist'] = bookmarklist
 
-          try:
-             this_folder = Folder.objects.filter(foldername = folder_name)   \
-                                            .filter(fusername_fk=current_user)[0]
-             context_dict['folders'] = getFolderList(current_user, folder_name, True)
-             bookmarks = Bookmark.objects.filter(fname = this_folder)
-             context_dict['bookmarks'] = bookmarks
-             
-             if request.method == 'POST':
-                 url = request.POST['url']
-                 bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
-                 bookmark.saved_times += 1
-                 if bookmark_was_created:   # If bookmark didn't already exist, set its properties
-                     bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
-                     bookmarkToFolder = BookmarkToFolder.objects.create(
-                                              bffolder   = this_folder,
-                                              bfbookmark = bookmark)
-                     bookmark.save()
-                     bookmarkToFolder.save()
-                 else:
-                     bookmark.save()
-                 
+        try:
+            this_folder = Folder.objects.filter(foldername = folder_name)   \
+                                           .filter(fusername_fk=current_user)[0]
+            context_dict['folders'] = getFolderList(current_user, folder_name, True)
+            bookmarks = Bookmark.objects.filter(fname = this_folder)
+            context_dict['bookmarks'] = bookmarks
+            
+            if request.method == 'POST':
+                url = request.POST['url']
+                bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
+                bookmark.saved_times += 1
+                if bookmark_was_created:   # If bookmark didn't already exist, set its properties
+                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
+                    
+                bookmarkToFolder = BookmarkToFolder.objects.create(
+                                             bffolder   = this_folder,
+                                             bfbookmark = bookmark)
+                bookmark.save()
+                bookmarkToFolder.save()                
 
-          except Folder.DoesNotExist:
-             pass
+        except Folder.DoesNotExist:
+            pass
 
-          return render_to_response('folder.html', context_dict, context)
+        return render_to_response('folder.html', context_dict, context)
 
-     else:
-          return render_to_response('index.html')
+    else:
+        return render_to_response('index.html')
 
 def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
      try:
@@ -173,6 +171,20 @@ def ajaxDropToFolder(request):
 
         return HttpResponse('success adding ' + request.POST['url'] + ' to folder')
 
+        
+def ajaxCreateFolder(request):
+    if request.method == 'POST':
+        folderName = request.POST['folderName']
+        if folderName == "":
+            return HttpResponse("The folder name can't be blank")
+        folder, folder_was_created = Folder.objects.get_or_create(foldername=folderName, fusername_fk=request.user)
+        if folder_was_created:
+            return HttpResponse("Folder created")
+        else:
+            return HttpResponse("Folder already exists")
+        
+
+        
 def encode_url(str):
     return str.replace(' ', '_')
 
