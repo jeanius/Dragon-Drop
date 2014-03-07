@@ -1,53 +1,24 @@
-// From http://stackoverflow.com/a/6533544
-function getCookie(c_name)
-{
-    if (document.cookie.length > 0)
-    {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1)
-        {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) c_end = document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
-        }
-    }
-    return "";
- }
-
-
 $(function() {
-
-    var removeMessageAfterShortDelay = function(that) {
-        window.setTimeout(function() {
-                     $( that ).find(".folder-message").html( "" );
-                     $( that ).animate({
-                        color: "black",
-                        }, 500 );
-                   },
-                   800);
-    }
 
     $.ajaxSetup({
         headers: { "X-CSRFToken": getCookie('csrftoken') }
     });
 
+    // Filter folder names based on typed text
     $( "#folder-filter" ).keyup(function() {
         $( ".droppable" ).each (function() {
-            // If the typed string is in the name of this folder...
-            if ($(this).find(".folder-name").text().toLowerCase()
-                         .indexOf($( "#folder-filter" ).val().toLowerCase()) != -1) {
+            if (textAppearsIn($("#folder-filter").val(), $(this).find(".folder-name").text())) {
                 $(this).show();
             } else {
                 $(this).hide();
             }
         });
     });
+    
+    // Filter bookmarks in folder based on typed text
     $( "#bookmarks-filter" ).keyup(function() {
         $( ".draggable" ).each (function() {
-            // If the typed string is in the name of this folder...
-            if ($(this).text().toLowerCase()
-                         .indexOf($( "#bookmarks-filter" ).val().toLowerCase()) != -1) {
+            if (textAppearsIn($("#bookmarks-filter").val(), $(this).text())) {
                 $(this).show();
             } else {
                 $(this).hide();
@@ -55,21 +26,20 @@ $(function() {
         });
     });
 
+    var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
     var dragStart = function() {
-        $(".bin p").first().text("Drop here if you don't want to see this page in search results again.");
-        $(".bin span, .glyphicon-folder-open, .glyphicon-folder-close").addClass( "highlight-droppable" );
+        elementsToHighlightOnDrag.addClass("highlight-droppable");
     }
     var dragStop = function() {
-        $(".bin p").first().text(originalBinText);
-        $(".bin span, .glyphicon-folder-open, .glyphicon-folder-close").removeClass( "highlight-droppable" );   
+        elementsToHighlightOnDrag.removeClass("highlight-droppable");   
     }
+    
+    // The helper is the small div that moves when a search result is dragged
     var draggableHelper = function(event) {
         return $( "<div class='ui-widget-header draggable-helper'>Drag to a folder</div>" );    
     }
     
-    $( "#sortable" ).sortable({start: dragStart,
-                               stop: dragStop
-                              });
+    $( "#sortable" ).sortable({start: dragStart, stop: dragStop});
     
     $( ".search-result" ).draggable({cursor: "move",
                                      cursorAt: { top: 0, left: -12 },
@@ -78,49 +48,6 @@ $(function() {
                                      stop: dragStop
                                     });
 
-    var makeDroppable = function() {
-        $( ".droppable" ).droppable({
-          over: function( event, ui ) {
-             var folderIcon = $( this ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
-             folderIcon.removeClass( "glyphicon-folder-close" );    
-             folderIcon.addClass( "glyphicon-folder-open" );
-             $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
-          },
-          out: function( event, ui ) {
-             var folderIcon = $( this ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
-             folderIcon.removeClass( "glyphicon-folder-open" );    
-             folderIcon.addClass( "glyphicon-folder-close" );
-             $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
-          },
-          //activeClass: "light-blue-folder",
-          tolerance: "pointer",
-          drop: function( event, ui ) {
-             $( this ).animate({
-                color: "#79697A",
-                }, 300 );
-             $( this ).find(".folder-message").text( "Adding link..." );                
-             var that=this;
-             
-             $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
-             var folderIcon = $( that ).find("span.glyphicon").not(".keep-folder-open, .glyphicon-trash");
-             $.post("/dragondrop/ajax-drop-to-folder/",
-                 { url: ui.draggable.find("a").attr("href"),
-                   folder_name: $( that ).find(".folder-name").first().text() },
-                 function(data) {
-                    $( that ).find(".folder-message").text( "Link added" );
-                    folderIcon.removeClass( "glyphicon-folder-open" );    
-                    folderIcon.addClass( "glyphicon-folder-close" );
-                    removeMessageAfterShortDelay(that);
-                 })
-                    .fail(function() {
-                       $( that ).find(".folder-message").text( "Error adding bookmark" );
-                       folderIcon.removeClass( "glyphicon-folder-open" );    
-                       folderIcon.addClass( "glyphicon-folder-close" );
-                       removeMessageAfterShortDelay(that);
-                    });  
-          }
-        });
-    }
     makeDroppable();
     
     $("#add-folder-button")
@@ -130,15 +57,8 @@ $(function() {
              { folderName: folderName },
              function(data) {
                 $("#folder-add-message").text(data);
-                if (data==="Folder created") {
-                    $("#folder-list")
-                        .append(   '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
-                                 + ' <a href="/dragondrop/' + folderName.replace(" ", "_") + '/">'
-                                 + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
-                                 + '  <span class="folder-name">' + folderName + '</span>'
-                                 + ' </a>'
-                                 + ' <span class="folder-message"></span>'
-                                 + '</div>');
+                if (data === "Folder created") {
+                    $("#folder-list").append(makeNewFolderElement(folderName));
                     makeDroppable();
                 }
                 $("#new-folder-name-input").val("");
@@ -155,11 +75,104 @@ $(function() {
             $("#add-folder-button").click();
         }
     });
-    
-    var originalBinText = $(".bin p").first().text();
                                                          
 });
 
+
+
+
+
+
+//
+// Some utilities
+//
+
+// From http://stackoverflow.com/a/6533544
+function getCookie(c_name)
+{
+    if (document.cookie.length > 0)
+    {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1)
+        {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length;
+            return unescape(document.cookie.substring(c_start,c_end));
+        }
+    }
+    return "";
+}
+
+function textAppearsIn(needle, haystack) {
+    return haystack.toLowerCase()
+              .indexOf(needle.toLowerCase()) != -1;
+}
+
+
+
+function removeMessageAfterShortDelay(folderElement) {
+	window.setTimeout(function() {folderElement.find(".folder-message").html("");}, 800);
+}
+
+
+function ajaxDropToFolder(dropTarget, ui) {
+    var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
+	$.post("/dragondrop/ajax-drop-to-folder/",
+		 { url: ui.draggable.find("a").attr("href"),
+		   folder_name: dropTarget.find(".folder-name").first().text() },
+		   function(data) {
+			  dropTarget.find(".folder-message").text( "Link added" );
+			  folderIcon
+				  .removeClass( "glyphicon-folder-open" )   
+				  .addClass( "glyphicon-folder-close" );
+		      ui.draggable.addClass("saved-bookmark")
+			  removeMessageAfterShortDelay(dropTarget);
+		   })
+			.fail(function() {
+			   dropTarget.find(".folder-message").text( "Error adding bookmark" );
+			   folderIcon
+				   .removeClass( "glyphicon-folder-open" )   
+				   .addClass( "glyphicon-folder-close" );
+			   removeMessageAfterShortDelay(dropTarget);
+			}); 
+}
+
+
+function makeNewFolderElement(folderName) {
+return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
+       + ' <a href="/dragondrop/' + folderName.replace(" ", "_") + '/">'
+       + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
+       + '  <span class="folder-name">' + folderName + '</span>'
+       + ' </a>'
+       + ' <span class="folder-message"></span>'
+       + '</div>';
+}
+
+
+function makeDroppable() {
+	$( ".droppable" ).droppable({
+	  over: function( event, ui ) {
+		 $( this ).find(".dd-folder-icon").not(".keep-folder-open")
+			 .removeClass( "glyphicon-folder-close" )
+			 .addClass( "glyphicon-folder-open" );
+		 $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
+	  },
+	  out: function( event, ui ) {
+		 $( this ).find(".dd-folder-icon").not(".keep-folder-open")
+			 .removeClass( "glyphicon-folder-open" )
+			 .addClass( "glyphicon-folder-close" );
+		 $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
+	  },
+	  tolerance: "pointer",
+	  drop: function( event, ui ) {
+		 var dropTarget = $(this);
+		 dropTarget.find(".folder-message").text( "Adding link..." );                          
+		 dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
+		 ajaxDropToFolder(dropTarget, ui)
+	  }
+	});
+}
 
 // hovering over the bin area
 // I've moved this code to the events for dragging - James

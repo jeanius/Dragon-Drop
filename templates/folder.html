@@ -73,7 +73,7 @@
               <!-- Display search results in an ordered list -->
               <div style="clear: both;" id="sortable">
                 {% for bookmark in bookmarks %}
-                    <div class="draggable">
+                    <div class="draggable saved-bookmark">
                         <strong><a href="{{ bookmark.url }}">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em> Saved times (just for debugging): {{bookmark.saved_times}}

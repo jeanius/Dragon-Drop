@@ -52,11 +52,12 @@ def userpage(request):
             
             query = request.POST['query'].strip()
             if query:
-                   # Run our Bing function to get the results list
-                   search_results = run_query(query)
-                   search_results = map(add_domain_to_search_result, search_results)
-                   context_dict['search_results'] = search_results
-                   request.session['search_results'] = search_results
+                # Run our Bing function to get the results list
+                search_results = run_query(query)
+                search_results = map(add_domain_to_search_result, search_results)
+                context_dict['search_results'] = search_results
+                request.session['search_results'] = search_results
+                context_dict['user_search_results'] = get_matching_bookmarks(request, query)
 
         return render_to_response('userpage.html', context_dict, context)
 
@@ -216,3 +217,10 @@ def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
     return search_result
 
+def get_matching_bookmarks(request, query):
+    return Bookmark.objects.filter(
+                    Q(url__icontains=query) |
+                    Q(bdescr__icontains=query) |
+                    Q(btitle__icontains=query)                  
+               ).filter(fname__fusername_fk=request.user).distinct()
+    

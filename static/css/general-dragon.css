@@ -284,6 +284,10 @@ User page stylesheet
           background-color: rgba(40,0,70,0.15); /*#DBD0DD;*/
           margin-bottom: 4px;
        }
+
+       .draggable.saved-bookmark {
+          background-color: rgba(255,255,50,0.15); /*#DBD0DD;*/
+       }
 	   
 	   .draggable a,
 	   .draggable a:hover {

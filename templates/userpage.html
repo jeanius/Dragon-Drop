@@ -53,7 +53,7 @@
           <form role="search" method="post" >
             {% csrf_token %}
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search the web" name="query" autofocus>
+              <input type="text" class="form-control" placeholder="Search your bookmarks and the web" name="query" autofocus>
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-primary-search" >
 				<a href="#">
@@ -64,40 +64,48 @@
             </div>
         
           </form>
-     
-          <h3>Search results</h3>
           
 		  <div id="scrollable">
-              <p>
-                Note to team: I've set it up so that when you make the screen really narrow,
-                a drop-down list appears below each search result. I'm not sure if this is
-                a good idea, but we should have a think about how to make the site work on
-                touch-screen devices.
-              </p>
-              {% if search_results %}
-              <!-- Display search results in an ordered list -->
-              <div class="main-link-list" style="clear: both;">
-                {% for result in search_results %}
-                    <div class="draggable search-result">
-                        <strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
-                        <span class="domain-name">({{ result.domain }})</span><br>
-                        {{ result.summary }}
-                        <select class="visible-xs visible-sm form-control">
-                          <option disabled selected>Move to folder...</option>
-                         
 
-                         <!-- ADD BOOKMARK TO THE BIN!-->
-                          
-                          <option >Bin it!</option>
-                          
-                          
-                          {% for folder in folders %}
-                            <option value="{{ folder.url }}">{{ folder }}</option>
-                          {% endfor %}
-                        </select>
-                   </div>
-                {% endfor %}
-              </div>
+              {% if user_search_results %}
+				  <!-- Display search results in an ordered list -->
+				  <div class="main-link-list" style="clear: both;">
+				    <h3>Results from your folders</h3>
+					{% for result in user_search_results %}
+						<div class="draggable search-result saved-bookmark">
+							<strong><a href="{{ result.url }}">{{ result.btitle }}</a></strong>
+							<span class="domain-name">({{ result.bdomain }})</span><br>
+							{{ result.bdescr }}
+					   </div>
+					{% endfor %}
+				  </div>
+              {% endif %}
+              
+              {% if search_results %}
+				  <!-- Display search results in an ordered list -->
+				  <h3>Results from the web</h3>
+				  <div class="main-link-list" style="clear: both;">
+					{% for result in search_results %}
+						<div class="draggable search-result">
+							<strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
+							<span class="domain-name">({{ result.domain }})</span><br>
+							{{ result.summary }}
+							<select class="visible-xs visible-sm form-control">
+							  <option disabled selected>Move to folder...</option>
+						 
+
+							 <!-- ADD BOOKMARK TO THE BIN!-->
+						  
+							  <option >Bin it!</option>
+						  
+						  
+							  {% for folder in folders %}
+								<option value="{{ folder.url }}">{{ folder }}</option>
+							  {% endfor %}
+							</select>
+					   </div>
+					{% endfor %}
+				  </div>
               {% endif %}          
 
 
