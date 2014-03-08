@@ -33,6 +33,14 @@ h1.header {
 	margin-top: -250px;
 	}
 
+.initial-header {
+font-size: 110px;
+	margin-top: 0;
+	padding-top: 0;
+}	
+	
+	
+	
 h1 a,
 h1 a:hover,
 h3 a,
@@ -179,6 +187,10 @@ END of general stylesheet
 Sign in page stylesheet
 
 ***********/
+
+
+
+
 .nav > li > a {
 display: inline-block;
 }
