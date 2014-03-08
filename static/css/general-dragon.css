@@ -5,9 +5,6 @@ GENERAL stylesheet
 ***********/
 
 
-iframe {
-  margin: 10px;
-}
 
 body {
   padding-top: 20px;
@@ -55,6 +52,20 @@ h3  {
 	color: #301830;
 	}
 	
+
+/* Embedded YouTube player */
+iframe {
+  margin: 10px;
+}
+
+.delete-folder-button {
+  float: right;
+}
+	
+.delete-bookmark-button {
+  float: right;
+  margin: 5px;
+}
 	
 /* the Dragon logo in the corner*/
 
@@ -80,6 +91,7 @@ img {
 
 	
 	/* footer navigation bar */
+
 	
 .navbar-nav {
 font-size: 18px;

@@ -189,6 +189,18 @@ def ajaxDropToFolder(request):
 
         return HttpResponse(message)
 
+
+def ajaxDeleteBookmark(request):
+    if request.method == 'POST':
+        url = request.POST['bookmarkUrl']
+        bookmark = Bookmark.objects.get(url=url)
+        bookmark.saved_times -= 1
+        this_folder = request.user.folder_set.get(foldername = request.POST['folderName'])
+        bookmarkToFolder = BookmarkToFolder.objects.get(
+                                              bffolder   = this_folder,
+                                              bfbookmark = bookmark)             
+        bookmarkToFolder.delete()
+        return HttpResponse("Bookmark deleted")
         
 def ajaxCreateFolder(request):
     if request.method == 'POST':

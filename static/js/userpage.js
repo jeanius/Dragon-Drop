@@ -67,6 +67,23 @@ $(function() {
                    $("#folder-add-message").text("An error occurred when attempting to add the folder. Please try again.");
                 });
     });
+
+
+    $(".delete-bookmark-button")
+        .click(function() {
+             var deleteButton = $(this);
+             var bookmarkUrl = deleteButton.parent().find("a").first().attr("href");
+             $(this).attr("disabled", "disabled");
+             $.post("/dragondrop/ajax-delete-bookmark/",
+             { bookmarkUrl: bookmarkUrl, folderName: $("#folder-name").text() },
+             function(data) {
+                 deleteButton.parent().slideUp();
+                 deleteButton.removeAttr("disabled");
+             })
+                .fail(function() {
+                    deleteButton.removeAttr("disabled");
+                });
+    });
     
     // Add folder when Enter key is pressed
     // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
