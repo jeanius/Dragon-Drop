@@ -5,7 +5,7 @@ from dragondrop.forms import UserForm, LoginForm
 from django.contrib.auth.models import User
 from django.db.models import Q
 from dragondrop.bing_search import run_query
-from dragondrop.models import Folder, Bookmark, BookmarkToFolder
+from dragondrop.models import Folder, Bookmark, BookmarkToFolder, BinFolder
 from dragondrop.get_domain_from_url import getDomain
 from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
@@ -43,8 +43,7 @@ def userpage(request):
         current_user = request.user
                  
         try:
-            bookmarklist = topten(request)  
-            context_dict = {'bookmarklist': bookmarklist}
+            context_dict = {'bookmarklist': topten(request)}
             context_dict['user'] = current_user
             context_dict['folders'] = getFolderList(current_user, None)   
         except User.DoesNotExist:
@@ -57,8 +56,6 @@ def userpage(request):
                 # Run our Bing function to get the results list
                 search_results = run_query(query)
                 search_results = map(add_domain_to_search_result, search_results)
-                context_dict['search_results'] = search_results
-                request.session['search_results'] = search_results
                 (relevantBookmarks, userBookmarkUrls) = get_matching_bookmarks(request, query)
                 relevantBookmarkUrls = [b.url for b in relevantBookmarks]
                 for search_result in search_results:
@@ -74,6 +71,17 @@ def userpage(request):
                                  'video_id': search_result['video_id']
                                 })
                         
+                try:
+                    bin_folder = request.user.binfolder
+                    bin_bookmarks = bin_folder.bbmID_fk.all()
+                    bin_urls = [b.url for b in bin_bookmarks]
+                    print search_results[0]['link']
+                    search_results = [r for r in search_results if not r['link'] in bin_urls]
+                except BinFolder.DoesNotExist:
+                    pass
+
+                context_dict['search_results'] = search_results
+                request.session['search_results'] = search_results
                 context_dict['user_search_results'] = relevantBookmarks
 
         return render_to_response('userpage.html', context_dict, context)
@@ -116,8 +124,7 @@ def folder(request, folder_page_url):
         folder_name = decode_url(folder_page_url)
         context_dict = {'folder_name': folder_name}
         current_user = request.user
-        bookmarklist = topten(request)
-        context_dict['bookmarklist'] = bookmarklist
+        context_dict['bookmarklist'] = topten(request)
 
         try:
             this_folder = current_user.folder_set.get(foldername = folder_name)
@@ -144,6 +151,25 @@ def folder(request, folder_page_url):
 
     else:
         return render_to_response('index.html')
+
+
+def binFolder(request):
+    context = RequestContext(request)
+
+    if request.user.is_authenticated():
+        context_dict = {'folder_name': "Bin Folder"}
+        current_user = request.user
+        bookmarklist = topten(request)
+        context_dict['bookmarklist'] = bookmarklist
+        bin_folder = request.user.binfolder
+        context_dict['folders'] = getFolderList(current_user, None)
+        context_dict['bookmarks'] = bin_folder.bbmID_fk.all()
+        context_dict['hideUrlInputBox'] = True
+        return render_to_response('folder.html', context_dict, context)
+
+    else:
+        return render_to_response('index.html')
+
 
 def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
      try:
@@ -181,6 +207,12 @@ def ajaxDropToFolder(request):
         bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
                                               bffolder   = drop_folder,
                                               bfbookmark = bookmark)   
+
+        try:
+            bin_folder = request.user.binfolder
+            bin_folder.bbmID_fk.remove(bookmark)
+        except BinFolder.DoesNotExist:
+            pass
                                               
         message = "Link added" if added_to_folder else "Already there :)"
                               
@@ -190,16 +222,50 @@ def ajaxDropToFolder(request):
         return HttpResponse(message)
 
 
+def ajaxDropToBin(request):
+    if request.method == 'POST':
+        url = request.POST['url']
+        bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)
+
+        bookmark.saved_times += 1
+
+        if bookmark_was_created:    # If bookmark didn't already exist, set its properties
+            search_result_for_this_url = filter(lambda x: x['link'] == url,
+                                                request.session['search_results'])[0]
+            bookmark.btitle = search_result_for_this_url['title']
+            bookmark.bdescr = search_result_for_this_url['summary']
+            
+        bin_folder, _ = BinFolder.objects.get_or_create(busername_fk = request.user)
+        bin_folder.bbmID_fk.add(bookmark)
+ 
+        bookmarkToFolder = BookmarkToFolder.objects.filter(
+                                              bffolder__fusername_fk = request.user,
+                                              bfbookmark = bookmark)
+        bookmarkToFolder.delete()
+                                              
+        message = "Link added"
+                              
+        bookmark.save()
+
+        return HttpResponse(message)
+
+
+
 def ajaxDeleteBookmark(request):
     if request.method == 'POST':
         url = request.POST['bookmarkUrl']
         bookmark = Bookmark.objects.get(url=url)
-        bookmark.saved_times -= 1
-        this_folder = request.user.folder_set.get(foldername = request.POST['folderName'])
-        bookmarkToFolder = BookmarkToFolder.objects.get(
+        foldername = request.POST['folderName']
+        if foldername == 'Bin Folder':
+            bin_folder = request.user.binfolder
+            bin_folder.bbmID_fk.remove(bookmark)
+        else:
+            bookmark.saved_times -= 1
+            this_folder = request.user.folder_set.get(foldername = request.POST['folderName'])
+            bookmarkToFolder = BookmarkToFolder.objects.get(
                                               bffolder   = this_folder,
                                               bfbookmark = bookmark)             
-        bookmarkToFolder.delete()
+            bookmarkToFolder.delete()
         return HttpResponse("Bookmark deleted")
         
 def ajaxCreateFolder(request):
@@ -213,6 +279,13 @@ def ajaxCreateFolder(request):
         else:
             return HttpResponse("Folder already exists")
         
+def ajaxDeleteFolder(request):
+    if request.method == 'POST':
+        folderName = request.POST['folderName']
+        folder = Folder.objects.get(foldername=folderName, fusername_fk=request.user)
+        BookmarkToFolder.objects.filter(bffolder = folder).delete()
+        folder.delete()
+        return HttpResponse("Folder deleted")
 
         
 def encode_url(str):

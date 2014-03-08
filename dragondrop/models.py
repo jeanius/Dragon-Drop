@@ -16,8 +16,7 @@ class Bookmark(models.Model):
     url = models.URLField(unique=True)
     btitle = models.CharField(max_length=128, null=True, unique=False)
     bdescr = models.CharField(max_length=1024, null=True, unique=False)
-    #bdomain = models.CharField(max_length=256, null=True, unique=False)
-    fname = models.ManyToManyField(Folder, through='BookmarkToFolder')  #, through_fields=('folder', 'bookmark'))
+    fname = models.ManyToManyField(Folder, through='BookmarkToFolder')
     saved_times = models.IntegerField(default=0)
 
     def bdomain(self):
@@ -36,11 +35,11 @@ class Bookmark(models.Model):
 class BookmarkToFolder(models.Model):
     bffolder = models.ForeignKey(Folder)
     bfbookmark = models.ForeignKey(Bookmark)
-    bfrank = models.IntegerField(default=0)
+    bfrank = models.FloatField(default=0)
 
         
 class BinFolder(models.Model):
-    busername_fk = models.ForeignKey(User)
+    busername_fk = models.OneToOneField(User)
     bbmID_fk = models.ManyToManyField(Bookmark, blank=True, null=True)
     
     def __unicode__(self):

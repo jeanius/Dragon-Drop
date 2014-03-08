@@ -45,7 +45,7 @@
 			<div class="row">
 	  
 	  <!-- left hand-side column-->
-        <div class="col-md-3">
+        <div class="col-md-3" id="folder-box">
             {% include "folder_list_include.html" %}
         </div>
 		
@@ -84,7 +84,8 @@
 							<span class="domain-name">({{ result.bdomain }})</span><br>
 							{{ result.bdescr }}
 							<!-- added folder name -->
-							<span class="folder-name">{{ result.fname}}</span>                            {% if result.video_id %}
+							<span class="folder-name">{{ result.fname}}</span> 
+                            {% if result.video_id %}
                                 <br><iframe id="ytplayer" type="text/html" width="327" height="200"
                                 src="http://www.youtube.com/embed/{{result.video_id}}"
                                 frameborder="0"></iframe>
@@ -147,8 +148,9 @@
 		
 		
 		<div class="bin">
-		  <span class="glyphicon glyphicon-trash"></span>
+		  <a href="/dragondrop/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
 		  <div class="bin-message">Never show me this again!</div>
+          <p class="folder-message"></p>
 		</div>
 		
        </div>

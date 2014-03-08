@@ -67,14 +67,6 @@ iframe {
   margin: 10px;
 }
 
-.delete-folder-button {
-  float: right;
-}
-	
-.delete-bookmark-button {
-  float: right;
-  margin: 5px;
-}
 	
 /* the Dragon logo in the corner*/
 
@@ -328,6 +320,7 @@ User page stylesheet
        
        .droppable {
           padding-top:12px;
+          width:100%;
        }
        
        .f-drop {
@@ -336,7 +329,8 @@ User page stylesheet
        .folder-name{
           font-size: 18px;
 		  color: #301830;
-		  margin-top: -5px;
+		  position: relative;
+		  top:-0.3em;
        }
        
        .droppable a:hover  {
@@ -570,6 +564,9 @@ color: red;
 color: #7A7A7A;
 font-size: 1.5em;
 display:none;
+float:right;
+margin-top:0.5em;
+margin-right: -30px;
 }
 
 .delete-folder:hover {

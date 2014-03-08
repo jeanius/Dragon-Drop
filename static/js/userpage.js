@@ -64,6 +64,7 @@ $(function() {
                 if (data === "Folder created") {
                     $("#folder-list").append(makeNewFolderElement(folderName));
                     makeDroppable();
+                    makeFoldersDeleteable();
                 }
                 $("#new-folder-name-input").val("");
              })
@@ -73,21 +74,26 @@ $(function() {
     });
 
 
-    $(".delete-bookmark-button")
+    // delete a bookmark
+    $(".glyphicon-remove")
         .click(function() {
              var deleteButton = $(this);
-             var bookmarkUrl = deleteButton.parent().find("a").first().attr("href");
-             $(this).attr("disabled", "disabled");
+             deleteButton.hide();
+             var bookmarkUrl = deleteButton.parent().parent().find("strong").find("a").first().attr("href");
              $.post("/dragondrop/ajax-delete-bookmark/",
-             { bookmarkUrl: bookmarkUrl, folderName: $("#folder-name").text() },
+             { bookmarkUrl: bookmarkUrl, folderName: $("#current-folder-name").text() },
              function(data) {
-                 deleteButton.parent().slideUp();
-                 deleteButton.removeAttr("disabled");
+                 deleteButton.parent().parent().slideUp();
+                 deleteButton.show();
              })
                 .fail(function() {
-                    deleteButton.removeAttr("disabled");
+                    alert("An error occurred while attempting to delete the bookmark.");
+                    deleteButton.show();
                 });
     });
+
+
+    makeFoldersDeleteable();
     
     // Add folder when Enter key is pressed
     // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
@@ -140,14 +146,15 @@ function removeMessageAfterShortDelay(folderElement) {
 function ajaxDropToFolder(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
 	$.post("/dragondrop/ajax-drop-to-folder/",
-		 { url: ui.draggable.find("a").attr("href"),
+		 { url: ui.draggable.find("strong").find("a").attr("href"),
 		   folder_name: dropTarget.find(".folder-name").first().text() },
 		   function(messageFromPython) {
 			  dropTarget.find(".folder-message").text( messageFromPython );
 			  folderIcon
 				  .removeClass( "glyphicon-folder-open" )   
 				  .addClass( "glyphicon-folder-close" );
-		      ui.draggable.addClass("saved-bookmark")
+		      ui.draggable.addClass("saved-bookmark");
+		      if ($("#current-folder-name").text()=="Bin Folder") {ui.draggable.slideUp()};
 			  removeMessageAfterShortDelay(dropTarget);
 		   })
 			.fail(function() {
@@ -160,8 +167,27 @@ function ajaxDropToFolder(dropTarget, ui) {
 }
 
 
+function ajaxDropToBin(dropTarget, ui) {
+    var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
+	$.post("/dragondrop/ajax-drop-to-bin/",
+		 { url: ui.draggable.find("strong").find("a").attr("href") },
+		   function(messageFromPython) {
+			  dropTarget.find(".folder-message").text( messageFromPython );
+		      ui.draggable.addClass("saved-bookmark")
+		      ui.draggable.slideUp();
+			  removeMessageAfterShortDelay(dropTarget);
+		   })
+			.fail(function() {
+			   dropTarget.find(".folder-message").text( "Error adding bookmark" );
+			   removeMessageAfterShortDelay(dropTarget);
+			}); 
+}
+
+
+
 function makeNewFolderElement(folderName) {
 return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
+       + ' <span class="glyphicon glyphicon-remove-circle delete-folder"></span>'
        + ' <a href="/dragondrop/' + folderName.replace(" ", "_") + '/">'
        + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
        + '  <span class="folder-name">' + folderName + '</span>'
@@ -170,6 +196,34 @@ return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + '</div>';
 }
 
+function makeFoldersDeleteable() {
+    $(".delete-folder")
+        .click(function() {
+           var deleteButton = $(this);
+           deleteButton.hide();
+           var folderName = deleteButton.parent().find(".folder-name").text();
+           $('#delete-folder-name').text(folderName);
+           $('#confirm-folder-deletion-modal').modal();
+           $('#confirm-folder-deletion-button').click(function() {
+               deleteFolder(folderName, deleteButton);
+           });
+           $('#cancel-folder-deletion-button').click(function() {
+               deleteButton.show();
+           });
+    });
+}
+
+function deleteFolder(folderName, deleteButton) {
+	 $.post("/dragondrop/ajax-delete-folder/",
+	 { folderName: folderName },
+	 function(data) {
+		 deleteButton.parent().slideUp();
+		 deleteButton.show();
+	 })
+		.fail(function() {
+			deleteButton.show();
+		});
+}
 
 function makeDroppable() {
 	$( ".droppable" ).droppable({
@@ -190,7 +244,11 @@ function makeDroppable() {
 		 var dropTarget = $(this);
 		 dropTarget.find(".folder-message").text( "Adding link..." );                          
 		 dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
-		 ajaxDropToFolder(dropTarget, ui)
+		 if (dropTarget.hasClass("bin")) {
+		     ajaxDropToBin(dropTarget, ui);
+		 } else {
+		     ajaxDropToFolder(dropTarget, ui);
+	     }
 	  }
 	});
 }
@@ -209,11 +267,11 @@ function makeDroppable() {
 
 //Deleting the folder -- please fix this :(
 
-$( ".folder-name" ).mouseover(function() {
+$( "#folder-box" ).mouseover(function() {
   $( ".delete-folder" ).show();
 });
 
-$( ".folder-name", ".delete-folder" ).mouseout(function() {
+$( "#folder-box" ).mouseout(function() {
   $( ".delete-folder" ).hide();
 });
 

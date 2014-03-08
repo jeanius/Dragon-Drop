@@ -43,7 +43,7 @@
       <div class="row">
 	  
 	  <!-- left hand-side column-->
-        <div class="col-md-3">
+        <div class="col-md-3" id="folder-box">
             {% include "folder_list_include.html" %}
         </div>
 	
@@ -53,19 +53,21 @@
 		
 
 
-      <h3><b>{{ folder_name }}</b>:<br>Bookmarks in this folder</h3>
+      <h3><b id="current-folder-name">{{ folder_name }}</b>:<br>Bookmarks in this folder</h3>
 
-      <form method="post" >
-        {% csrf_token %}
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Paste the URL of a page" name="url" autofocus>
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-primary-folder" >
-			<a href ="#">Add to this folder</a>
-			</button>
-          </span>
-        </div>
-      </form>
+      {% if hideUrlInputBox == None %}
+		  <form method="post" >
+			{% csrf_token %}
+			<div class="input-group">
+			  <input type="text" class="form-control" placeholder="Paste the URL of a page" name="url" autofocus>
+			  <span class="input-group-btn">
+				<button type="submit" class="btn btn-primary-folder" >
+				<a href ="#">Add to this folder</a>
+				</button>
+			  </span>
+			</div>
+		  </form>
+      {% endif %}
       
       <div id="scrollable">
           {% if bookmarks %}
@@ -111,7 +113,9 @@
 		
 		<div class="bin droppable">
 		
-			<span class="glyphicon glyphicon-trash"></span>
+			<a href="/dragondrop/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
+		    <div class="bin-message">Never show me this again!</div>
+			<p class="folder-message"></p>
 		</div>
 		
        </div>
