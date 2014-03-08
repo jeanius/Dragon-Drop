@@ -29,9 +29,13 @@ $(function() {
     var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
     var dragStart = function() {
         elementsToHighlightOnDrag.addClass("highlight-droppable");
+		// display the bin message
+		$(".bin-message").show();
     }
     var dragStop = function() {
         elementsToHighlightOnDrag.removeClass("highlight-droppable");   
+		// hide the bin message
+		$(".bin-message").hide();
     }
     
     // The helper is the small div that moves when a search result is dragged
@@ -183,4 +187,16 @@ function makeDroppable() {
     $( this ).removeClass( "highlight-droppable" );
   }
 );*/
+
+
+
+//Deleting the folder -- please fix this :(
+
+$( ".folder-name" ).mouseover(function() {
+  $( ".delete-folder" ).show();
+});
+
+$( ".folder-name", ".delete-folder" ).mouseout(function() {
+  $( ".delete-folder" ).hide();
+});
 
