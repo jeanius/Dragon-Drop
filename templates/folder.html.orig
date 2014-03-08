@@ -80,12 +80,21 @@
                         <strong><a href="{{ bookmark.url }}">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em> Saved times (just for debugging): {{bookmark.saved_times}}
+<<<<<<< HEAD
+						
+						
+						
+=======
                         {% if bookmark.video_id %}
                             <br><iframe id="ytplayer" type="text/html" width="327" height="200"
                             src="http://www.youtube.com/embed/{{bookmark.video_id}}"
                             frameborder="0"></iframe>
                         {% endif %}   
+>>>>>>> e7c16b71b58db5765624914e4a405108d38ec669
                    </div>
+				   
+				   
+				   
                 {% endfor %}
               </div>
           {% endif %}          

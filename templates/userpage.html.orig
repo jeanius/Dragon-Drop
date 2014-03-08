@@ -83,12 +83,20 @@
 							<strong><a href="{{ result.url }}">{{ result.btitle }}</a></strong>
 							<span class="domain-name">({{ result.bdomain }})</span><br>
 							{{ result.bdescr }}
+<<<<<<< HEAD
+							
 							<!-- added folder name -->
-							<span class="folder-name">{{ result.fname}}</span>                            {% if result.video_id %}
+							<span class="folder-name">{{ result.fname}}</span>
+							
+							
+=======
+                            {% if result.video_id %}
                                 <br><iframe id="ytplayer" type="text/html" width="327" height="200"
                                 src="http://www.youtube.com/embed/{{result.video_id}}"
                                 frameborder="0"></iframe>
-                            {% endif %} 												   </div>
+                            {% endif %} 							
+>>>>>>> e7c16b71b58db5765624914e4a405108d38ec669
+					   </div>
 					{% endfor %}
 				  </div>
               {% endif %}
