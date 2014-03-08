@@ -38,9 +38,11 @@
 
     <div class="container">
 	
-      <!-- 3 columns -->
+      <!-- 3 EQUAL columns -->
 	  
-      <div class="row">
+
+	  
+			<div class="row">
 	  
 	  <!-- left hand-side column-->
         <div class="col-md-3">
@@ -48,7 +50,7 @@
         </div>
 		
 		<!-- middle column-->
-        <div class="col-md-6">
+        <div class="col-md-6 results">
         
           <form role="search" method="post" >
             {% csrf_token %}
@@ -65,17 +67,27 @@
         
           </form>
           
+		  
+		  
+		   <h3>Results from your folders</h3>
 		  <div id="scrollable">
 
               {% if user_search_results %}
 				  <!-- Display search results in an ordered list -->
+				  
+				 
 				  <div class="main-link-list" style="clear: both;">
-				    <h3>Results from your folders</h3>
+				    
 					{% for result in user_search_results %}
 						<div class="draggable search-result saved-bookmark">
 							<strong><a href="{{ result.url }}">{{ result.btitle }}</a></strong>
 							<span class="domain-name">({{ result.bdomain }})</span><br>
 							{{ result.bdescr }}
+							
+							<!-- added folder name -->
+							<span class="folder-name">{{ result.fname}}</span>
+							
+							
 					   </div>
 					{% endfor %}
 				  </div>
@@ -131,10 +143,12 @@
 		
 		<div class="bin">
 		  <span class="glyphicon glyphicon-trash"></span>
+		  <div class="bin-message">Never show me this again!</div>
 		</div>
 		
        </div>
-      </div>
+      </div> <!-- end of ROW div -->
+
 
 
 
