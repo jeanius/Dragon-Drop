@@ -9,6 +9,8 @@ from dragondrop.models import Folder, Bookmark, BookmarkToFolder
 from dragondrop.get_domain_from_url import getDomain
 from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
+from dragondrop.url_utilities import get_youtube_id
+
 
 def index(request):
     context = RequestContext(request)
@@ -57,7 +59,22 @@ def userpage(request):
                 search_results = map(add_domain_to_search_result, search_results)
                 context_dict['search_results'] = search_results
                 request.session['search_results'] = search_results
-                context_dict['user_search_results'] = get_matching_bookmarks(request, query)
+                (relevantBookmarks, userBookmarkUrls) = get_matching_bookmarks(request, query)
+                relevantBookmarkUrls = [b.url for b in relevantBookmarks]
+                for search_result in search_results:
+                    search_result['video_id'] = get_youtube_id(search_result['link'], search_result['domain'])
+                    if search_result['link'] in userBookmarkUrls:
+                        search_results.remove(search_result)
+                        if not search_result['link'] in relevantBookmarkUrls:
+                            relevantBookmarks.append(
+                                {'url': search_result['link'],
+                                 'btitle': search_result['title'],
+                                 'bdomain': search_result['domain'],
+                                 'bdescr': search_result['summary'],
+                                 'video_id': search_result['video_id']
+                                })
+                        
+                context_dict['user_search_results'] = relevantBookmarks
 
         return render_to_response('userpage.html', context_dict, context)
 
@@ -99,28 +116,26 @@ def folder(request, folder_page_url):
         folder_name = decode_url(folder_page_url)
         context_dict = {'folder_name': folder_name}
         current_user = request.user
-        bookmarklist = topten(request)  
+        bookmarklist = topten(request)
         context_dict['bookmarklist'] = bookmarklist
 
         try:
-            this_folder = Folder.objects.filter(foldername = folder_name)   \
-                                           .filter(fusername_fk=current_user)[0]
+            this_folder = current_user.folder_set.get(foldername = folder_name)
             context_dict['folders'] = getFolderList(current_user, folder_name, True)
-            bookmarks = Bookmark.objects.filter(fname = this_folder)
-            context_dict['bookmarks'] = bookmarks
             
             if request.method == 'POST':
                 url = request.POST['url']
                 bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
                 bookmark.saved_times += 1
                 if bookmark_was_created:   # If bookmark didn't already exist, set its properties
-                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
-                    
+                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)                    
                 bookmarkToFolder = BookmarkToFolder.objects.create(
                                              bffolder   = this_folder,
                                              bfbookmark = bookmark)
                 bookmark.save()
-                bookmarkToFolder.save()                
+                bookmarkToFolder.save()
+
+            context_dict['bookmarks'] = this_folder.bookmark_set.all()
 
         except Folder.DoesNotExist:
             pass
@@ -132,7 +147,7 @@ def folder(request, folder_page_url):
 
 def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
      try:
-          folders = Folder.objects.filter(fusername_fk=current_user)
+          folders = current_user.folder_set.all()
           for folder in folders:
               if folder.foldername == current_folder_name:
                   folder.url = None
@@ -162,15 +177,17 @@ def ajaxDropToFolder(request):
             bookmark.btitle = search_result_for_this_url['title']
             bookmark.bdescr = search_result_for_this_url['summary']
 
-        drop_folder = Folder.objects.filter(foldername = request.POST['folder_name'])   \
-                                      .filter(fusername_fk=request.user)[0]
-        bookmarkToFolder, _ = BookmarkToFolder.objects.get_or_create(
-                                          bffolder   = drop_folder,
-                                          bfbookmark = bookmark)                         
+        drop_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
+        bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
+                                              bffolder   = drop_folder,
+                                              bfbookmark = bookmark)   
+                                              
+        message = "Link added" if added_to_folder else "Already there :)"
+                              
         bookmark.save()
         bookmarkToFolder.save()
 
-        return HttpResponse('success adding ' + request.POST['url'] + ' to folder')
+        return HttpResponse(message)
 
         
 def ajaxCreateFolder(request):
@@ -218,9 +235,13 @@ def add_domain_to_search_result(search_result):
     return search_result
 
 def get_matching_bookmarks(request, query):
-    return Bookmark.objects.filter(
-                    Q(url__icontains=query) |
-                    Q(bdescr__icontains=query) |
-                    Q(btitle__icontains=query)                  
-               ).filter(fname__fusername_fk=request.user).distinct()
-    
+    userBookmarks = Bookmark.objects.filter(fname__fusername_fk=request.user).distinct()
+    relevantBookmarks = list(userBookmarks.filter( Q(url__icontains=query)    |
+                                                  Q(bdescr__icontains=query) |
+                                                  Q(btitle__icontains=query)))
+    userBookmarkUrls = [b.url for b in userBookmarks]
+    return (relevantBookmarks, userBookmarkUrls)
+
+    return (userBookmarks, relevantBookmarks)
+
+   

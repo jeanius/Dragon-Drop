@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 from urlparse import urlparse
 from dragondrop.get_domain_from_url import getDomain
+from dragondrop.url_utilities import get_youtube_id
 
 class Folder(models.Model):
     foldername = models.CharField(max_length=128, null=False)
@@ -22,6 +23,10 @@ class Bookmark(models.Model):
     def bdomain(self):
         return getDomain(self.url)
         
+        
+    def video_id(self):
+        return get_youtube_id(self.url, self.bdomain())
+
     def niceName(self):
         return self.btitle or self.url       
     

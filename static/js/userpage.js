@@ -125,8 +125,8 @@ function ajaxDropToFolder(dropTarget, ui) {
 	$.post("/dragondrop/ajax-drop-to-folder/",
 		 { url: ui.draggable.find("a").attr("href"),
 		   folder_name: dropTarget.find(".folder-name").first().text() },
-		   function(data) {
-			  dropTarget.find(".folder-message").text( "Link added" );
+		   function(messageFromPython) {
+			  dropTarget.find(".folder-message").text( messageFromPython );
 			  folderIcon
 				  .removeClass( "glyphicon-folder-open" )   
 				  .addClass( "glyphicon-folder-close" );

@@ -176,15 +176,17 @@ float: right;
 }
 
 
-height: 600px;
-<<<<<<< .mine=======#scrollable {
+<<<<<<< HEAD
+=======
+#scrollable {
 height: 600px;
 margin-left: auto;
 margin-right: auto;
 overflow-y: auto;
 overflow-x: hidden;
 }
->>>>>>> .theirs
+>>>>>>> e7c16b71b58db5765624914e4a405108d38ec669
+
 /**********
 
 END of general stylesheet 
