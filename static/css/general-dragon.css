@@ -51,6 +51,7 @@ h3  {
 	font-family: Cambria;
 	font-size: 28px;
 	color: #301830;
+	margin: 0 0 20px 0;
 	}
 	
 	
@@ -113,14 +114,16 @@ background-color: #F9F2FA;
 	
 .btn-primary-signin a,
 .btn-primary-search a,
-.btn-primary-folder a{
+.btn-primary-folder a,
+.btn-primary-add a{
 	text-decoration: none;
 	color: #fff;
 	}
 	
 .btn-primary-signin:hover,
 .btn-primary-search:hover,
-.btn-primary-folder:hover{
+.btn-primary-folder:hover
+.btn-primary-add:hover{
 	background-color: #604760;
 	color: #fff;
 	}
@@ -162,15 +165,7 @@ background-color: #F9F2FA;
 float: right;
 }
 
-/* folder area - user page and folder pages */
 
-#scrollable {
-height: 400px;
-margin-left: auto;
-margin-right: auto;
-overflow-y: auto;
-overflow-x: hidden;
-}
 
 /**********
 
@@ -184,7 +179,9 @@ END of general stylesheet
 Sign in page stylesheet
 
 ***********/
-
+.nav > li > a {
+display: inline-block;
+}
 
 .form-signin {
   max-width: 330px;
@@ -265,12 +262,13 @@ User page stylesheet
         
        /* For Dragon Drop */
        .dd-folder-icon	   {
-           font-size: 1.3em;
+           font-size: 2.5em;
 		   color: #412f41;
        }
 	   
 	   .btn-primary-search,
-	   .btn-primary-folder	   {
+	   .btn-primary-folder,
+		.btn-primary-add	   {
 		background-color: #412f41;
 		border-color: #382f41;
 		color: #fff;
@@ -302,7 +300,7 @@ User page stylesheet
           color: #79697A;
        }
        .folder-name{
-          font-size: 14px;
+          font-size: 18px;
 		  color: #301830;
 		  margin-top: -5px;
        }
@@ -314,6 +312,30 @@ User page stylesheet
        .domain-name {
           color: #888;
        }
+	   
+	   .add-folder {
+	   
+	   padding: 20px 0;
+	   }
+	   
+	   
+
+/* folder area - user page and folder pages */
+
+#scrollable {
+height: 450px;
+margin-left: auto;
+margin-right: auto;
+overflow-y: auto;
+overflow-x: hidden;
+}
+
+.row #scrollable {
+margin-top: 10px;
+}
+
+
+	   
 /*
 ul {
 list-style-type: none;
@@ -333,20 +355,44 @@ padding-top:30px;
 opacity:0.4;
 }
 
+
+	/* 	MAKING ALL COLUMNS SAME HEIGHT */
+
+
 .row {
 //margin: 100px -15px 0 -15px;
+width:100%;
 
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-
 background-color: #DBD0DD;/*#F9F2FA;*/
+height: 650px;
+padding-top: 10px
+}
+
+.col-md-6{
+
+/*margin-top: -20px;*/
+z-index: 10;
 
 }
+
 
 .top-bookmarks{
 z-index: 1;
 }
+
+.top-bookmarks a,
+.top-bookmarks a:hover{
+color:#412f41;
+}
+
+.top-bookmarks ol{
+font-weight: bold;
+
+}
+
 
 .bin {
 padding: 5px 20px;
@@ -356,26 +402,42 @@ margin-top: 30px;
 }
 
 .highlight-droppable {
+  text-shadow: 0 0 0.2em #f00, 0 0 0.2em #FFFFFD;
+}
+.highlight-droppable-hover {
+  text-shadow: 0 0 15px #f00, 0 0 0.4em #FFFFFD;
+}
+
+	/*** YELLOW highlight ***/
+
+/*.highlight-droppable {
   text-shadow: 0 0 0.2em #FCED7E, 0 0 0.2em #FFFFFD;
 }
 .highlight-droppable-hover {
   text-shadow: 0 0 15px yellow, 0 0 0.4em #FFFFFD;
 }
-
+*/
 .bin span {
 
 display: block;
 font-size: 120px;
 color: #5F4864;
-padding: 80px 50px;
+padding-top: 70px;
 text-align:center;
 }
 
+.bin .bin-message {
+margin: 30px auto 0 auto;
 
-.col-md-6{
+font-size: 1em;
+display: none;
+text-align: center;
+padding: 0;
+}
 
-/*margin-top: -20px;*/
-z-index: 10;
+
+.results {
+
 }
 
 /*.navbar-fixed-bottom {
@@ -403,6 +465,14 @@ margin-right: 0px;
 
 }
 
+
+/** bookmark list in a FOLDER page **/
+
+#sortable {
+clear: both;
+padding-top: 10px;
+}
+
 /* top navigation - user details */
 .navbar-inverse {
   background-color: #EBE6ED;
@@ -421,6 +491,57 @@ margin-right: 0px;
   margin: 10px -15px 0 -15px;
   }
 }
+
+@media (max-width: 992px) {
+	.bin {
+	display: none;
+		}
+		
+	.col-md-3 {
+	height: inherit;
+	padding: 10px;
+	margin-top: 20px;
+	}
+	
+	.row {
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
+	}
+	
+	#scrollable {
+height: 450px;
+margin-left: auto;
+margin-right: auto;
+overflow-y: visible;
+overflow-x: visible;
+}
+	
+	}
+
+
+a.delete-bookmark {
+
+float: right;
+font-size: 1.9em;
+padding: 0 5px 0 5px;
+color: #7A7A7A;
+}
+
+a.delete-bookmark :hover {
+color: red;
+}
+
+.delete-folder {
+color: #7A7A7A;
+font-size: 1.5em;
+display:none;
+}
+
+.delete-folder:hover {
+color: red;
+}
+
 
 /***********
 
@@ -452,4 +573,11 @@ margin-top: 0;
 padding-top: 0;
 text-align: left;
 width: auto;
+}
+
+.about {
+margin-left:auto;
+margin-right:auto;
+padding: 20px;
+background-color: white;
 }
