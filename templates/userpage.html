@@ -76,6 +76,11 @@
 							<strong><a href="{{ result.url }}">{{ result.btitle }}</a></strong>
 							<span class="domain-name">({{ result.bdomain }})</span><br>
 							{{ result.bdescr }}
+                            {% if result.video_id %}
+                                <br><iframe id="ytplayer" type="text/html" width="327" height="200"
+                                src="http://www.youtube.com/embed/{{result.video_id}}"
+                                frameborder="0"></iframe>
+                            {% endif %} 							
 					   </div>
 					{% endfor %}
 				  </div>
@@ -90,6 +95,11 @@
 							<strong><a href="{{ result.link }}">{{ result.title }}</a></strong>
 							<span class="domain-name">({{ result.domain }})</span><br>
 							{{ result.summary }}
+							{% if result.video_id %}
+                                <br><iframe id="ytplayer" type="text/html" width="327" height="200"
+                                src="http://www.youtube.com/embed/{{result.video_id}}"
+                                frameborder="0"></iframe>
+                            {% endif %}   
 							<select class="visible-xs visible-sm form-control">
 							  <option disabled selected>Move to folder...</option>
 						 

@@ -5,7 +5,9 @@ GENERAL stylesheet
 ***********/
 
 
-
+iframe {
+  margin: 10px;
+}
 
 body {
   padding-top: 20px;
@@ -165,7 +167,7 @@ float: right;
 /* folder area - user page and folder pages */
 
 #scrollable {
-height: 400px;
+height: 600px;
 margin-left: auto;
 margin-right: auto;
 overflow-y: auto;
