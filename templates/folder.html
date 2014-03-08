@@ -71,13 +71,22 @@
           {% if bookmarks %}
               <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
               <!-- Display search results in an ordered list -->
-              <div style="clear: both;" id="sortable">
+              <div id="sortable">
                 {% for bookmark in bookmarks %}
                     <div class="draggable saved-bookmark">
+					
+					<a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
+					
                         <strong><a href="{{ bookmark.url }}">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em> Saved times (just for debugging): {{bookmark.saved_times}}
+						
+						
+						
                    </div>
+				   
+				   
+				   
                 {% endfor %}
               </div>
           {% endif %}          
