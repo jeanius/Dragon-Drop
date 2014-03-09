@@ -212,7 +212,7 @@ function ajaxDropToBin(dropTarget, ui) {
 function makeNewFolderElement(folderName) {
 return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + ' <span class="glyphicon glyphicon-remove-circle delete-folder"></span>'
-       + ' <a href="/dragondrop/' + folderName.replace(" ", "_") + '/">'
+       + ' <a href="/dragondrop/' + folderName.split(" ").join("_") + '/">'
        + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
        + '  <span class="folder-name">' + folderName + '</span>'
        + ' </a>'

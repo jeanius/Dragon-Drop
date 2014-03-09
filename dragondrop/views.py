@@ -216,7 +216,11 @@ def ajaxDropToFolder(request):
             bookmark.bdescr = search_result_for_this_url['summary']
 
         drop_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
-        bfrank = drop_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max'] + 1
+        bookmark_to_folder_set = drop_folder.bookmarktofolder_set.all()
+        if bookmark_to_folder_set.count() > 0:
+            bfrank = bookmark_to_folder_set.aggregate(Max('bfrank'))['bfrank__max'] + 1
+        else:
+            bfrank = 0
         bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
                                               bffolder   = drop_folder,
                                               bfbookmark = bookmark)   
