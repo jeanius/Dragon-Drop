@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from dragondrop.forms import UserForm, LoginForm
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Max
 from dragondrop.bing_search import run_query
 from dragondrop.models import Folder, Bookmark, BookmarkToFolder, BinFolder
 from dragondrop.get_domain_from_url import getDomain
@@ -75,10 +75,14 @@ def userpage(request):
                     bin_folder = request.user.binfolder
                     bin_bookmarks = bin_folder.bbmID_fk.all()
                     bin_urls = [b.url for b in bin_bookmarks]
-                    print search_results[0]['link']
                     search_results = [r for r in search_results if not r['link'] in bin_urls]
                 except BinFolder.DoesNotExist:
                     pass
+
+                for r in relevantBookmarks:
+                    containingFolders = [f.foldername for f in list(r.fname.filter(fusername_fk=request.user))]
+                    r.containingFolders = \
+                        [{'name':f, 'underscored_name':encode_url(f)} for f in containingFolders]
 
                 context_dict['search_results'] = search_results
                 request.session['search_results'] = search_results
@@ -135,14 +139,22 @@ def folder(request, folder_page_url):
                 bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
                 bookmark.saved_times += 1
                 if bookmark_was_created:   # If bookmark didn't already exist, set its properties
-                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)                    
-                bookmarkToFolder = BookmarkToFolder.objects.create(
-                                             bffolder   = this_folder,
-                                             bfbookmark = bookmark)
+                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
+                bfrank = this_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max'] + 1                 
+                bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
+                                              bffolder   = this_folder,
+                                              bfbookmark = bookmark)
+                                              
+                bookmarkToFolder.bfrank = bfrank
                 bookmark.save()
                 bookmarkToFolder.save()
 
-            context_dict['bookmarks'] = this_folder.bookmark_set.all()
+            bf = this_folder.bookmarktofolder_set.all().order_by('-bfrank')
+            def bf_to_bookmark(bf):
+                bookmark = bf.bfbookmark
+                bookmark.bfrank = bf.bfrank
+                return bookmark
+            context_dict['bookmarks'] = map(bf_to_bookmark, list(bf))
 
         except Folder.DoesNotExist:
             pass
@@ -188,7 +200,7 @@ def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
           return None
 
 
-# This is a work in progress - when a search-result bookmark is dragged onto
+# When a search-result bookmark is dragged onto
 # a folder, it should add the link to the folder.
 def ajaxDropToFolder(request):
     if request.method == 'POST':
@@ -204,10 +216,11 @@ def ajaxDropToFolder(request):
             bookmark.bdescr = search_result_for_this_url['summary']
 
         drop_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
+        bfrank = drop_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max'] + 1
         bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
                                               bffolder   = drop_folder,
                                               bfbookmark = bookmark)   
-
+        bookmarkToFolder.bfrank = bfrank
         try:
             bin_folder = request.user.binfolder
             bin_folder.bbmID_fk.remove(bookmark)
@@ -221,6 +234,31 @@ def ajaxDropToFolder(request):
 
         return HttpResponse(message)
 
+
+
+
+
+
+def ajaxChangeBookmarkRank(request):
+    if request.method == 'POST':
+        bookmark = Bookmark.objects.get(url=request.POST['url'])
+        this_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
+        bookmarkToFolder = BookmarkToFolder.objects.get(bffolder   = this_folder,
+                                                        bfbookmark = bookmark)   
+                                   
+        bookmarkToFolder.bfrank = request.POST['new_rank']
+                              
+        bookmarkToFolder.save()
+
+        return HttpResponse("Rank changed")
+        
+        
+        
+        
+        
+        
+        
+        
 
 def ajaxDropToBin(request):
     if request.method == 'POST':
@@ -302,7 +340,6 @@ def log_out(request):
     context = RequestContext(request)
     if request.user.is_authenticated():
         logout(request)
-        print "Hello"
         return render_to_response('index.html', {}, context)
 
 def help(request):

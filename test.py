@@ -1,5 +1,6 @@
 import csv
 import re
+from random import random
 
 addUserSet = set()
 addFolderSet = set()
@@ -12,7 +13,7 @@ with open('links3.csv', 'rb') as csvfile:
     for i,row in enumerate(csvreader):
         addUserSet.add( "\t" + row[0] + " = User.objects.create_user('" + row[0] + "',None, '" + row[0] + "password')" + "\n\t" + row[0] + ".save()" )
         addFolderSet.add("\tf_" + row[1].replace(" ","_") + "_" + row[0] + " = add_folder(foldername='" + row[1] + "',fusername_fk=" + row[0] + ")")
-        addBookmarkSet.add("\tbmID_" + str(i) + ",bmID_b_" + str(i) + " = Bookmark.objects.get_or_create(url='" + row[2] + "')\n" + "\tbmID_" + str(i) + ".btitle='" + re.sub(r'[^\w]', ' ', row[3]) + "'\n\tbmID_" + str(i) + ".save()" + "\n\tbfID_" + str(i) + " = "+  "BookmarkToFolder.objects.create(bffolder=f_" + row[1].replace(" ","_") + "_" + row[0] + ",bfbookmark=bmID_" + str(i) + ")" + "\n\tbfID_" + str(i) + ".save()" ) #\n\tbmID_" + str(i) + ".fname.add(" + "bfID_" + str(i) + ")")
+        addBookmarkSet.add("\tbmID_" + str(i) + ",bmID_b_" + str(i) + " = Bookmark.objects.get_or_create(url='" + row[2] + "')\n" + "\tbmID_" + str(i) + ".btitle='" + re.sub(r'[^\w]', ' ', row[3]) + "'\n\tbmID_" + str(i) + ".save()" + "\n\tbfID_" + str(i) + " = "+  "BookmarkToFolder.objects.create(bffolder=f_" + row[1].replace(" ","_") + "_" + row[0] + ",bfbookmark=bmID_" + str(i) + ",bfrank=" + str(random()) + ")" + "\n\tbfID_" + str(i) + ".save()" ) #\n\tbmID_" + str(i) + ".fname.add(" + "bfID_" + str(i) + ")")
         addBinFolderSet.add(row[0])
         
     print "import os" 

@@ -55,7 +55,7 @@
           <form role="search" method="post" >
             {% csrf_token %}
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search your bookmarks and the web" name="query" autofocus>
+              <input type="text" class="form-control" placeholder="Search your bookmarks and the web" name="query" >
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-primary-search" >
 				<a href="#">
@@ -69,22 +69,26 @@
           
 		  
 		  
-		   <h3>Results from your folders</h3>
+		   
 		  <div id="scrollable">
 
               {% if user_search_results %}
+                  <h3>Results from your folders</h3>
 				  <!-- Display search results in an ordered list -->
-				  
-				 
 				  <div class="main-link-list" style="clear: both;">
 				    
 					{% for result in user_search_results %}
 						<div class="draggable search-result saved-bookmark">
-							<strong><a href="{{ result.url }}">{{ result.btitle }}</a></strong>
+							<strong><a href="{{ result.url }}">{{ result.niceName }}</a></strong>
 							<span class="domain-name">({{ result.bdomain }})</span><br>
-							{{ result.bdescr }}
+							{{ result.bdescr }}<br>
 							<!-- added folder name -->
-							<span class="folder-name">{{ result.fname}}</span> 
+							<span class="result-folder-name">
+							    In
+							    {% for folder in result.containingFolders %}
+							        <a href="/dragondrop/{{ folder.underscored_name }}">{{ folder.name }}</a>{% if not forloop.last %},{% endif %}  
+							    {% endfor %}
+							</span> 
                             {% if result.video_id %}
                                 <br><iframe id="ytplayer" type="text/html" width="327" height="200"
                                 src="http://www.youtube.com/embed/{{result.video_id}}"

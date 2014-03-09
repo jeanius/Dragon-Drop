@@ -32,10 +32,30 @@ $(function() {
 		// display the bin message
 		$(".bin-message").show();
     }
-    var dragStop = function() {
+    var dragStop = function(event, ui) {
         elementsToHighlightOnDrag.removeClass("highlight-droppable");   
 		// hide the bin message
 		$(".bin-message").hide();
+		var prevBmRank = ui.item.prev().attr('data-bfrank');
+		var nextBmRank = ui.item.next().attr('data-bfrank');
+		var thisBmRank = ui.item.attr('data-bfrank');
+		// Set the rank (a floating-point value) to be between the ranks of the
+		// bookmarks above and below. If the bookmark is dropped at the top or bottom
+		// of the list, set its rank highest or lowest, respectively.
+		if (thisBmRank < nextBmRank) {
+		    if (typeof prevBmRank === 'undefined') {
+		        changeBookmarkRank(ui.item, +nextBmRank + 1);
+		    } else {
+		        changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+		    }
+		} else if (thisBmRank > prevBmRank) {
+		    if (typeof nextBmRank === 'undefined') {
+		        changeBookmarkRank(ui.item, +prevBmRank - 1);
+		    } else {
+		        changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+		    }		
+		}
+		
     }
     
     // The helper is the small div that moves when a search result is dragged
@@ -251,6 +271,21 @@ function makeDroppable() {
 	     }
 	  }
 	});
+}
+
+
+function changeBookmarkRank(bookmarkDiv, newRank) {
+    bookmarkDiv.attr('data-bfrank', newRank)
+	$.post("/dragondrop/ajax-change-bookmark-rank/",
+	   { new_rank: bookmarkDiv.attr("data-bfrank"),
+	     url: bookmarkDiv.find("strong").find("a").attr("href"),
+	     folder_name: $("#current-folder-name").text() },
+	   function(messageFromPython) {
+
+	   })
+		.fail(function() {
+		   alert("Error changing rank");
+		}); 
 }
 
 // hovering over the bin area

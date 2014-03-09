@@ -327,10 +327,11 @@ User page stylesheet
           color: #79697A;
        }
        .folder-name{
-          font-size: 18px;
 		  color: #301830;
+          font-size: 16px;
 		  position: relative;
 		  top:-0.3em;
+		  padding-left: .5em;
        }
        
        .droppable a:hover  {
@@ -567,6 +568,7 @@ display:none;
 float:right;
 margin-top:0.5em;
 margin-right: -30px;
+cursor: pointer;
 }
 
 .delete-folder:hover {

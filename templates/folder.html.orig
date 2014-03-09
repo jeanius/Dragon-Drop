@@ -59,7 +59,7 @@
       <form method="post" >
         {% csrf_token %}
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Paste the URL of a page" name="url" autofocus>
+          <input type="text" class="form-control" placeholder="Paste the URL of a page" name="url" >
           <span class="input-group-btn">
             <button type="submit" class="btn btn-primary-folder" >
 			<a href ="#">Add to this folder</a>
