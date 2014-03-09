@@ -36,6 +36,11 @@ $(function() {
         elementsToHighlightOnDrag.removeClass("highlight-droppable");   
 		// hide the bin message
 		$(".bin-message").hide();
+
+    }
+    
+    var sortStop = function(event, ui) {
+        dragStop(event, ui);
 		var prevBmRank = ui.item.prev().attr('data-bfrank');
 		var nextBmRank = ui.item.next().attr('data-bfrank');
 		var thisBmRank = ui.item.attr('data-bfrank');
@@ -55,15 +60,14 @@ $(function() {
 		        changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
 		    }		
 		}
-		
-    }
-    
+	}
+
     // The helper is the small div that moves when a search result is dragged
     var draggableHelper = function(event) {
         return $( "<div class='ui-widget-header draggable-helper'>Drag to a folder</div>" );    
     }
     
-    $( "#sortable" ).sortable({start: dragStart, stop: dragStop});
+    $( "#sortable" ).sortable({start: dragStart, stop: sortStop});
     
     $( ".search-result" ).draggable({cursor: "move",
                                      cursorAt: { top: 0, left: -12 },

@@ -243,15 +243,14 @@ def ajaxChangeBookmarkRank(request):
     if request.method == 'POST':
         bookmark = Bookmark.objects.get(url=request.POST['url'])
         this_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
-        bookmarkToFolder = BookmarkToFolder.objects.get(bffolder   = this_folder,
-                                                        bfbookmark = bookmark)   
-                                   
-        bookmarkToFolder.bfrank = request.POST['new_rank']
-                              
-        bookmarkToFolder.save()
-
-        return HttpResponse("Rank changed")
-        
+        try:
+            bookmarkToFolder = BookmarkToFolder.objects.get(bffolder   = this_folder,
+                                                            bfbookmark = bookmark)                              
+            bookmarkToFolder.bfrank = request.POST['new_rank']
+            bookmarkToFolder.save()
+            return HttpResponse("Rank changed")
+        except Bookmark.DoesNotExist:
+            return HttpResponse("The bookmark is not in this folder")
         
         
         
