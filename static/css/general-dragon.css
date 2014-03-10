@@ -7,7 +7,7 @@ GENERAL stylesheet
 
 
 body {
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 20px;
   background-color: #EBE6ED;
   font-family: Verdana;
@@ -21,15 +21,14 @@ h1, h2{
 	font-weight: bold;
 	color: #301830;
 	text-align: center;
-	width: 60%;
 	margin-right:auto;
 	margin-left:auto;
 	padding-top:20px;
 	}
 	
 h1.header {
-	font-size: 110px;
-	margin-top: -250px;
+	font-size: 60px;
+	margin-top: -180px;
 	}
 
 .initial-header {
@@ -61,6 +60,13 @@ h3  {
 	margin: 0 0 20px 0;
 	}
 	
+.folders {
+	margin: 30px 0 10px 0;
+}	
+
+h3.results {
+margin-bottom: 10px;
+}
 
 /* Embedded YouTube player */
 iframe {
@@ -68,23 +74,21 @@ iframe {
 }
 
 	
-/* the Dragon logo in the corner*/
+/* the Dragon logo in the left corner*/
 
 img.subpage{
-float: right;
-width: 20%;
-height: 20%;
-padding-bottom: 50px;
+
+	display: block;
+	width: 84%;
+	opacity:0.4;
 }
 
 /* Dragon in the middle*/
 
 img {
-	padding: 20px;
-	vertical-align: middle;
 	display: block;
     margin-left: auto;
-    margin-right: auto 
+    margin-right: auto;
 	}
 	
 	/* all nav bards */
@@ -180,15 +184,6 @@ float: right;
 }
 
 
-height: 600px;
-<<<<<<< .mine=======#scrollable {
-height: 600px;
-margin-left: auto;
-margin-right: auto;
-overflow-y: auto;
-overflow-x: hidden;
-}
->>>>>>> .theirs
 /**********
 
 END of general stylesheet 
@@ -257,7 +252,6 @@ END OF Sign in page stylesheet
 User page stylesheet
 
 ***********/
-
 
     .small-screen-move-button {
       float:right;
@@ -358,7 +352,7 @@ User page stylesheet
 /* folder area - user page and folder pages */
 
 #scrollable {
-height: 450px;
+height: 310px;
 margin-left: auto;
 margin-right: auto;
 overflow-y: auto;
@@ -368,6 +362,8 @@ overflow-x: hidden;
 .row #scrollable {
 margin-top: 10px;
 }
+
+.results 
 
 
 	   
@@ -384,11 +380,6 @@ padding-top:30px;
 }*/
 
 
-/* Dragon image */
-
-.behind-header {
-opacity:0.4;
-}
 
 
 	/* 	MAKING ALL COLUMNS SAME HEIGHT */
@@ -402,7 +393,7 @@ width:100%;
 /* columns for the user, folder pages */
 .col-md-3 {
 background-color: #DBD0DD;/*#F9F2FA;*/
-height: 650px;
+height: 720px;
 padding-top: 10px
 }
 
@@ -470,10 +461,13 @@ text-align: center;
 padding: 0;
 }
 
-
-.results {
-
+#search-results {
+height: 665px;
+overflow: auto;
+margin-top: 20px;
 }
+
+
 
 /*.navbar-fixed-bottom {
 font-size: 24px;
@@ -528,6 +522,11 @@ padding-top: 10px;
 }
 
 @media (max-width: 992px) {
+
+body {
+	padding-top: 20px;
+	}
+	
 	.bin {
 	display: none;
 		}
@@ -544,6 +543,16 @@ padding-top: 10px;
 	margin-left: auto;
 	}
 	
+	
+	img.subpage {
+	width: 84%;
+	opacity: 0.1;
+	}
+	
+	h1.header {
+	margin-top: -95%;
+	}
+	
 	#scrollable {
 height: 450px;
 margin-left: auto;
@@ -553,7 +562,6 @@ overflow-x: visible;
 }
 	
 	}
-
 
 a.delete-bookmark {
 
