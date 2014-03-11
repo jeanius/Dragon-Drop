@@ -4,6 +4,38 @@ $(function() {
         headers: { "X-CSRFToken": getCookie('csrftoken') }
     });
 
+    
+    // Add a message and disable button when the search or add button is clicked
+    var addBtnMessage = function(button, message, keepWidth) {
+        var btnWidth = button.css("width");
+        button.addClass("disabled");
+        button.text(message);
+        if (!keepWidth) {
+            button.css("width", btnWidth);
+        }
+    }
+    
+    $(".btn-primary-folder").click(function() {
+        addBtnMessage($(this), "Adding...");
+    });
+    $(".btn-primary-search").click(function() {
+        addBtnMessage($(this), "Searching...", true);
+    });    
+    
+
+    $(".droppable")
+        .mouseover(function() {
+            allowBookmarkReorder = false;
+            // Only allow re-ordering of bookmarks if the user isn't about to
+            // drop onto a folder or the bin
+            $( "#sortable" ).sortable( "option", "disabled", true );
+        })
+        .mouseout(function() {
+            allowBookmarkReorder = true;
+            $( "#sortable" ).sortable( "option", "disabled", false );
+        })
+    
+    
     // Filter folder names based on typed text
     $( "#folder-filter" ).keyup(function() {
         $( ".droppable" ).each (function() {
@@ -29,38 +61,37 @@ $(function() {
     var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
     var dragStart = function() {
         elementsToHighlightOnDrag.addClass("highlight-droppable");
-		// display the bin message
-		$(".bin-message").show();
+        // display the bin message
+        $(".bin-message").show();
     }
     var dragStop = function(event, ui) {
         elementsToHighlightOnDrag.removeClass("highlight-droppable");   
-		// hide the bin message
-		$(".bin-message").hide();
-
+        // hide the bin message
+        $(".bin-message").hide();
     }
     
     var sortStop = function(event, ui) {
         dragStop(event, ui);
-		var prevBmRank = ui.item.prev().attr('data-bfrank');
-		var nextBmRank = ui.item.next().attr('data-bfrank');
-		var thisBmRank = ui.item.attr('data-bfrank');
-		// Set the rank (a floating-point value) to be between the ranks of the
-		// bookmarks above and below. If the bookmark is dropped at the top or bottom
-		// of the list, set its rank highest or lowest, respectively.
-		if (thisBmRank < nextBmRank) {
-		    if (typeof prevBmRank === 'undefined') {
-		        changeBookmarkRank(ui.item, +nextBmRank + 1);
-		    } else {
-		        changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
-		    }
-		} else if (thisBmRank > prevBmRank) {
-		    if (typeof nextBmRank === 'undefined') {
-		        changeBookmarkRank(ui.item, +prevBmRank - 1);
-		    } else {
-		        changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
-		    }		
-		}
-	}
+        var prevBmRank = ui.item.prev().attr('data-bfrank');
+        var nextBmRank = ui.item.next().attr('data-bfrank');
+        var thisBmRank = ui.item.attr('data-bfrank');
+        // Set the rank (a floating-point value) to be between the ranks of the
+        // bookmarks above and below. If the bookmark is dropped at the top or bottom
+        // of the list, set its rank highest or lowest, respectively.
+        if (thisBmRank < nextBmRank) {
+            if (typeof prevBmRank === 'undefined') {
+                changeBookmarkRank(ui.item, +nextBmRank + 1);
+            } else {
+                changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+            }
+        } else if (thisBmRank > prevBmRank) {
+            if (typeof nextBmRank === 'undefined') {
+                changeBookmarkRank(ui.item, +prevBmRank - 1);
+            } else {
+                changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+            }        
+        }
+    }
 
     // The helper is the small div that moves when a search result is dragged
     var draggableHelper = function(event) {
@@ -126,7 +157,7 @@ $(function() {
             $("#add-folder-button").click();
         }
     });
-                                                         
+    
 });
 
 
@@ -163,48 +194,70 @@ function textAppearsIn(needle, haystack) {
 
 
 function removeMessageAfterShortDelay(folderElement) {
-	window.setTimeout(function() {folderElement.find(".folder-message").html("");}, 800);
+    window.setTimeout(function() {folderElement.find(".folder-message").html("");}, 800);
 }
 
+// Call this to add a url to a folder.
+// Parameters:
+//   url
+//   folder_name
+//   success_function: A function with one parameter(the message returned by Django)
+//   failure_function: A function with no parameters, which is called if the POST request fails
+function ajaxAddToFolder(url, folder_name, success_function, failure_function) {
+    $.post("/dragondrop/ajax-drop-to-folder/",
+           { url: url, folder_name: folder_name },
+           success_function)
+            .fail(failure_function); 
+}
 
 function ajaxDropToFolder(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
-	$.post("/dragondrop/ajax-drop-to-folder/",
-		 { url: ui.draggable.find("strong").find("a").attr("href"),
-		   folder_name: dropTarget.find(".folder-name").first().text() },
-		   function(messageFromPython) {
-			  dropTarget.find(".folder-message").text( messageFromPython );
-			  folderIcon
-				  .removeClass( "glyphicon-folder-open" )   
-				  .addClass( "glyphicon-folder-close" );
-		      ui.draggable.addClass("saved-bookmark");
-		      if ($("#current-folder-name").text()=="Bin Folder") {ui.draggable.slideUp()};
-			  removeMessageAfterShortDelay(dropTarget);
-		   })
-			.fail(function() {
-			   dropTarget.find(".folder-message").text( "Error adding bookmark" );
-			   folderIcon
-				   .removeClass( "glyphicon-folder-open" )   
-				   .addClass( "glyphicon-folder-close" );
-			   removeMessageAfterShortDelay(dropTarget);
-			}); 
-}
+    ajaxAddToFolder(ui.draggable.find("strong").find("a").attr("href"),
+                    dropTarget.find(".folder-name").first().text(),
+                    function(messageFromPython) {
+                      dropTarget.find(".folder-message").text( messageFromPython );
+                      folderIcon
+                          .removeClass( "glyphicon-folder-open" )   
+                          .addClass( "glyphicon-folder-close" );
+                      ui.draggable.addClass("saved-bookmark");
+                      //if ($("#current-folder-name").text()=="Bin Folder") {ui.draggable.slideUp()};
+                      removeMessageAfterShortDelay(dropTarget);
+                    },
+                    function() {
+                       dropTarget.find(".folder-message").text( "Error adding bookmark" );
+                       folderIcon
+                           .removeClass( "glyphicon-folder-open" )   
+                           .addClass( "glyphicon-folder-close" );
+                       removeMessageAfterShortDelay(dropTarget);
+                    });
+};
 
+
+// Call this to add a url to the bin folder.
+// Parameters:
+//   url
+//   success_function: A function with one parameter(the message returned by Django)
+//   failure_function: A function with no parameters, which is called if the POST request fails
+function ajaxAddToBin(url, success_function, failure_function) {
+    $.post("/dragondrop/ajax-drop-to-bin/",
+           { url: url },
+           success_function)
+            .fail(failure_function); 
+}
 
 function ajaxDropToBin(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
-	$.post("/dragondrop/ajax-drop-to-bin/",
-		 { url: ui.draggable.find("strong").find("a").attr("href") },
-		   function(messageFromPython) {
-			  dropTarget.find(".folder-message").text( messageFromPython );
-		      ui.draggable.addClass("saved-bookmark")
-		      ui.draggable.slideUp();
-			  removeMessageAfterShortDelay(dropTarget);
-		   })
-			.fail(function() {
-			   dropTarget.find(".folder-message").text( "Error adding bookmark" );
-			   removeMessageAfterShortDelay(dropTarget);
-			}); 
+    ajaxAddToBin(ui.draggable.find("strong").find("a").attr("href"),
+                 function(messageFromPython) {
+                      dropTarget.find(".folder-message").text( messageFromPython );
+                      ui.draggable.addClass("saved-bookmark")
+                      ui.draggable.slideUp();
+                      removeMessageAfterShortDelay(dropTarget);
+                 },
+                 function() {
+                     dropTarget.find(".folder-message").text( "Error adding bookmark" );
+                     removeMessageAfterShortDelay(dropTarget);
+                 });
 }
 
 
@@ -238,58 +291,58 @@ function makeFoldersDeleteable() {
 }
 
 function deleteFolder(folderName, deleteButton) {
-	 $.post("/dragondrop/ajax-delete-folder/",
-	 { folderName: folderName },
-	 function(data) {
-		 deleteButton.parent().slideUp();
-		 deleteButton.show();
-	 })
-		.fail(function() {
-			deleteButton.show();
-		});
+     $.post("/dragondrop/ajax-delete-folder/",
+     { folderName: folderName },
+     function(data) {
+         deleteButton.parent().slideUp();
+         deleteButton.show();
+     })
+        .fail(function() {
+            deleteButton.show();
+        });
 }
 
 function makeDroppable() {
-	$( ".droppable" ).droppable({
-	  over: function( event, ui ) {
-		 $( this ).find(".dd-folder-icon").not(".keep-folder-open")
-			 .removeClass( "glyphicon-folder-close" )
-			 .addClass( "glyphicon-folder-open" );
-		 $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
-	  },
-	  out: function( event, ui ) {
-		 $( this ).find(".dd-folder-icon").not(".keep-folder-open")
-			 .removeClass( "glyphicon-folder-open" )
-			 .addClass( "glyphicon-folder-close" );
-		 $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
-	  },
-	  tolerance: "pointer",
-	  drop: function( event, ui ) {
-		 var dropTarget = $(this);
-		 dropTarget.find(".folder-message").text( "Adding link..." );                          
-		 dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
-		 if (dropTarget.hasClass("bin")) {
-		     ajaxDropToBin(dropTarget, ui);
-		 } else {
-		     ajaxDropToFolder(dropTarget, ui);
-	     }
-	  }
-	});
+    $( ".droppable" ).droppable({
+        over: function( event, ui ) {
+            $( this ).find(".dd-folder-icon").not(".keep-folder-open")
+                .removeClass( "glyphicon-folder-close" )
+                .addClass( "glyphicon-folder-open" );
+            $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
+        },
+        out: function( event, ui ) {
+            $( this ).find(".dd-folder-icon").not(".keep-folder-open")
+                .removeClass( "glyphicon-folder-open" )
+                .addClass( "glyphicon-folder-close" );
+            $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
+        },
+        tolerance: "pointer",
+        drop: function( event, ui ) {
+            var dropTarget = $(this);
+            dropTarget.find(".folder-message").text( "Adding link..." );                          
+            dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
+            if (dropTarget.hasClass("bin")) {
+                ajaxDropToBin(dropTarget, ui);
+            } else {
+                ajaxDropToFolder(dropTarget, ui);
+            }
+        }
+    });
 }
 
 
 function changeBookmarkRank(bookmarkDiv, newRank) {
     bookmarkDiv.attr('data-bfrank', newRank)
-	$.post("/dragondrop/ajax-change-bookmark-rank/",
-	   { new_rank: bookmarkDiv.attr("data-bfrank"),
-	     url: bookmarkDiv.find("strong").find("a").attr("href"),
-	     folder_name: $("#current-folder-name").text() },
-	   function(messageFromPython) {
+    $.post("/dragondrop/ajax-change-bookmark-rank/",
+       { new_rank: bookmarkDiv.attr("data-bfrank"),
+         url: bookmarkDiv.find("strong").find("a").attr("href"),
+         folder_name: $("#current-folder-name").text() },
+       function(messageFromPython) {
 
-	   })
-		.fail(function() {
-		   alert("Error changing rank");
-		}); 
+       })
+        .fail(function() {
+           alert("Error changing rank");
+        }); 
 }
 
 // hovering over the bin area

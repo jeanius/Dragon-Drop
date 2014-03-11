@@ -140,7 +140,8 @@ def folder(request, folder_page_url):
                 bookmark.saved_times += 1
                 if bookmark_was_created:   # If bookmark didn't already exist, set its properties
                     bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
-                bfrank = this_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max'] + 1                 
+                maxRankInFolder = this_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max']
+                bfrank = (maxRankInFolder or 0) + 1                 
                 bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
                                               bffolder   = this_folder,
                                               bfbookmark = bookmark)
@@ -203,7 +204,7 @@ def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
 # When a search-result bookmark is dragged onto
 # a folder, it should add the link to the folder.
 def ajaxDropToFolder(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         url = request.POST['url']
         bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)
 
@@ -244,7 +245,7 @@ def ajaxDropToFolder(request):
 
 
 def ajaxChangeBookmarkRank(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         bookmark = Bookmark.objects.get(url=request.POST['url'])
         this_folder = request.user.folder_set.get(foldername = request.POST['folder_name'])
         try:
@@ -264,7 +265,7 @@ def ajaxChangeBookmarkRank(request):
         
 
 def ajaxDropToBin(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         url = request.POST['url']
         bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)
 
@@ -293,7 +294,7 @@ def ajaxDropToBin(request):
 
 
 def ajaxDeleteBookmark(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         url = request.POST['bookmarkUrl']
         bookmark = Bookmark.objects.get(url=url)
         foldername = request.POST['folderName']
@@ -310,7 +311,7 @@ def ajaxDeleteBookmark(request):
         return HttpResponse("Bookmark deleted")
         
 def ajaxCreateFolder(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         folderName = request.POST['folderName']
         if folderName == "":
             return HttpResponse("The folder name can't be blank")
@@ -321,7 +322,7 @@ def ajaxCreateFolder(request):
             return HttpResponse("Folder already exists")
         
 def ajaxDeleteFolder(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated():
         folderName = request.POST['folderName']
         folder = Folder.objects.get(foldername=folderName, fusername_fk=request.user)
         BookmarkToFolder.objects.filter(bffolder = folder).delete()
