@@ -91,7 +91,7 @@ def userpage(request):
         return render_to_response('userpage.html', context_dict, context)
 
      else:
-         return render_to_response('index.html', {}, context)       
+         return render_to_response('index.html', {}, context)     
 
      
 def register(request):
@@ -137,19 +137,29 @@ def folder(request, folder_page_url):
             
             if request.method == 'POST':
                 url = request.POST['url']
-                bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
-                bookmark.saved_times += 1
-                if bookmark_was_created:   # If bookmark didn't already exist, set its properties
-                    bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
-                maxRankInFolder = this_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max']
-                bfrank = (maxRankInFolder or 0) + 1                 
-                bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
-                                              bffolder   = this_folder,
-                                              bfbookmark = bookmark)
+                acceptableURL = True
+                
+                urlParse = urlparse(url)
+                
+                if not urlParse[0]:
+                    acceptableURL = False
+                    context_dict['acceptable'] = acceptableURL
+                    print "NOT ACCEPTABLE!!!!!"
+                
+                else:
+                    bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
+                    bookmark.saved_times += 1
+                    if bookmark_was_created:   # If bookmark didn't already exist, set its properties
+                        bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
+                    maxRankInFolder = this_folder.bookmarktofolder_set.all().aggregate(Max('bfrank'))['bfrank__max']
+                    bfrank = (maxRankInFolder or 0) + 1                 
+                    bookmarkToFolder, added_to_folder = BookmarkToFolder.objects.get_or_create(
+                                                  bffolder   = this_folder,
+                                                  bfbookmark = bookmark)
                                               
-                bookmarkToFolder.bfrank = bfrank
-                bookmark.save()
-                bookmarkToFolder.save()
+                    bookmarkToFolder.bfrank = bfrank
+                    bookmark.save()
+                    bookmarkToFolder.save()
 
             bf = this_folder.bookmarktofolder_set.all().order_by('-bfrank')
             def bf_to_bookmark(bf):
@@ -368,13 +378,13 @@ def bookmarksFoldersUsers(request):
         current_user = request.user
                  
         try:
-            context_dict = {'bookmarklist': topten(request)}
-            context_dict['user'] = current_user
-            context_dict['folders'] = getFolderList(current_user, None)   
+            context_dict = {'bookmarklist': topten(request),
+                            'user':         current_user,
+                            'folders':      getFolderList(current_user, None)}
         except User.DoesNotExist:
                pass
         
-    return (context_dict)
+    return context_dict
 
 def topten(request):
      topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
