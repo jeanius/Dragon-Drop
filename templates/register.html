@@ -1,46 +1,14 @@
-<!DOCTYPE html>
+{% extends 'initial_base.html' %}
 
-{% load static %}
+{% block title %}Register - Dragon Drop{% endblock %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-
-    <title>Register - Dragon Drop</title>
-
-    <!-- Bootstrap core CSS -->
-	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
-
-    <!-- Custom styles for this template -->
-	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
-
-  </head>
-
-  <body>
-
-    <div class="container">
-   
-   	<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" > 
-	
-		{% if registered %}
-		
-		<h3>Your registration is complete - Welcome to Dragon Drop</h3>
-		
-		<a href='/dragondrop/userpage'><button class="btn btn-lg btn-primary-signin" input type="submit" value="Continue to Login">
-		Continue to Login
-		</button></a>
-
-		{% else %}
-
+	{% block header %}
 		<h2>Register for Dragon Drop</h2>
-		
-		<div class ="registerForm">
-		
+	{% endblock %}
+	
+	
+	{% block form %}
+	
       <form id="user_form" class="form-register" method="post" action="/dragondrop/register/">
 	  
 	  {% csrf_token %}
@@ -57,31 +25,5 @@
 	   <button class="btn btn-lg btn-primary-signin" input type="submit" value="Register"/>Register</button>
 	  
 	  </form>
-	  </div>
-
-	  {% endif %}
 	  
-	      <!-- bottom navigation panel -->
-    
-    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-      <div class="container">
-
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a class="footer" href="/dragondrop/about">About</a></li>
-            <li><a href="/dragondrop/privacy">Privacy</a></li>
-            <li><a href="/dragondrop/help">Help</a></li>
-
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-	  
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-  </body>
-</html>
+	 {% endblock %}

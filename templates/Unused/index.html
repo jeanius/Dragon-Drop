@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>Sign in - Dragon Drop</title>
 
     <!-- Bootstrap core CSS -->
 	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
@@ -27,27 +27,22 @@
    
    	<img src="{% static "dragon-logo-small.png" %}"   alt="Dragon Drop" > 
 
-	{% block header %}
-		<h1 class="initial-header">Dragon Drop</h1>
-	{% endblock %}
-	
-	
-	{% block form %}
+	<h1 class="initial-header">Dragon Drop</h1>
 	
 	<form class="form-signin" id="LoginForm" method="post" action="/dragondrop/">
 	  
 	  {% csrf_token %}
 	  
 		<input type="text" name="username" class="form-control" placeholder="Username" required autofocus size="50" />
-		<br>
+		<br />
 		<input type="password" name="password" class="form-control" placeholder="Password" required size="50" />
-		<br>
+		<br />
 
 	  <button class="btn btn-lg btn-primary-signin" input type="submit" value="Login"/>Log in</button>
 	  <button class="btn btn-lg btn-primary-register"><a href='register'>Register<a/></button>
 	  </form>
 	  
-	{% endblock %}
+	
 	
 	<!-- copied navbar -->
 	

@@ -1,35 +1,15 @@
-<!DOCTYPE html>
+{% extends 'initial_base.html' %}
 
-{% load static %}
+{% block title %}Sign in - Dragon Drop{% endblock %}
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-
-    <title>Sign in - Dragon Drop</title>
-
-    <!-- Bootstrap core CSS -->
-	 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
-
-    <!-- Custom styles for this template -->
-	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
-
-	</head>
-
-  <body>
-
-    <div class="container">
-   
-   	<img src="{% static "dragon-logo-small.png" %}"   alt="Dragon Drop" > 
-
-	<h1 class="initial-header">Dragon Drop</h1>
+	{% block header %}
+		<h1 class="initial-header">Dragon Drop</h1>
+	{% endblock %}
 	
-	<form class="form-signin" id="LoginForm" method="post" action="/dragondrop/">
+	
+	{% block form %}
+	
+      <form class="form-signin" id="LoginForm" method="post" action="/dragondrop/">
 	  
 	  {% csrf_token %}
 	  
@@ -42,79 +22,4 @@
 	  <button class="btn btn-lg btn-primary-register"><a href='register'>Register<a/></button>
 	  </form>
 	  
-	
-	
-	<!-- copied navbar -->
-	
-	      <!-- Static navbar -->
-      <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-    
-          </div>
-          <div class="collapse navbar-collapse ">
-            <ul class="nav navbar-nav">
-              <li><a class="footer" href="/dragondrop/about">About</a></li>
-              <li><a href="/dragondrop/privacy">Privacy</a></li>
-              <li><a href="/dragondrop/help">Help</a></li>
-			 </ul>
-     
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </div>
-	
-	<!-- /copied navbar -->
-	
-	
-	
-	
-	
-	
-	
-	<!-- NAVIGATION
-	  
-	      <!-- bottom navigation panel
-    
-    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-      <div class="container-fluid">
-		<div class="navbar-header">
-	  		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-		</div> <!-- /.navbar-header"
-        <div class="collapse navbar-collapse">
-		  <ul class="nav navbar-nav">
-            <li><a class="footer" href="/dragondrop/about">About</a></li>
-            <li><a href="/dragondrop/privacy">Privacy</a></li>
-            <li><a href="/dragondrop/help">Help</a></li>
-
-          </ul>
-		  
-		
-        </div><!--/.nav-collapse 
-      </div>
-    </div>
-	  
-    </div> <!-- /container -->
-
-</div>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-   
-    <script src="{% static "js/bootstrap.min.js" %}"></script>
-
-	
-  </body>
-</html>
+	 {% endblock %}
