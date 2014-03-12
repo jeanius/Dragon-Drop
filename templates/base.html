@@ -21,9 +21,7 @@
     <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
     <link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
     <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
-    
-    <!-- Custom styles for this template -->    
-    
+        
   </head>
 
 	<body>
@@ -40,7 +38,7 @@
 					{% block left_column %}
 					
 						<!-- Dragon logo -->
-					<img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
+					<a href="/userpage"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
 		
 						  
 						<!-- Dragon Drop header -->
@@ -58,7 +56,7 @@
 								<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">
 										{% if folder.url %}
 									<span class="glyphicon glyphicon-remove-circle delete-folder"></span>
-										<a href="/dragondrop/{{folder.url}}/">
+										<a href="/{{folder.url}}/">
 											<span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>				
 											<span class="folder-name">{{ folder }}</span>				
 										</a>
@@ -152,7 +150,7 @@
 															<span class="result-folder-name">
 														In
 														{% for folder in result.containingFolders %}
-														<a href="/dragondrop/{{ folder.underscored_name }}">{{ folder.name }}</a>{% if not forloop.last %},{% endif %}  
+														<a href="/{{ folder.underscored_name }}">{{ folder.name }}</a>{% if not forloop.last %},{% endif %}  
 														{% endfor %}
 															</span> 
 														{% if result.video_id %}
@@ -233,7 +231,7 @@
 						</div>
 		
 						<div class="bin droppable">
-							<a href="/dragondrop/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
+							<a href="/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
 								<div class="bin-message">Never show me this again!</div>
 									<p class="folder-message"></p>
 								</div>
@@ -263,13 +261,13 @@
           </div>
          <div class="collapse navbar-collapse ">
             <ul class="nav navbar-nav">
-              <li><a class="footer" href="/dragondrop/about">About</a></li>
-              <li><a href="/dragondrop/privacy">Privacy</a></li>
-              <li><a href="/dragondrop/help">Help</a></li>
+              <li><a class="footer" href="/about">About</a></li>
+              <li><a href="/privacy">Privacy</a></li>
+              <li><a href="/help">Help</a></li>
 			  
 			  
-				<li class="user-details"><a href="/dragondrop/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-				<li class="user-details"> <a class="navbar-brand " href="/dragondrop/userpage">
+				<li class="user-details"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+				<li class="user-details"> <a class="navbar-brand " href="/userpage">
 				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
 				</li>
 			</ul>

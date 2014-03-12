@@ -112,7 +112,7 @@ $(function() {
     $("#add-folder-button")
         .click(function() {
              var folderName = $("#new-folder-name-input").val();      
-             $.post("/dragondrop/ajax-create-folder/",
+             $.post("/ajax-create-folder/",
              { folderName: folderName },
              function(data) {
                 $("#folder-add-message").text(data);
@@ -135,7 +135,7 @@ $(function() {
              var deleteButton = $(this);
              deleteButton.hide();
              var bookmarkUrl = deleteButton.parent().parent().find("strong").find("a").first().attr("href");
-             $.post("/dragondrop/ajax-delete-bookmark/",
+             $.post("/ajax-delete-bookmark/",
              { bookmarkUrl: bookmarkUrl, folderName: $("#current-folder-name").text() },
              function(data) {
                  deleteButton.parent().parent().slideUp();
@@ -204,7 +204,7 @@ function removeMessageAfterShortDelay(folderElement) {
 //   success_function: A function with one parameter(the message returned by Django)
 //   failure_function: A function with no parameters, which is called if the POST request fails
 function ajaxAddToFolder(url, folder_name, success_function, failure_function) {
-    $.post("/dragondrop/ajax-drop-to-folder/",
+    $.post("/ajax-drop-to-folder/",
            { url: url, folder_name: folder_name },
            success_function)
             .fail(failure_function); 
@@ -239,7 +239,7 @@ function ajaxDropToFolder(dropTarget, ui) {
 //   success_function: A function with one parameter(the message returned by Django)
 //   failure_function: A function with no parameters, which is called if the POST request fails
 function ajaxAddToBin(url, success_function, failure_function) {
-    $.post("/dragondrop/ajax-drop-to-bin/",
+    $.post("/ajax-drop-to-bin/",
            { url: url },
            success_function)
             .fail(failure_function); 
@@ -265,7 +265,7 @@ function ajaxDropToBin(dropTarget, ui) {
 function makeNewFolderElement(folderName) {
 return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + ' <span class="glyphicon glyphicon-remove-circle delete-folder"></span>'
-       + ' <a href="/dragondrop/' + folderName.split(" ").join("_") + '/">'
+       + ' <a href="/' + folderName.split(" ").join("_") + '/">'
        + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
        + '  <span class="folder-name">' + folderName + '</span>'
        + ' </a>'
@@ -291,7 +291,7 @@ function makeFoldersDeleteable() {
 }
 
 function deleteFolder(folderName, deleteButton) {
-     $.post("/dragondrop/ajax-delete-folder/",
+     $.post("/ajax-delete-folder/",
      { folderName: folderName },
      function(data) {
          deleteButton.parent().slideUp();
@@ -333,7 +333,7 @@ function makeDroppable() {
 
 function changeBookmarkRank(bookmarkDiv, newRank) {
     bookmarkDiv.attr('data-bfrank', newRank)
-    $.post("/dragondrop/ajax-change-bookmark-rank/",
+    $.post("/ajax-change-bookmark-rank/",
        { new_rank: bookmarkDiv.attr("data-bfrank"),
          url: bookmarkDiv.find("strong").find("a").attr("href"),
          folder_name: $("#current-folder-name").text() },
