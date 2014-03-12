@@ -9,6 +9,17 @@
 	
 	{% block form %}
 	
+	{% if registered %}
+		
+		<h3>Your registration is complete - Welcome to Dragon Drop</h3>
+		
+		<a href='/userpage'><button class="btn btn-lg btn-primary-signin" input type="submit" value="Continue to Login">
+		Continue to Login
+		</button></a>
+
+		{% else %}
+
+	
       <form id="user_form" class="form-register" method="post" action="/register/">
 	  
 	  {% csrf_token %}
@@ -25,5 +36,7 @@
 	   <button class="btn btn-lg btn-primary-signin" input type="submit" value="Register"/>Register</button>
 	  
 	  </form>
+	  
+	  {% endif %}
 	  
 	 {% endblock %}
