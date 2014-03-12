@@ -10,6 +10,7 @@ from dragondrop.get_domain_from_url import getDomain
 from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
 from dragondrop.url_utilities import get_youtube_id
+from urlparse import urlparse
 
 def index(request):
     context = RequestContext(request)
@@ -105,6 +106,7 @@ def register(request):
           if user_form.is_valid():
                user = user_form.save()
                user.set_password(user.password)
+               bin_folder = BinFolder.objects.create(busername_fk = user)
                user.save()
                username = request.POST['username']
                registered = True
@@ -163,7 +165,6 @@ def folder(request, folder_page_url):
 
     else:
         return render_to_response('index.html')
-
 
 def binFolder(request):
     context = RequestContext(request)
