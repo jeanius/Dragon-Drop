@@ -11,7 +11,6 @@ from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
 from dragondrop.url_utilities import get_youtube_id
 
-
 def index(request):
     context = RequestContext(request)
 
@@ -91,7 +90,7 @@ def userpage(request):
         return render_to_response('userpage.html', context_dict, context)
 
      else:
-         return render_to_response('index.html', {}, context)      
+         return render_to_response('index.html', {}, context)       
 
      
 def register(request):
@@ -183,7 +182,6 @@ def binFolder(request):
     else:
         return render_to_response('index.html')
 
-
 def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
      try:
           folders = current_user.folder_set.all()
@@ -199,7 +197,6 @@ def getFolderList(current_user, current_folder_name, use_lighter_colour=False):
           return folders
      except User.DoesNotExist:
           return None
-
 
 # When a search-result bookmark is dragged onto
 # a folder, it should add the link to the folder.
@@ -239,11 +236,6 @@ def ajaxDropToFolder(request):
 
         return HttpResponse(message)
 
-
-
-
-
-
 def ajaxChangeBookmarkRank(request):
     if request.method == 'POST' and request.user.is_authenticated():
         bookmark = Bookmark.objects.get(url=request.POST['url'])
@@ -256,14 +248,7 @@ def ajaxChangeBookmarkRank(request):
             return HttpResponse("Rank changed")
         except Bookmark.DoesNotExist:
             return HttpResponse("The bookmark is not in this folder")
-        
-        
-        
-        
-        
-        
-        
-
+ 
 def ajaxDropToBin(request):
     if request.method == 'POST' and request.user.is_authenticated():
         url = request.POST['url']
@@ -290,8 +275,6 @@ def ajaxDropToBin(request):
         bookmark.save()
 
         return HttpResponse(message)
-
-
 
 def ajaxDeleteBookmark(request):
     if request.method == 'POST' and request.user.is_authenticated():
@@ -328,17 +311,12 @@ def ajaxDeleteFolder(request):
         BookmarkToFolder.objects.filter(bffolder = folder).delete()
         folder.delete()
         return HttpResponse("Folder deleted")
-
-        
+       
 def encode_url(str):
     return str.replace(' ', '_')
 
 def decode_url(str):
     return str.replace('_', ' ')
-
-def topten(request):
-     topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
-     return topbookmark
 
 def log_out(request):
     context = RequestContext(request)
@@ -347,14 +325,25 @@ def log_out(request):
         return render_to_response('index.html', {}, context)
 
 def help(request):
-    return render_to_response('help.html') 
+    context = RequestContext(request)
+
+    context_dict = bookmarksFoldersUsers(request)
+   
+    return render_to_response('help.html', context_dict, context) 
 
 def privacy(request):
-    return render_to_response('privacy.html') 
+    context = RequestContext(request)
+    
+    context_dict = bookmarksFoldersUsers(request)
+    
+    return render_to_response('privacy.html', context_dict, context) 
     
 def about(request):
-    return render_to_response('about.html') 
+    context = RequestContext(request)
 
+    context_dict = bookmarksFoldersUsers(request)
+    
+    return render_to_response('about.html', context_dict, context) 
 
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
@@ -370,4 +359,22 @@ def get_matching_bookmarks(request, query):
 
     return (userBookmarks, relevantBookmarks)
 
-   
+def bookmarksFoldersUsers(request):
+    context = RequestContext(request)
+
+    if request.user.is_authenticated():
+
+        current_user = request.user
+                 
+        try:
+            context_dict = {'bookmarklist': topten(request)}
+            context_dict['user'] = current_user
+            context_dict['folders'] = getFolderList(current_user, None)   
+        except User.DoesNotExist:
+               pass
+        
+    return (context_dict)
+
+def topten(request):
+     topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
+     return topbookmark
