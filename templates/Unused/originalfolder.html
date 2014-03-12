@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>User Page Dragon Drop</title>
+
+    <!-- Bootstrap core CSS -->
+    
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}" />
+	<link rel="stylesheet" href="{% static "css/general-dragon.css" %}" />
+    <link rel="stylesheet" href="{% static "css/jquery-ui-1.10.4.custom.css" %}" />
+    
+    <!-- Custom styles for this template -->
+   
+    
+  </head>
+
+  <body>
+
+    <div class="container title-container">
+	      
+			<!-- Dragon logo -->
+        <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="behind-header"/>
+			  
+		<!-- Dragon Drop header -->
+        <h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>
+      </div>
+	
+	        
+	  <div class="container">
+	
+	      <!-- 3 columns -->
+	  
+      <div class="row">
+	  
+	  <!-- left hand-side column-->
+        <div class="col-md-3" id="folder-box">
+            {% include "folder_list_include.html" %}
+        </div>
+	
+	
+	<!-- middle column-->
+    <div class="col-md-6">
+		
+
+
+      <h3><b id="current-folder-name">{{ folder_name }}</b></h3>
+
+      {% if hideUrlInputBox == None %}
+		  <form method="post" >
+			{% csrf_token %}
+			<div class="input-group">
+			  <input type="text" class="form-control" placeholder="Paste the URL of a page" name="url" autofocus>
+			  <span class="input-group-btn">
+				<button type="submit" class="btn btn-primary-folder" >
+				<a href ="#">Add to this folder</a>
+				</button>
+			  </span>
+			</div>
+		  </form>
+      {% endif %}
+      
+      <div id="scrollable">
+          {% if bookmarks %}
+              <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
+              <!-- Display search results in an ordered list -->
+              <div id="sortable">
+                
+                {% for bookmark in bookmarks %}
+                    <div class="draggable saved-bookmark" data-bfrank="{{bookmark.bfrank}}">
+					
+					<a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
+					
+                        <strong><a href="{{ bookmark.url }}">{{ bookmark.niceName }}</a></strong>
+                        <span class="domain-name">({{ bookmark.bdomain }})</span><br>
+                        <em>{{ bookmark.bdescr }}</em> Saved times (just for debugging): {{bookmark.saved_times}}
+                        {% if bookmark.video_id %}
+                            <br><iframe id="ytplayer" type="text/html" width="327" height="200"
+                            src="http://www.youtube.com/embed/{{bookmark.video_id}}"
+                            frameborder="0"></iframe>
+                        {% endif %}   
+                   </div>
+                {% endfor %}
+              </div>
+          {% endif %}          
+      </div>
+
+
+    </div>
+	
+		   <!-- right hand-side column - BIN -->
+        <div class="col-md-3 ">
+		
+		<div class="top-bookmarks">
+          <h3>Top Bookmarks</h3>
+		  {% if bookmarklist %}
+			<ol>
+				{% for bookmark in bookmarklist %}
+			 <li><a href="{{ bookmark.url }}">{{ bookmark.niceName}}</a></li>
+				{% endfor %}
+			</ol>			
+		  {% endif %}
+          <p></p>
+		</div>
+		
+		<div class="bin droppable">
+		
+			<a href="/dragondrop/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
+		    <div class="bin-message">Never show me this again!</div>
+			<p class="folder-message"></p>
+		</div>
+		
+       </div>
+      </div>
+
+
+
+    </div> <!-- /container -->
+	
+	    <!-- bottom navigation panel -->
+    
+    <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container">
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a class="footer" href="/dragondrop/about">About</a></li>
+            <li><a href="/dragondrop/privacy">Privacy</a></li>
+            <li><a href="/dragondrop/help">Help</a></li>
+			
+			
+			<li class="user-details"><a href="/dragondrop/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+			<li class="user-details"> <a class="navbar-brand " href="/dragondrop/userpage">
+				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> </li>
+            
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <script src="{% static "js/userpage.js" %}"></script>
+
+
+
+  </body>
+</html>

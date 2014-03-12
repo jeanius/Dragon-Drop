@@ -81,7 +81,11 @@
 							<div class="input-group">
 								<input type="text" class="form-control" id="new-folder-name-input" placeholder="Add a folder">
 									<span class="input-group-btn">
-										<button class="btn btn-primary-add" id="add-folder-button" type="button">Add</button>
+										<button class="btn btn-primary-search" id="add-folder-button" type="button">
+										
+										<a href="#"><span class="glyphicon glyphicon-plus"></span></a><!---->
+										
+										</button>
 									</span>
 							</div>
 							<div id="folder-add-message"></div>
@@ -114,6 +118,7 @@
 				<div class="col-md-6 results">
 					{% block middle_column %}
 					
+					<!-- Search box -->
 					          <form role="search" method="post" >
 								{% csrf_token %}
 								<div class="input-group">

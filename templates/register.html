@@ -41,16 +41,18 @@
 		
 		<div class ="registerForm">
 		
-      <form id="user_form" class="form-signin" method="post" action="/dragondrop/register/">
+      <form id="user_form" class="form-register" method="post" action="/dragondrop/register/">
 	  
 	  {% csrf_token %}
 	  
-	   {% for field in user_form.visible_fields %}
-            {{ field.errors }}
-            {{ field.label_tag }}: {{ field }} <br>
-		{% endfor %}
+	           <input type="text" name="username" class="form-control" placeholder="Username" required autofocus size="50" />
+                <br />
+                <input type="password" name="password" class="form-control" placeholder="Password" required size="50" />
+                <br />
+                <input type="email" name="email" class="form-control" placeholder="E-Mail" required size="50" />
+                <br />
 		
-		<br>
+		<br />
 
 	   <button class="btn btn-lg btn-primary-signin" input type="submit" value="Register"/>Register</button>
 	  
