@@ -204,7 +204,8 @@ Sign in page stylesheet
 display: inline-block;
 }
 
-.form-signin {
+.form-signin,
+.form-register {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
@@ -216,7 +217,8 @@ display: inline-block;
 .form-signin .checkbox {
   font-weight: normal;
 }
-.form-signin .form-control {
+.form-signin .form-control,
+.form-register .form-control {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -225,15 +227,18 @@ display: inline-block;
   padding: 10px;
   font-size: 16px;
 }
-.form-signin .form-control:focus {
+.form-signin .form-control:focus,
+.form-register .form-control:focus{
   z-index: 2;
 }
-.form-signin input[type="email"] {
+.form-signin input[type="email"],
+.form-register input[type="email"]{
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+.form-signin input[type="password"],
+.form-register input[type="email"]{
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -363,7 +368,18 @@ overflow-x: hidden;
 margin-top: 10px;
 }
 
-.results 
+.results #scrollable {
+height: 582px;
+}
+
+.add-url {
+border-top: 10px solid #EBE6ED;
+ font-family: Verdana;
+}
+
+.add-url a{
+ font-family: Verdana;
+}
 
 
 	   
@@ -568,7 +584,7 @@ a.delete-bookmark {
 float: right;
 font-size: 1.9em;
 padding: 0 5px 0 5px;
-color: #7A7A7A;
+color: #B1B1B1
 }
 
 a.delete-bookmark :hover {
@@ -576,12 +592,12 @@ color: red;
 }
 
 .delete-folder {
-color: #7A7A7A;
+color: #B1B1B1;
 font-size: 1.5em;
 display:none;
 float:right;
 margin-top:0.5em;
-margin-right: -30px;
+margin-right: -10px;
 cursor: pointer;
 }
 
