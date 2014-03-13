@@ -11,6 +11,8 @@ from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
 from dragondrop.url_utilities import get_youtube_id
 from urlparse import urlparse
+from operator import itemgetter
+import urllib
 
 def index(request):
     context = RequestContext(request)
@@ -84,6 +86,11 @@ def userpage(request):
                     r.containingFolders = \
                         [{'name':f, 'underscored_name':encode_url(f)} for f in containingFolders]
 
+                # add [rank] to each search_result
+                search_results = map(add_rank_to_search_result, search_results)
+                # sort the ranking out
+                search_results = sorted(search_results, key=itemgetter('rank'))
+
                 context_dict['search_results'] = search_results
                 request.session['search_results'] = search_results
                 context_dict['user_search_results'] = relevantBookmarks
@@ -134,19 +141,20 @@ def folder(request, folder_page_url):
         try:
             this_folder = current_user.folder_set.get(foldername = folder_name)
             context_dict['folders'] = getFolderList(current_user, folder_name, True)
+            urlNotOk = False
+            
             
             if request.method == 'POST':
                 url = request.POST['url']
-                acceptableURL = True
-                
-                urlParse = urlparse(url)
-                
-                if not urlParse[0]:
-                    acceptableURL = False
-                    context_dict['acceptable'] = acceptableURL
-                    print "NOT ACCEPTABLE!!!!!"
-                
-                else:
+
+                try:
+				    urllib.urlopen(url)
+                except IOError:
+					urlNotOk = True
+					context_dict ['urlNotOk'] = urlNotOk
+					print "NotOk"
+					   
+                if not urlNotOk:
                     bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
                     bookmark.saved_times += 1
                     if bookmark_was_created:   # If bookmark didn't already exist, set its properties
@@ -352,6 +360,7 @@ def privacy(request):
 def about(request):
     context = RequestContext(request)
 
+    context_dict = {}
     context_dict = bookmarksFoldersUsers(request)
     
     return render_to_response('about.html', context_dict, context) 
@@ -389,3 +398,21 @@ def bookmarksFoldersUsers(request):
 def topten(request):
      topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
      return topbookmark
+
+# add rank number for each search_result
+def add_rank_to_search_result(search_result):
+    search_result['rank'] = getRank(search_result['link'])
+    return search_result
+
+# find rank number for each search_result
+def getRank(thisUrl):
+    thisBookmark = Bookmark.objects.filter(url=thisUrl)
+    totalSavedTimes = [b.saved_times for b in thisBookmark]
+    totalSavedTimes = totalSavedTimes[0] if totalSavedTimes else 1
+    
+    positiveSavedTimes = BookmarkToFolder.objects.filter(bfbookmark=thisBookmark).count()
+    
+    negativeSavedTimes = BinFolder.objects.filter(bbmID_fk=thisBookmark).count()
+    
+    rankNumber = 1 - (positiveSavedTimes-negativeSavedTimes)/(10 * totalSavedTimes)
+    return rankNumber

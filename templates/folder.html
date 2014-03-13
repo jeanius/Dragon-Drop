@@ -7,18 +7,17 @@
 
 
 	  
-	  <!-- JEAN HERE 
-	  {% if acceptable %}
-		  
-          <div class="alert alert-warning alert-dismissable">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <strong>Make sure to add the full url, like http://www.google.com!</strong>
+
+	  {% if urlNotOk %}
+          <div class="alert alert-danger">
+			<span class="glyphicon glyphicon-warning-sign"></span></a>
+              <strong>Make sure to add the full URL! (eg. http://www.google.com)</strong>
           </div>
-	   {% endif %} -->
+	   {% endif %}
       
 	  <!-- bookmark filtering text box-->
 	   <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
-	  
+		
       <div id="scrollable">
           {% if bookmarks %}
              
