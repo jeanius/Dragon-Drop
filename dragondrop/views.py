@@ -152,7 +152,6 @@ def folder(request, folder_page_url):
                 except IOError:
 					urlNotOk = True
 					context_dict ['urlNotOk'] = urlNotOk
-					print "NotOk"
 					   
                 if not urlNotOk:
                     bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
@@ -316,7 +315,9 @@ def ajaxCreateFolder(request):
     if request.method == 'POST' and request.user.is_authenticated():
         folderName = request.POST['folderName']
         if folderName == "":
-            return HttpResponse("The folder name can't be blank")
+            return HttpResponse("Enter a folder name")
+        if folderName == "bin-folder" or folderName == "bin_folder" or folderName == "bin folder":
+            return HttpResponse("You already have a bin folder!")		
         folder, folder_was_created = Folder.objects.get_or_create(foldername=folderName, fusername_fk=request.user)
         if folder_was_created:
             return HttpResponse("Folder created")
