@@ -1,5 +1,3 @@
-// This 
-
 $(function() {
     // Get the CSRF token, which will be needed for Ajax POST requests
     $.ajaxSetup({ headers: { "X-CSRFToken": getCookie('csrftoken') } });
