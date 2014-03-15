@@ -1,13 +1,13 @@
+// This 
+
 $(function() {
+    // Get the CSRF token, which will be needed for Ajax POST requests
+    $.ajaxSetup({ headers: { "X-CSRFToken": getCookie('csrftoken') } });
  
- 
-    $.ajaxSetup({
-        headers: { "X-CSRFToken": getCookie('csrftoken') }
-    });
- 
+    // Set up Bootstrap dropdown menus
     $('.dropdown-toggle').dropdown();
  
-    // Add a message and disable button when the search or add button is clicked
+    // Add a message and disable the button when the search or add button is clicked
     var addBtnMessage = function(button, message, keepWidth) {
         var btnWidth = button.css("width");
         button.addClass("disabled");
@@ -16,27 +16,19 @@ $(function() {
             button.css("width", btnWidth);
         }
     }
+    $(".btn-primary-folder").click(function() {addBtnMessage($(this), "Adding..."); });
+    $(".btn-primary-search").click(function() {addBtnMessage($(this), "Searching...", true); });   
  
-    $(".btn-primary-folder").click(function() {
-        addBtnMessage($(this), "Adding...");
-    });
-    $(".btn-primary-search").click(function() {
-        addBtnMessage($(this), "Searching...", true);
-    });   
- 
- 
+    // Only allow re-ordering of bookmarks if the user isn't
+    // about to drop onto a folder or the bin
     $(".droppable")
         .mouseover(function() {
-            allowBookmarkReorder = false;
-            // Only allow re-ordering of bookmarks if the user isn't about to
-            // drop onto a folder or the bin
+            
             $( "#sortable" ).sortable( "option", "disabled", true );
         })
         .mouseout(function() {
-            allowBookmarkReorder = true;
             $( "#sortable" ).sortable( "option", "disabled", false );
         })
- 
  
     // Filter folder names based on typed text
     $( "#folder-filter" ).keyup(function() {
@@ -61,6 +53,8 @@ $(function() {
     });
  
     var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
+    
+    // Highlight bin and folders when a bookmark or search result is being dragged
     var dragStart = function() {
         elementsToHighlightOnDrag.addClass("highlight-droppable");
         // display the bin message
@@ -71,7 +65,8 @@ $(function() {
         // hide the bin message
         $(".bin-message").hide();
     }
- 
+
+    // Save changes when a bookmark is moved to a new position on the list
     var sortStop = function(event, ui) {
         dragStop(event, ui);
         var prevBmRank = ui.item.prev().attr('data-bfrank');
@@ -108,9 +103,13 @@ $(function() {
                                      start: dragStart,
                                      stop: dragStop
                                     });
- 
+
+    // Call the function defined below that makes the
+    // droppable folders and bin icon functional
     makeDroppable();
  
+    // When the user clicks on the button to add a folder, make a POST
+    // request to create the folder
     $("#add-folder-button")
         .click(function() {
              var folderName = $("#new-folder-name-input").val();     
@@ -126,12 +125,13 @@ $(function() {
                 $("#new-folder-name-input").val("");
              })
                 .fail(function() {
-                   $("#folder-add-message").text("An error occurred when attempting to add the folder. Please try again.");
+                   $("#folder-add-message")
+                       .text("An error occurred when attempting to add the folder. Please try again.");
                 });
     });
  
  
-    // delete a bookmark
+    // Delete a bookmark when user clicks the X
     $(".glyphicon-remove")
         .click(function() {
              var deleteButton = $(this);
@@ -149,18 +149,17 @@ $(function() {
                 });
     });
  
- 
+    // Call the function below that set up the functionality for deleting folders
     makeFoldersDeleteable();
  
     // Add folder when Enter key is pressed
-    // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
     $("#new-folder-name-input").keyup(function(event){
         if(event.keyCode == 13){
             $("#add-folder-button").click();
         }
     });
  
- 
+    // Set up the dropdown menu actions
     $(".dropdown-to-folder, .dropdown-to-bin").click(function(event) {
         event.preventDefault();  // Prevent default "a" element click action
         var clickedItem = $(this);
@@ -242,7 +241,9 @@ function ajaxAddToFolder(url, folder_name, success_function, failure_function) {
            success_function)
             .fail(failure_function);
 }
- 
+
+// This is called when a user drops a bookmark to a folder.
+// An Ajax POST request is made, and success or failure messages are shown 
 function ajaxDropToFolder(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
     ajaxAddToFolder(ui.draggable.find("strong").find("a").attr("href"),
@@ -253,7 +254,6 @@ function ajaxDropToFolder(dropTarget, ui) {
                           .removeClass( "glyphicon-folder-open" )  
                           .addClass( "glyphicon-folder-close" );
                       ui.draggable.addClass("saved-bookmark");
-                      //if ($("#current-folder-name").text()=="Bin Folder") {ui.draggable.slideUp()};
                       removeMessageAfterShortDelay(dropTarget);
                     },
                     function() {
@@ -277,7 +277,9 @@ function ajaxAddToBin(url, success_function, failure_function) {
            success_function)
             .fail(failure_function);
 }
- 
+
+// This is called when a user drops a bookmark to the bin folder.
+// An Ajax POST request is made, and success or failure messages are shown  
 function ajaxDropToBin(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
     ajaxAddToBin(ui.draggable.find("strong").find("a").attr("href"),
@@ -334,7 +336,9 @@ function deleteFolder(folderName, deleteButton) {
             deleteButton.show();
         });
 }
- 
+
+// Set up folders to receive dropped bookmarks and to call
+// the Ajax POST functions
 function makeDroppable() {
     $( ".droppable" ).droppable({
         over: function( event, ui ) {
@@ -363,7 +367,7 @@ function makeDroppable() {
     });
 }
  
- 
+// Saved the changed bookmark rank in the HTML element's data attribute and in the database
 function changeBookmarkRank(bookmarkDiv, newRank) {
     bookmarkDiv.attr('data-bfrank', newRank)
     $.post("/ajax-change-bookmark-rank/",
@@ -378,24 +382,11 @@ function changeBookmarkRank(bookmarkDiv, newRank) {
         });
 }
  
-// hovering over the bin area
-// I've moved this code to the events for dragging - James
-/*$( ".bin span" ).hover(
-  function() {
-    $( this ).toggleClass( "highlight-droppable" );
-  }, function() {
-    $( this ).removeClass( "highlight-droppable" );
-  }
-);*/
- 
- 
- 
-//Deleting the folder -- please fix this :(
- 
+
+// Show the delete folder buttons only on hover 
 $( "#folder-box" ).mouseover(function() {
   $( ".delete-folder" ).show();
 });
- 
 $( "#folder-box" ).mouseout(function() {
   $( ".delete-folder" ).hide();
 });
