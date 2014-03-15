@@ -161,24 +161,35 @@ $(function() {
     });
  
  
-    $(".dropdown-to-folder").click(function(event) {
+    $(".dropdown-to-folder, .dropdown-to-bin").click(function(event) {
         event.preventDefault();  // Prevent default "a" element click action
         var clickedItem = $(this);
         var dropDownButton = clickedItem.parent().parent().prev();
         var dropDownHtml = dropDownButton.html();
-        dropDownButton.css("width", dropDownButton.css("width"));   // Fix width
-        dropDownButton.css("height", dropDownButton.css("height"));   // Fix height
-        var dropDownOriginal
+        dropDownButton.css("width", dropDownButton.css("width"));     // Make sure width doesn't change
+        dropDownButton.css("height", dropDownButton.css("height"));   // Make sure height doesn't change
         var url = clickedItem.attr("data-url");
-        var folderName = clickedItem.text();
-        ajaxAddToFolder(url,
-                        folderName,
-                        function() {dropDownButton.text("Added!");
-                                    window.setTimeout(function() {
-                                        dropDownButton.html(dropDownHtml);
-                                    }, 800);
-                                   },
-                        function() {})
+        if (clickedItem.hasClass("dropdown-to-folder")) {
+            var folderName = clickedItem.text();
+            ajaxAddToFolder(url,
+                            folderName,
+                            function() {dropDownButton.text("Added!");
+                                        window.setTimeout(function() {
+                                            dropDownButton.html(dropDownHtml);
+                                        }, 800);
+                                       },
+                            function() {alert("There was a problem adding to the folder.")});
+        } else {
+            console.log(url);
+            ajaxAddToBin(url,
+                            function() {dropDownButton.text("Added!");
+                                        window.setTimeout(function() {
+                                            // Hide the bookmark that has been binned
+                                            dropDownButton.parent().parent().slideUp();
+                                        }, 400);
+                                       },
+                            function() {alert("There was a problem adding to the bin folder.")});
+        }
     });
 });
  
