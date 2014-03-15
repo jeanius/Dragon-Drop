@@ -1,61 +1,61 @@
-Gosel,Maps,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
-Gosel,Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gozel,Maps,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gozel,Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
 Jean,Miscellaneous visualizations,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
-Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/gbd-compare/,GBD Compare
-Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/mortality/,Mortality Visualization
-Gosel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/cod/,COD Visualization
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-heatmap,GBD Heatmap
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-arrow-diagram,GBD Arrow Diagram
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-uncertainty-visualization,GBD Uncertainty Visualization
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-cause-patterns,GBD Cause Patterns
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-2010-healthy-years-lost-vs-life-expectancy,GBD 2010 healthy years lost vs life expectancy
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/life-expectancy-county-and-sex-us-country-comparison-global-1989-1999-2009,Life expectancy by county and sex (US) with country comparison
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-health-focus-area-global-1990-2009-interactiv,Development assistance for health by health focus area
-Gosel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-channel-assistance-global-1990-2011-interacti,Development assistance for health by channel of assistance
-Gosel,Bar Chart,http://bl.ocks.org/mbostock/1283663,Hierarchical Bar Chart
-Gosel,Bar Chart,http://bl.ocks.org/mbostock/882152,Grouped Bar Chart
-Gosel,Bar Chart,http://bl.ocks.org/mbostock/1134768,Stacked Bar Chart
-Gosel,Bar Chart,http://bl.ocks.org/mbostock/1327441,Reorderable Stacked Bar Chart
-Gosel,Bar Chart,https://github.com/mlarocca/Dynamic-Charts,Dynamic Bar Charts
-Gosel,Bar Chart,http://theoldbeggar.com/aid/,"Sortable bars: Foreign aid, corruption and internet use"
-Gosel,Bar Chart,https://github.com/gencay/stackedGroupedChart,Grouped and Stacked Bar Chart
-Gosel,Bar Chart,http://bl.ocks.org/rsloan/7123450,Waterfall Chart
-Gosel,Bar Chart,https://github.com/liufly/Dual-scale-D3-Bar-Chart,Dual-scale Bar Chart
-Gosel,Histogram,https://github.com/gajus/interdependent-interactive-histograms,Reusable Interdependent Interactive Histograms
-Gosel,Histogram,http://bl.ocks.org/mbostock/1933560,Histogram Chart
-Gosel,Histogram,http://bl.ocks.org/mbostock/3048450,"Fixed-width Histogram, Irwin–Hall distribution"
-Gosel,Histogram,http://bl.ocks.org/mbostock/3048166,"Fixed-width Histogram of Durations, log-normal distribution"
-Gosel,Histogram,http://bl.ocks.org/mbostock/1624660,Variable-width Histogram
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1166403,Axis Component
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1157787,Small Multiples
-Gosel,Line and Area Chart,http://benjchristensen.com/2011/08/08/simple-sparkline-using-svg-path-and-d3-js/,Sparklines
-Gosel,Line and Area Chart,http://benjchristensen.com/2012/05/15/interactive-line-graph-using-d3-js/,Interactive Line Graph
-Gosel,Line and Area Chart,http://mpf.vis.ywng.cloudbees.net/,Comprehensive Line Graph
-Gosel,Line and Area Chart,http://benjchristensen.com/2012/05/02/line-graphs-using-d3-js/,Dual scale line chart
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1483226,Horizon Chart
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1629644,Line Chart with tooltips
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/1314483,Stacked layout with time axis
-Gosel,Line and Area Chart,http://tympanus.net/codrops/2012/08/29/multiple-area-charts-with-d3-js/,Multiple Area Charts with D3.JS
-Gosel,Line and Area Chart,http://bl.ocks.org/mbostock/4175202,Multiple time-series with object constancy
-Gosel,Line and Area Chart,http://bl.ocks.org/nswamy14/083a1e3181c81428f817,Overlapped distribution Area chart
-Gosel,Pie Chart,https://github.com/gajus/pie-chart,Reusable Pie Charts
-Gosel,Pie Chart,http://bl.ocks.org/mbostock/1305111,Pie Multiples
-Gosel,Pie Chart,http://bl.ocks.org/mbostock/1346395,Pie Chart Updating (Part 1)
-Gosel,Pie Chart,http://bl.ocks.org/4710330/94a7c0aeb6f09d681dbfdd0e5150578e4935c6ae,Hierarchical Pie Chart
-Gosel,Scatterplot and Bubble chart,http://www.ericbullington.com/articles/2012/01/31/kmeans-visualization,Scatterplot for K-Means clustering visualization
-Gosel,Scatterplot and Bubble chart,http://slodge.com/teach/,Animated bubble charts for school data analysis
-Gosel,Scatterplot and Bubble chart,http://jsfiddle.net/indiemaps/gzPDU/,Scatterplot and Heatmap
-Gosel,Scatterplot and Bubble chart,http://bl.ocks.org/mbostock/4481531,Scatterplot: Social trust vs ease of doing business
-Gosel,Scatterplot and Bubble chart,http://benjiec.github.io/scatter-matrix/demo/demo.html,Explore Matrix Data with Scatterplots
-Gosel,Scatterplot and Bubble chart,http://bl.ocks.org/llb4ll/8709363,k-Nearest-Neighbor Search with Quadtree
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://nickrabinowitz.com/projects/d3/alluvial/alluvial-dynamic.html,Animated Sankey Diagram (alluvial)
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3921009,Sankey diagram with cycles
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/1341281,Parallel Coordinates
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3290263,Parallel coordinates with fisheye distortion
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://www.jasondavies.com/parallel-sets/,Parallel Sets
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://www.theage.com.au/national/parsets,Parallel Sets with reorderable heading
-Gosel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/4168921,Pair Contribution and Selection
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
+Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/gbd-compare/,GBD Compare
+Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/mortality/,Mortality Visualization
+Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/cod/,COD Visualization
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-heatmap,GBD Heatmap
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-arrow-diagram,GBD Arrow Diagram
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-uncertainty-visualization,GBD Uncertainty Visualization
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-cause-patterns,GBD Cause Patterns
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/gbd/visualizations/gbd-2010-healthy-years-lost-vs-life-expectancy,GBD 2010 healthy years lost vs life expectancy
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/life-expectancy-county-and-sex-us-country-comparison-global-1989-1999-2009,Life expectancy by county and sex (US) with country comparison
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-health-focus-area-global-1990-2009-interactiv,Development assistance for health by health focus area
+Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/development-assistance-health-channel-assistance-global-1990-2011-interacti,Development assistance for health by channel of assistance
+Gozel,Bar Chart,http://bl.ocks.org/mbostock/1283663,Hierarchical Bar Chart
+Gozel,Bar Chart,http://bl.ocks.org/mbostock/882152,Grouped Bar Chart
+Gozel,Bar Chart,http://bl.ocks.org/mbostock/1134768,Stacked Bar Chart
+Gozel,Bar Chart,http://bl.ocks.org/mbostock/1327441,Reorderable Stacked Bar Chart
+Gozel,Bar Chart,https://github.com/mlarocca/Dynamic-Charts,Dynamic Bar Charts
+Gozel,Bar Chart,http://theoldbeggar.com/aid/,"Sortable bars: Foreign aid, corruption and internet use"
+Gozel,Bar Chart,https://github.com/gencay/stackedGroupedChart,Grouped and Stacked Bar Chart
+Gozel,Bar Chart,http://bl.ocks.org/rsloan/7123450,Waterfall Chart
+Gozel,Bar Chart,https://github.com/liufly/Dual-scale-D3-Bar-Chart,Dual-scale Bar Chart
+Gozel,Histogram,https://github.com/gajus/interdependent-interactive-histograms,Reusable Interdependent Interactive Histograms
+Gozel,Histogram,http://bl.ocks.org/mbostock/1933560,Histogram Chart
+Gozel,Histogram,http://bl.ocks.org/mbostock/3048450,"Fixed-width Histogram, Irwin–Hall distribution"
+Gozel,Histogram,http://bl.ocks.org/mbostock/3048166,"Fixed-width Histogram of Durations, log-normal distribution"
+Gozel,Histogram,http://bl.ocks.org/mbostock/1624660,Variable-width Histogram
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/1166403,Axis Component
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/1157787,Small Multiples
+Gozel,Line and Area Chart,http://benjchristensen.com/2011/08/08/simple-sparkline-using-svg-path-and-d3-js/,Sparklines
+Gozel,Line and Area Chart,http://benjchristensen.com/2012/05/15/interactive-line-graph-using-d3-js/,Interactive Line Graph
+Gozel,Line and Area Chart,http://mpf.vis.ywng.cloudbees.net/,Comprehensive Line Graph
+Gozel,Line and Area Chart,http://benjchristensen.com/2012/05/02/line-graphs-using-d3-js/,Dual scale line chart
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/1483226,Horizon Chart
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/1629644,Line Chart with tooltips
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/1314483,Stacked layout with time axis
+Gozel,Line and Area Chart,http://tympanus.net/codrops/2012/08/29/multiple-area-charts-with-d3-js/,Multiple Area Charts with D3.JS
+Gozel,Line and Area Chart,http://bl.ocks.org/mbostock/4175202,Multiple time-series with object constancy
+Gozel,Line and Area Chart,http://bl.ocks.org/nswamy14/083a1e3181c81428f817,Overlapped distribution Area chart
+Gozel,Pie Chart,https://github.com/gajus/pie-chart,Reusable Pie Charts
+Gozel,Pie Chart,http://bl.ocks.org/mbostock/1305111,Pie Multiples
+Gozel,Pie Chart,http://bl.ocks.org/mbostock/1346395,Pie Chart Updating (Part 1)
+Gozel,Pie Chart,http://bl.ocks.org/4710330/94a7c0aeb6f09d681dbfdd0e5150578e4935c6ae,Hierarchical Pie Chart
+Gozel,Scatterplot and Bubble chart,http://www.ericbullington.com/articles/2012/01/31/kmeans-visualization,Scatterplot for K-Means clustering visualization
+Gozel,Scatterplot and Bubble chart,http://slodge.com/teach/,Animated bubble charts for school data analysis
+Gozel,Scatterplot and Bubble chart,http://jsfiddle.net/indiemaps/gzPDU/,Scatterplot and Heatmap
+Gozel,Scatterplot and Bubble chart,http://bl.ocks.org/mbostock/4481531,Scatterplot: Social trust vs ease of doing business
+Gozel,Scatterplot and Bubble chart,http://benjiec.github.io/scatter-matrix/demo/demo.html,Explore Matrix Data with Scatterplots
+Gozel,Scatterplot and Bubble chart,http://bl.ocks.org/llb4ll/8709363,k-Nearest-Neighbor Search with Quadtree
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://nickrabinowitz.com/projects/d3/alluvial/alluvial-dynamic.html,Animated Sankey Diagram (alluvial)
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3921009,Sankey diagram with cycles
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/1341281,Parallel Coordinates
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/3290263,Parallel coordinates with fisheye distortion
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://www.jasondavies.com/parallel-sets/,Parallel Sets
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://www.theage.com.au/national/parsets,Parallel Sets with reorderable heading
+Gozel,Parallel Coordinates Parallel sets and Sankey,http://bl.ocks.org/mbostock/4168921,Pair Contribution and Selection
 Wen,Parallel Coordinates Parallel sets and Sankey,http://charts.graphicbaseball.com/parallelbatting,Graphicbaseball: 2012 Batters
 Wen,Sunburst and Partition layout,http://bl.ocks.org/mbostock/910126,Sunburst Layout with Labels
 Wen,Sunburst and Partition layout,http://www.jasondavies.com/coffee-wheel/,Sunburst: Coffee Flavour Wheel
@@ -338,6 +338,3 @@ James,Jim Vallandingham,http://vallandingham.me/vis/racial_divide.html,Visualizi
 James,Jim Vallandingham,http://vallandingham.me/vis/church_by_state.html,Composition of Church Membership by State: 1890
 James,Jim Vallandingham,http://vallandingham.me/vis/nationality_by_city.html,Proportion of Foreign Born in Large Cities: 1900
 James,Jim Vallandingham,http://vallandingham.me/vis/jobs_by_state.html,http://vallandingham.me/vis/jobs_by_state.html
-James,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
-Wen,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
-Jean,bin,http://vallandingham.me/vis/matlab_license.html,License Usage Dashboard
