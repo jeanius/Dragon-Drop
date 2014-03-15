@@ -105,7 +105,7 @@
 						</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" id="cancel-folder-deletion-button" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary-search" id="confirm-folder-deletion-button" data-dismiss="modal">Delete</button>
+						<button type="button" class="btn btn-primary-delete" id="confirm-folder-deletion-button" data-dismiss="modal">Delete</button>
 					</div>
 				</div>
 			</div>
@@ -146,6 +146,7 @@
 				    
 													{% for result in user_search_results %}
 														<div class="draggable search-result saved-bookmark">
+                                                            {% include "dropdown-include.html" %}
 															<strong><a href="{{ result.url }}" target="_blank">{{ result.niceName }}</a></strong>
 															<span class="domain-name">({{ result.bdomain }})</span><br>
 																{{ result.bdescr }}<br />
@@ -174,34 +175,19 @@
 										<div class="main-link-list" style="clear: both;">
 											{% for result in search_results %}
 											<div class="draggable search-result">
-						
-						
-											
-                         <!-- Dropdown menu for moving item. Should only be visible on small screens -->
-                            <div class="visible-xs visible-sm btn-group small-screen-move-button">
-                                 <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
-                                        Add to... <span class="caret"></span>
-                                  </button>
-                                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                          {% for folder in folders %}
-                                             <li><a class="dropdown-to-folder" data-url="{{result.link}}" href="#">{{ folder }}</a></li>
-                                                 {% endfor %}
-                                                    <li class="divider"></li>
-                                                    <li><a class="dropdown-to-bin" data-url="{{result.link}}" href="#" >Bin folder</a></li>
-                                     </ul>
-                            </div>
-						
-						
-											<strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong>
-											<span class="domain-name">({{ result.domain }})</span><br>
-											{{ result.summary }}
-											{% if result.video_id %}
-											<br />
-											
-											<iframe id="ytplayer" type="text/html" width="327" height="200"
-											src="http://www.youtube.com/embed/{{result.video_id}}"
-											frameborder="0"></iframe>
-											{% endif %}   
+								
+                                                {% include "dropdown-include.html" %}
+                            
+                                                <strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong>
+                                                <span class="domain-name">({{ result.domain }})</span><br>
+                                                {{ result.summary }}
+                                                {% if result.video_id %}
+                                                <br />
+                                                
+                                                <iframe id="ytplayer" type="text/html" width="327" height="200"
+                                                src="http://www.youtube.com/embed/{{result.video_id}}"
+                                                frameborder="0"></iframe>
+                                                {% endif %}   
 
 											</div>
 											{% endfor %}

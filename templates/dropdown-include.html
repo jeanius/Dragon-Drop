@@ -1,0 +1,17 @@
+<!-- Dropdown menu for moving item. Should only be visible on small screens -->
+<div class="visible-xs visible-sm btn-group small-screen-move-button">
+     <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">
+        Add to... <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          {% for folder in folders %}
+             <li><a class="dropdown-to-folder" 
+                    data-url="{% if result.link %}{{result.link}}{% else %}{{result.url}}{% endif %}"
+                    href="#">{{ folder }}</a></li>
+          {% endfor %}
+          <li class="divider"></li>
+          <li><a class="dropdown-to-bin"
+                   data-url="{% if result.link %}{{result.link}}{% else %}{{result.url}}{% endif %}"
+                   href="#" >Bin folder</a></li>
+     </ul>
+</div>

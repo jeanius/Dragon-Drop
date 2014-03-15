@@ -26,9 +26,8 @@
                 
                 {% for bookmark in bookmarks %}
                     <div class="draggable saved-bookmark" data-bfrank="{{bookmark.bfrank}}">
-                    
-                    <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
-                    
+                        {% include "dropdown-include.html" %}
+                        <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
                         <strong><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em>

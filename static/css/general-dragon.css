@@ -130,6 +130,7 @@ background-color: #F9F2FA;
 	
 .btn-primary-signin a,
 .btn-primary-search a,
+.btn-primary-delete a,
 .btn-primary-folder a,
 .btn-primary-add a{
 	text-decoration: none;
@@ -138,6 +139,7 @@ background-color: #F9F2FA;
 	
 .btn-primary-signin:hover,
 .btn-primary-search:hover,
+.btn-primary-delete:hover,
 .btn-primary-folder:hover
 .btn-primary-add:hover{
 	background-color: #604760;
@@ -295,6 +297,7 @@ User page stylesheet
        }
 	   
 	   .btn-primary-search,
+	   .btn-primary-delete,
 	   .btn-primary-folder,
 		.btn-primary-add	   {
 		background-color: #412f41;

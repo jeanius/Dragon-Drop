@@ -20,7 +20,7 @@ def getHtmlTitle(url):
         html = f.read(65536)
 
     except (urllib2.URLError, urllib2.HTTPError) as e:
-        return "--- Page not retrieved ---"
+        return ("--- Title not found ---","--- Page not retrieved ---")
 
     # Look for the title tag
     titlePattern = re.compile("<title[^>]*>(.*?)</title>")
