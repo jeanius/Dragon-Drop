@@ -1,4 +1,32 @@
 $(function() {
+
+    // Set the height of the folder list in the first column
+    // (Desktop devices only)
+    var setFolderListHeight = function() {
+        window.scrollTo(0,0);
+        if ($(window).width() >= 992) {
+            var folderBoxHeight = $("#folder-box").height();
+            var resultsBoxHeight = $(".results").height();
+            var folderListTop = $("#scrollable").position().top;
+            $("#scrollable").css("height", (folderBoxHeight - folderListTop - 80) + "px");
+            if ($("#scrollable-bookmarks").length > 0) {
+                var bookmarkListTop = $("#scrollable-bookmarks").position().top;
+                $("#scrollable-bookmarks").css("height", (resultsBoxHeight - bookmarkListTop - 69) + "px");
+            }
+        } else {
+            $("#scrollable").css("height", "");
+            $("#scrollable-bookmarks").css("height", "");
+        }
+        if ($(window).height() < 770) {
+            $(".glyphicon-trash").css("padding-top", "20px")
+        } else {
+            $(".glyphicon-trash").css("padding-top", "70px")        
+        }
+    }
+    setFolderListHeight();
+    $(window).resize(setFolderListHeight);
+    
+
     // Get the CSRF token, which will be needed for Ajax POST requests
     $.ajaxSetup({ headers: { "X-CSRFToken": getCookie('csrftoken') } });
  
@@ -171,6 +199,7 @@ $(function() {
             ajaxAddToFolder(url,
                             folderName,
                             function() {dropDownButton.text("Added!");
+                                        dropDownButton.parent().parent().addClass("saved-bookmark");
                                         window.setTimeout(function() {
                                             dropDownButton.html(dropDownHtml);
                                         }, 800);
@@ -247,7 +276,7 @@ function ajaxDropToFolder(dropTarget, ui) {
     ajaxAddToFolder(ui.draggable.find("strong").find("a").attr("href"),
                     dropTarget.find(".folder-name").first().text(),
                     function(messageFromPython) {
-                      dropTarget.find(".folder-message").text( messageFromPython );
+                      dropTarget.find(".folder-message").html( "<br>" + messageFromPython );
                       folderIcon
                           .removeClass( "glyphicon-folder-open" )  
                           .addClass( "glyphicon-folder-close" );

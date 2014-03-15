@@ -49,50 +49,50 @@
 					<h3 class="folders">Your folders</h3>
 					<input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
 
-				<div class="row" id="scrollable">
-					
-					<div class="hidden-lg" >
-					
-							<div class="row" id="folder-list">
-								{% if folders %}
-									{% for folder in folders %}
-								<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">
-										{% if folder.url %}
-									<span class="glyphicon glyphicon-remove-circle delete-folder"></span>
-										<a href="/{{folder.url}}/">
-											<span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>				
-											<span class="folder-name">{{ folder }}</span>				
-										</a>
-										{% else %}
-			  		
-                  <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
-                  <span class="folder-name">{{ folder }}</span>
-                  
-		
-										{% endif %}
-									<span class="folder-message"></span>
-								</div>
-									
-									{% endfor %}
-								{% endif %}
-							</div>
-					</div> <!-- /hidden-lg -->	
-						
-						<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 add-folder">      
-							<div class="input-group">
-								<input type="text" class="form-control" id="new-folder-name-input" placeholder="Add a folder">
-									<span class="input-group-btn">
-										<button class="btn btn-primary-search" id="add-folder-button" type="button">
-										
-										<a href="#"><span class="glyphicon glyphicon-plus"></span></a><!---->
-										
-										</button>
-									</span>
-							</div>
-							<div id="folder-add-message"></div>
-						</div>
+                    <div class="row" id="scrollable">
+                        
+                        <div >
+                        
+                                <div class="row" id="folder-list">
+                                    {% if folders %}
+                                        {% for folder in folders %}
+                                        <div class="col-md-12 droppable">
+                                                {% if folder.url %}
+                                            <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
+                                                <a href="/{{folder.url}}/">
+                                                    <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>				
+                                                    <span class="folder-name">{{ folder }}</span>				
+                                                </a>
+                                                {% else %}
+                            
+                                                  <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                                  <span class="folder-name">{{ folder }}</span>
+                          
+                
+                                                {% endif %}
+                                            <span class="folder-message"></span>
+                                        </div>
+                                        
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                        </div> <!-- /hidden-lg -->	
 				</div>
-					<!-- Modal -->
+						
+                <div class="col-md-12 add-folder">      
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="new-folder-name-input" placeholder="Add a folder">
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary-search" id="add-folder-button" type="button">
+                                
+                                <a href="#"><span class="glyphicon glyphicon-plus"></span></a><!---->
+                                
+                                </button>
+                            </span>
+                    </div>
+                    <div id="folder-add-message"></div>
+                </div>
+		<!-- Modal -->
 		<div class="modal fade" id="confirm-folder-deletion-modal" tabindex="-1" role="dialog" aria-labelledby="Confirm Folder Deletion" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -257,9 +257,9 @@
           <div class="navbar-header">
 					
 					<!-- this is not visible unless the screen is small-->
-					<a class="navbar-brand hidden-lg hidden-md" href="/userpage">
+					<a class="navbar-brand visible-xs" href="/userpage">
 							<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
-					<a href="/log_out" class="navbar-brand hidden-lg hidden-md">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
+					<a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
 					<!-- /not visible-->
 			
 		  
@@ -278,8 +278,8 @@
               <li><a href="/help">Help</a></li>
 			  
 					<!-- these are visible unless the screen is small -->
-				<li class="user-details visible-lg visible-md"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-				<li class="user-details visible-lg visible-md"> <a class="navbar-brand " href="/userpage">
+				<li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
 				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
 				</li>
 			</ul>

@@ -7,11 +7,13 @@ GENERAL stylesheet
 
 
 body {
-  padding-top: 40px;
-  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 60px;
   background-color: #EBE6ED;
   font-family: Verdana;
 }
+
+
 
 /* main heading - Dragon Drop */
 
@@ -37,8 +39,6 @@ font-size: 110px;
 	padding-top: 0;
 }	
 	
-	
-	
 h1 a,
 h1 a:hover,
 h3 a,
@@ -62,7 +62,7 @@ h3  {
 	
 .folders {
 	margin: 30px 0 10px 0;
-}	
+}
 
 h3.results {
 margin-bottom: 10px;
@@ -91,11 +91,9 @@ img {
     margin-right: auto;
 	}
 	
-	/* all nav bards */
-	
 
-	
-	/* footer navigation bar */
+
+/* footer navigation bar */
 
 	
 .navbar-nav {
@@ -275,7 +273,6 @@ User page stylesheet
         -------------------------------------------------- */
         html {
           position: relative;
-          min-height: 100%;
         }
         body {
           /* Margin bottom by footer height */
@@ -326,6 +323,7 @@ User page stylesheet
        .droppable {
           padding-top:12px;
           width:100%;
+          position:relative;
        }
        
        .f-drop {
@@ -337,6 +335,7 @@ User page stylesheet
 		  position: relative;
 		  top:-0.3em;
 		  padding-left: .5em;
+          margin-right: 20px;
        }
        
        .droppable a:hover  {
@@ -348,29 +347,26 @@ User page stylesheet
        }
 	   
 	   .add-folder {
-	   
-	   padding: 20px 0;
+	       padding: 20px 0;
 	   }
 	   
 	   
 
 /* folder area - user page and folder pages */
 
-#scrollable {
-height: 310px;
+#scrollable, #scrollable-bookmarks {
 margin-left: auto;
 margin-right: auto;
 overflow-y: auto;
 overflow-x: hidden;
 }
 
+
+
 .row #scrollable {
 margin-top: 10px;
 }
 
-.results #scrollable {
-height: 582px;
-}
 
 .add-url {
 border-top: 10px solid #EBE6ED;
@@ -381,26 +377,6 @@ border-top: 10px solid #EBE6ED;
  font-family: Verdana;
 }
 
-
-	   
-/*
-ul {
-list-style-type: none;
-font-size: 16px;
-
-}*/
-
-/*.container {
-background-color: pink;
-padding-top:30px;
-}*/
-
-
-
-
-	/* 	MAKING ALL COLUMNS SAME HEIGHT */
-
-
 .row {
 //margin: 100px -15px 0 -15px;
 width:100%;
@@ -408,18 +384,13 @@ width:100%;
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-background-color: #DBD0DD;/*#F9F2FA;*/
-height: 720px;
-padding-top: 10px
+background-color: #DBD0DD;
+padding-top: 10px;
 }
 
 .col-md-6{
-
-/*margin-top: -20px;*/
 z-index: 10;
-
 }
-
 
 .top-bookmarks{
 z-index: 1;
@@ -432,15 +403,12 @@ color:#412f41;
 
 .top-bookmarks ol{
 font-weight: bold;
-
 }
-
 
 .bin {
 padding: 5px 20px;
 border-top: 10px solid #EBE6ED;
 margin-top: 30px;
-
 }
 
 .highlight-droppable {
@@ -470,7 +438,6 @@ text-align:center;
 
 .bin .bin-message {
 margin: 30px auto 0 auto;
-
 font-size: 1em;
 display: none;
 text-align: center;
@@ -478,11 +445,12 @@ padding: 0;
 }
 
 #search-results {
-height: 665px;
+height: 90%;
+height: calc(100% - 60px);
 overflow: auto;
 margin-top: 20px;
+margin-bottom:10px;
 }
-
 
 
 /*.navbar-fixed-bottom {
@@ -503,11 +471,8 @@ font-size: 12px;
 }
 
 li.user-details {
-
 float: right;
 margin-right: 0px;
-
-
 }
 
 
@@ -531,24 +496,15 @@ padding-top: 10px;
   opacity: 0.5;
 }
 
-	@media (max-width: 1200px) {
-  .row {
-  margin: 10px -15px 0 -15px;
-  }
-}
 
-		@media (max-width: 992px) {
+@media (max-width: 992px) {
 
 	body {
 	padding-top: 20px;
 	}
-	
-	.bin {
-	display: none;
-		}
 		
 	.col-md-3 {
-	height: inherit;
+	/*height: inherit;*/
 	padding: 10px;
 	margin-top: 20px;
 	}
@@ -587,17 +543,37 @@ padding-top: 10px;
 	
 	.results #scrollable {
 	height: inherit;
-	}
-	
+	}	
 }
 
-
-		@media (min-width: 768px) {
+@media (min-width: 768px) {
 	.col-sm-6 {
-	width: 100%;
+	    width: 100%;
 	}
 }
 
+/* For desktop devices, make the page screen height */
+@media (min-width: 992px) {
+    html, body {
+        overflow: hidden;
+        height:100%
+    }
+    .container > .row {
+        height:100%;
+    }
+    .col-md-3 {
+        height:100%;
+    }
+    .container {
+      height:100%;
+    }
+    .col-md-6.results {
+      height:100%;
+    }
+    #folder-box {
+       height:100%;
+    }
+}
 
 a.delete-bookmark {
 
@@ -617,7 +593,8 @@ font-size: 1.5em;
 display:none;
 float:right;
 margin-top:0.5em;
-margin-right: -10px;
+margin-right: -25px;
+height:100%;
 cursor: pointer;
 }
 
