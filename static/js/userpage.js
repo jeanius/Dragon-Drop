@@ -1,10 +1,12 @@
 $(function() {
-
+ 
+ 
     $.ajaxSetup({
         headers: { "X-CSRFToken": getCookie('csrftoken') }
     });
-
-    
+ 
+    $('.dropdown-toggle').dropdown();
+ 
     // Add a message and disable button when the search or add button is clicked
     var addBtnMessage = function(button, message, keepWidth) {
         var btnWidth = button.css("width");
@@ -14,15 +16,15 @@ $(function() {
             button.css("width", btnWidth);
         }
     }
-    
+ 
     $(".btn-primary-folder").click(function() {
         addBtnMessage($(this), "Adding...");
     });
     $(".btn-primary-search").click(function() {
         addBtnMessage($(this), "Searching...", true);
-    });    
-    
-
+    });   
+ 
+ 
     $(".droppable")
         .mouseover(function() {
             allowBookmarkReorder = false;
@@ -34,8 +36,8 @@ $(function() {
             allowBookmarkReorder = true;
             $( "#sortable" ).sortable( "option", "disabled", false );
         })
-    
-    
+ 
+ 
     // Filter folder names based on typed text
     $( "#folder-filter" ).keyup(function() {
         $( ".droppable" ).each (function() {
@@ -46,7 +48,7 @@ $(function() {
             }
         });
     });
-    
+ 
     // Filter bookmarks in folder based on typed text
     $( "#bookmarks-filter" ).keyup(function() {
         $( ".draggable" ).each (function() {
@@ -57,7 +59,7 @@ $(function() {
             }
         });
     });
-
+ 
     var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
     var dragStart = function() {
         elementsToHighlightOnDrag.addClass("highlight-droppable");
@@ -65,11 +67,11 @@ $(function() {
         $(".bin-message").show();
     }
     var dragStop = function(event, ui) {
-        elementsToHighlightOnDrag.removeClass("highlight-droppable");   
+        elementsToHighlightOnDrag.removeClass("highlight-droppable");  
         // hide the bin message
         $(".bin-message").hide();
     }
-    
+ 
     var sortStop = function(event, ui) {
         dragStop(event, ui);
         var prevBmRank = ui.item.prev().attr('data-bfrank');
@@ -89,29 +91,29 @@ $(function() {
                 changeBookmarkRank(ui.item, +prevBmRank - 1);
             } else {
                 changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
-            }        
+            }       
         }
     }
-
+ 
     // The helper is the small div that moves when a search result is dragged
     var draggableHelper = function(event) {
-        return $( "<div class='ui-widget-header draggable-helper'>Drag to a folder</div>" );    
+        return $( "<div class='ui-widget-header draggable-helper'>Drag to a folder</div>" );   
     }
-    
+ 
     $( "#sortable" ).sortable({start: dragStart, stop: sortStop});
-    
+ 
     $( ".search-result" ).draggable({cursor: "move",
                                      cursorAt: { top: 0, left: -12 },
                                      helper: draggableHelper,
                                      start: dragStart,
                                      stop: dragStop
                                     });
-
+ 
     makeDroppable();
-    
+ 
     $("#add-folder-button")
         .click(function() {
-             var folderName = $("#new-folder-name-input").val();      
+             var folderName = $("#new-folder-name-input").val();     
              $.post("/ajax-create-folder/",
              { folderName: folderName },
              function(data) {
@@ -127,8 +129,8 @@ $(function() {
                    $("#folder-add-message").text("An error occurred when attempting to add the folder. Please try again.");
                 });
     });
-
-
+ 
+ 
     // delete a bookmark
     $(".glyphicon-remove")
         .click(function() {
@@ -146,10 +148,10 @@ $(function() {
                     deleteButton.show();
                 });
     });
-
-
+ 
+ 
     makeFoldersDeleteable();
-    
+ 
     // Add folder when Enter key is pressed
     // http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
     $("#new-folder-name-input").keyup(function(event){
@@ -157,18 +159,38 @@ $(function() {
             $("#add-folder-button").click();
         }
     });
-    
+ 
+ 
+    $(".dropdown-to-folder").click(function(event) {
+        event.preventDefault();  // Prevent default "a" element click action
+        var clickedItem = $(this);
+        var dropDownButton = clickedItem.parent().parent().prev();
+        var dropDownHtml = dropDownButton.html();
+        dropDownButton.css("width", dropDownButton.css("width"));   // Fix width
+        dropDownButton.css("height", dropDownButton.css("height"));   // Fix height
+        var dropDownOriginal
+        var url = clickedItem.attr("data-url");
+        var folderName = clickedItem.text();
+        ajaxAddToFolder(url,
+                        folderName,
+                        function() {dropDownButton.text("Added!");
+                                    window.setTimeout(function() {
+                                        dropDownButton.html(dropDownHtml);
+                                    }, 800);
+                                   },
+                        function() {})
+    });
 });
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 //
 // Some utilities
 //
-
+ 
 // From http://stackoverflow.com/a/6533544
 function getCookie(c_name)
 {
@@ -185,18 +207,18 @@ function getCookie(c_name)
     }
     return "";
 }
-
+ 
 function textAppearsIn(needle, haystack) {
     return haystack.toLowerCase()
               .indexOf(needle.toLowerCase()) != -1;
 }
-
-
-
+ 
+ 
+ 
 function removeMessageAfterShortDelay(folderElement) {
     window.setTimeout(function() {folderElement.find(".folder-message").html("");}, 800);
 }
-
+ 
 // Call this to add a url to a folder.
 // Parameters:
 //   url
@@ -207,9 +229,9 @@ function ajaxAddToFolder(url, folder_name, success_function, failure_function) {
     $.post("/ajax-drop-to-folder/",
            { url: url, folder_name: folder_name },
            success_function)
-            .fail(failure_function); 
+            .fail(failure_function);
 }
-
+ 
 function ajaxDropToFolder(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
     ajaxAddToFolder(ui.draggable.find("strong").find("a").attr("href"),
@@ -217,7 +239,7 @@ function ajaxDropToFolder(dropTarget, ui) {
                     function(messageFromPython) {
                       dropTarget.find(".folder-message").text( messageFromPython );
                       folderIcon
-                          .removeClass( "glyphicon-folder-open" )   
+                          .removeClass( "glyphicon-folder-open" )  
                           .addClass( "glyphicon-folder-close" );
                       ui.draggable.addClass("saved-bookmark");
                       //if ($("#current-folder-name").text()=="Bin Folder") {ui.draggable.slideUp()};
@@ -226,13 +248,13 @@ function ajaxDropToFolder(dropTarget, ui) {
                     function() {
                        dropTarget.find(".folder-message").text( "Error adding bookmark" );
                        folderIcon
-                           .removeClass( "glyphicon-folder-open" )   
+                           .removeClass( "glyphicon-folder-open" )  
                            .addClass( "glyphicon-folder-close" );
                        removeMessageAfterShortDelay(dropTarget);
                     });
 };
-
-
+ 
+ 
 // Call this to add a url to the bin folder.
 // Parameters:
 //   url
@@ -242,9 +264,9 @@ function ajaxAddToBin(url, success_function, failure_function) {
     $.post("/ajax-drop-to-bin/",
            { url: url },
            success_function)
-            .fail(failure_function); 
+            .fail(failure_function);
 }
-
+ 
 function ajaxDropToBin(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
     ajaxAddToBin(ui.draggable.find("strong").find("a").attr("href"),
@@ -259,9 +281,9 @@ function ajaxDropToBin(dropTarget, ui) {
                      removeMessageAfterShortDelay(dropTarget);
                  });
 }
-
-
-
+ 
+ 
+ 
 function makeNewFolderElement(folderName) {
 return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + ' <span class="glyphicon glyphicon-remove-circle delete-folder"></span>'
@@ -272,7 +294,7 @@ return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + ' <span class="folder-message"></span>'
        + '</div>';
 }
-
+ 
 function makeFoldersDeleteable() {
     $(".delete-folder")
         .click(function() {
@@ -289,7 +311,7 @@ function makeFoldersDeleteable() {
            });
     });
 }
-
+ 
 function deleteFolder(folderName, deleteButton) {
      $.post("/ajax-delete-folder/",
      { folderName: folderName },
@@ -301,7 +323,7 @@ function deleteFolder(folderName, deleteButton) {
             deleteButton.show();
         });
 }
-
+ 
 function makeDroppable() {
     $( ".droppable" ).droppable({
         over: function( event, ui ) {
@@ -319,7 +341,7 @@ function makeDroppable() {
         tolerance: "pointer",
         drop: function( event, ui ) {
             var dropTarget = $(this);
-            dropTarget.find(".folder-message").text( "Adding link..." );                          
+            dropTarget.find(".folder-message").text( "Adding link..." );                         
             dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
             if (dropTarget.hasClass("bin")) {
                 ajaxDropToBin(dropTarget, ui);
@@ -329,8 +351,8 @@ function makeDroppable() {
         }
     });
 }
-
-
+ 
+ 
 function changeBookmarkRank(bookmarkDiv, newRank) {
     bookmarkDiv.attr('data-bfrank', newRank)
     $.post("/ajax-change-bookmark-rank/",
@@ -338,13 +360,13 @@ function changeBookmarkRank(bookmarkDiv, newRank) {
          url: bookmarkDiv.find("strong").find("a").attr("href"),
          folder_name: $("#current-folder-name").text() },
        function(messageFromPython) {
-
+ 
        })
         .fail(function() {
            alert("Error changing rank");
-        }); 
+        });
 }
-
+ 
 // hovering over the bin area
 // I've moved this code to the events for dragging - James
 /*$( ".bin span" ).hover(
@@ -354,16 +376,16 @@ function changeBookmarkRank(bookmarkDiv, newRank) {
     $( this ).removeClass( "highlight-droppable" );
   }
 );*/
-
-
-
+ 
+ 
+ 
 //Deleting the folder -- please fix this :(
-
+ 
 $( "#folder-box" ).mouseover(function() {
   $( ".delete-folder" ).show();
 });
-
+ 
 $( "#folder-box" ).mouseout(function() {
   $( ".delete-folder" ).hide();
 });
-
+ 
