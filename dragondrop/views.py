@@ -375,8 +375,11 @@ def get_relevant_bookmarks_and_search_results(request, query, search_results):
     # sort the ranks list
     sorted(range(len(ranks)), reverse=True, key=lambda x:ranks[x])
     # sort the relevant bookmarks according to the sorted ranks
-    relevantBookmarks = list(zip(*sorted(zip(ranks,relevantBookmarks)))[1])
-    relevantBookmarks.reverse()
+    try:
+        relevantBookmarks = list(zip(*sorted(zip(ranks,relevantBookmarks)))[1])
+        relevantBookmarks.reverse()
+    except IndexError:
+        relevantBookmarks = list()
     # remove bookmarks in bin from search results
     bin_urls = [b.url for b in request.user.binfolder.bbmID_fk.all()]
     search_results = [r for r in search_results if not r['link'] in bin_urls]
