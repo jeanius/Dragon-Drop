@@ -26,8 +26,12 @@
                 
                 {% for bookmark in bookmarks %}
                     <div class="draggable saved-bookmark" data-bfrank="{{bookmark.bfrank}}">
-                        {% include "dropdown-include.html" %}
                         <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
+                        {% include "dropdown-include.html" %}
+                        <a class="twitter-share-link"
+                           href="https://twitter.com/intent/tweet?url={{bookmark.url}}&via=dragondropping">
+                          <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                        </a>  
                         <strong><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em>

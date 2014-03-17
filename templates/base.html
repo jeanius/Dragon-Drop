@@ -147,6 +147,10 @@
 													{% for result in user_search_results %}
 														<div class="draggable search-result saved-bookmark">
                                                             {% include "dropdown-include.html" %}
+                                                            <a class="twitter-share-link"
+                                                               href="https://twitter.com/intent/tweet?url={{result.url}}&via=dragondropping">
+                                                              <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                                                            </a>
 															<strong><a href="{{ result.url }}" target="_blank">{{ result.niceName }}</a></strong>
 															<span class="domain-name">({{ result.bdomain }})</span><br>
 																{{ result.bdescr }}<br />
@@ -177,7 +181,10 @@
 											<div class="draggable search-result">
 								
                                                 {% include "dropdown-include.html" %}
-                            
+                                                <a class="twitter-share-link"
+                                                   href="https://twitter.com/intent/tweet?url={{result.link}}&via=dragondropping">
+                                                  <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                                                </a>                          
                                                 <strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong>
                                                 <span class="domain-name">({{ result.domain }})</span><br>
                                                 {{ result.summary }}
@@ -288,6 +295,7 @@
     
     <script src="{% static "js/userpage.js" %}"></script>
 	<script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
 
   </body>
