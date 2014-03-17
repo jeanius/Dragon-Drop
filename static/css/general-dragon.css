@@ -80,7 +80,7 @@ img.subpage{
 
 	display: block;
 	width: 84%;
-	opacity:0.4;
+	opacity:0.55;
 }
 
 /* Dragon in the middle*/
@@ -104,7 +104,11 @@ a.footer:hover {
   color: #66512c;
 }
 .navbar-fixed-bottom {
-background-color: #F9F2FA;
+background-color: #DADADA;;
+}
+
+.navbar-default {
+border-color: #B3B3B3;
 }
 
 
@@ -319,7 +323,7 @@ User page stylesheet
 
        .draggable {
           color: #412f41;
-          background-color: rgba(40,0,70,0.15); /*#DBD0DD;*/
+          background-color: rgba(40,0,70,0.26); /*#DBD0DD;*/
           margin-bottom: 4px;
        }
 
@@ -396,7 +400,7 @@ width:100%;
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-background-color: #DBD0DD;
+background-color: rgba(40, 0, 70, 0.26);
 padding-top: 10px;
 }
 
