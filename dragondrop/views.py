@@ -322,26 +322,29 @@ def log_out(request):
         return render_to_response('index.html', {}, context)
 
 def help(request):
-    context = RequestContext(request)
-
-    context_dict = bookmarksFoldersUsers(request)
-   
-    return render_to_response('help.html', context_dict, context) 
+    try:
+        context = RequestContext(request)
+        context_dict = bookmarksFoldersUsers(request)
+        return render_to_response('help.html', context_dict, context) 
+    except UnboundLocalError:
+        return HttpResponseRedirect('userpage')
 
 def privacy(request):
-    context = RequestContext(request)
-    
-    context_dict = bookmarksFoldersUsers(request)
-    
-    return render_to_response('privacy.html', context_dict, context) 
+    try:
+        context = RequestContext(request)
+        context_dict = bookmarksFoldersUsers(request)
+        return render_to_response('privacy.html', context_dict, context) 
+    except UnboundLocalError:
+        return HttpResponseRedirect('userpage')
     
 def about(request):
-    context = RequestContext(request)
-
-    context_dict = {}
-    context_dict = bookmarksFoldersUsers(request)
-    
-    return render_to_response('about.html', context_dict, context) 
+    try:
+        context = RequestContext(request)
+        context_dict = {}
+        context_dict = bookmarksFoldersUsers(request)
+        return render_to_response('about.html', context_dict, context) 
+    except UnboundLocalError:
+        return HttpResponseRedirect('userpage')
 
 def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
