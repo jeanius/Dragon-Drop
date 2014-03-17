@@ -264,9 +264,11 @@ User page stylesheet
       margin-top:2px;
     }
     .twitter-share-link img {
-      padding: 4px;
-      opacity:0.4;
-      width:24px;
+      padding-right: 4px;
+      padding-top: 4px;
+      margin-left:4px;
+      width: 24px;
+      opacity: 0.4;
     }
 
     .draggable-helper {
