@@ -32,7 +32,7 @@ def index(request):
                    return HttpResponseRedirect('userpage')
             
             else:
-                 return render_to_response('index.html', {'login_form': LoginForm}, context)
+                 return render_to_response('register.html', {'login_form': LoginForm}, context)
           
         else:
             return render_to_response('index.html', {'login_form': LoginForm}, context) 
