@@ -1,7 +1,5 @@
 Gozel,Maps,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
-Gozel,Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
 Jean,Miscellaneous visualizations,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
-Gozel,Institute for Health Metrics and Evaluation,http://www.healthmetricsandevaluation.org/tools/data-visualization/us-health-map,US Health Map
 Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/gbd-compare/,GBD Compare
 Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/mortality/,Mortality Visualization
 Gozel,Miscellaneous visualizations,http://viz.healthmetricsandevaluation.org/cod/,COD Visualization
@@ -97,7 +95,6 @@ Wen,Misc Trees and Graphs,http://thepowerrank.com/visual/NCAA_Tournament_Predict
 Wen,Misc Trees and Graphs,http://blockses.appspot.com/2503502,Bracket Layout
 Wen,Misc Trees and Graphs,http://bit.ly/PvWgUH,SCION simulation environment
 Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/972398,Treemap Layout in SVG
-Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/4092944,Circular tree of d3 src using burrow() for recursive nesting
 Wen,Misc Trees and Graphs,http://bl.ocks.org/mbostock/4092944,Circular tree comparing the src directory for three versions of d3
 Wen,Misc Trees and Graphs,http://jimkang.com/quadtreevis/,Interactive visualization that shows changes in the internal node tree of a quadtree as points are added
 Wen,Chord Layout,http://www.tips-for-excel.com/MCFC/Passes.html,Football passes
@@ -106,11 +103,7 @@ Wen,Chord Layout,http://www.torre.nl/remittances/,Remittance flows
 Wen,Chord Layout,http://bl.ocks.org/mbostock/1046712,Dependencies Between Classes
 Wen,Chord Layout,http://bost.ocks.org/mike/uberdata/,Uber Rides by Neighborhood
 Wen,Chord Layout,http://exposedata.com/tutorial/chord/latest.html,Updating data
-Wen,Chord Layout,http://fleetinbeing.net/d3e/chord.html,Updating data
-Wen,Chord Layout,http://livecoding.io/3419309,Fade on Hover
 Wen,Chord Layout,http://bl.ocks.org/mbostock/4062006,Fade on Hover
-Wen,Chord Layout,http://www.javainc.com/projects/dex/examples/vis/d3/presidents/presidentPartyChord.html,Fade on Hover
-Wen,Chord Layout,http://bl.ocks.org/1046712,Static
 Wen,Chord Layout,http://bl.ocks.org/1308257,Static
 Jean,Chord Layout,http://fleetinbeing.net/d3e/chord.html,Chord Layout Transitions
 Jean,Chord Layout,http://www.rjbaxley.com/p/publications.html,Co-Authors Chords
@@ -177,7 +170,6 @@ Jean,Useful snippets,http://bl.ocks.org/mbostock/1071269,Date Ticks
 Jean,Useful snippets,http://bl.ocks.org/mbostock/1503463,Masking with external svg elements
 Jean,Useful snippets,http://bl.ocks.org/mbostock/1367999,PJAX
 Jean,Useful snippets,http://bl.ocks.org/mbostock/1226718,Table Sorting
-Jean,Useful snippets,http://bl.ocks.org/mbostock/1846692,Automatically sizing text
 Jean,Useful snippets,http://bl.ocks.org/mbostock/2295155,"Templating ala Mustache, with Chernoff faces example"
 Jean,Useful snippets,http://bl.ocks.org/mbostock/1343714,Bay Area earthquake responses by zip code: loading external file through Yahoo Pipes
 Jean,Useful snippets,http://jsfiddle.net/7WQjr/,Simple HTML data tables
@@ -190,7 +182,6 @@ Jean,Useful snippets,http://bl.ocks.org/mbostock/4053096,Constraint relaxation 1
 Jean,Useful snippets,http://bl.ocks.org/mbostock/4047002,Custom Path and Area Generator
 Jean,Useful snippets,http://bl.ocks.org/mbostock/3605124,Axis Examples
 Jean,Useful snippets,http://bl.ocks.org/mbostock/3173233,Loading Adobe Photoshop ASE color palette
-Jean,Useful snippets,http://jsfiddle.net/shawnbot/BJLe6/,Render sever-side using Phantomjs
 Jean,Useful snippets,http://bl.ocks.org/mbostock/4236639,Reusable text rotation
 Jean,Useful snippets,http://ollieglass.com/2012/04/21/bieber-fever-meter-with-html5s-web-socket-d3-js-and-pusher/,"Bieber Fever Meter with HTML5's Web Socket, d3.js and Pusher"
 Jean,Useful snippets,http://bl.ocks.org/mbostock/4246925,Reverse Geocoding Plug-in using an offline canvas
