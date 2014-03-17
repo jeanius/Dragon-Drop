@@ -26,7 +26,7 @@
               <div id="sortable">
                 
                 {% for bookmark in bookmarks %}
-                    <div class="draggable saved-bookmark" data-bfrank="{{bookmark.bfrank}}">
+                    <div class="draggable saved-bookmark{%if bookmark.justAdded%} just-added{%endif%}" data-bfrank="{{bookmark.bfrank}}">
                         <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
                         {% include "dropdown-include.html" %}
                         <a class="twitter-share-link"

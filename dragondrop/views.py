@@ -119,7 +119,7 @@ def folder(request, folder_page_url):
             this_folder = current_user.folder_set.get(foldername = folder_name)
             context_dict['folders'] = getFolderList(current_user, folder_name, True)
             urlNotOk = False
-            
+            bookmarkWasAdded = False
             
             if request.method == 'POST':
                 url = request.POST['url']
@@ -131,7 +131,7 @@ def folder(request, folder_page_url):
 					context_dict ['urlNotOk'] = urlNotOk
 					   
                 if not urlNotOk:
-                    bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)  
+                    bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)
                     bookmark.saved_times += 1
                     if bookmark_was_created:   # If bookmark didn't already exist, set its properties
                         bookmark.btitle, bookmark.bdescr = getHtmlTitle(url)
@@ -144,13 +144,19 @@ def folder(request, folder_page_url):
                     bookmarkToFolder.bfrank = bfrank
                     bookmark.save()
                     bookmarkToFolder.save()
+                    bookmarkWasAdded = True
 
             bf = this_folder.bookmarktofolder_set.all().order_by('-bfrank')
+            
             def bf_to_bookmark(bf):
                 bookmark = bf.bfbookmark
                 bookmark.bfrank = bf.bfrank
                 return bookmark
-            context_dict['bookmarks'] = map(bf_to_bookmark, list(bf))
+                
+            bookmarksToDisplay = map(bf_to_bookmark, list(bf))
+            if bookmarkWasAdded:
+                bookmarksToDisplay[0].justAdded = True
+            context_dict['bookmarks'] = bookmarksToDisplay
 
         except Folder.DoesNotExist:
             pass
@@ -353,23 +359,33 @@ def add_domain_to_search_result(search_result):
 # get relevant bookmarks and search results in sorted ranks order
 def get_relevant_bookmarks_and_search_results(request, query, search_results):
     userBookmarks = Bookmark.objects.filter(fname__fusername_fk=request.user).distinct()
-    relevantBookmarks = list(userBookmarks.filter( Q(url__icontains=query)    |
+    relevantBookmarks = list(userBookmarks.filter(Q(url__icontains=query)    |
                                                   Q(bdescr__icontains=query) |
                                                   Q(btitle__icontains=query)))
-    # make bookmarks that are in user bookmarks from the search results and append 
-    # them - if necessary and not already in - to relevantBookmarks
+
+    urlsOfRelevantBookmarks = [b.url for b in relevantBookmarks]
+    urlsOfUserBookmarks = [b.url for b in userBookmarks]  # The URLs of all the current user's bookmarks
+    
+    # If any of out Bing search results are already in our list of relevant bookmarks,
+    # then remove them from the list of Bing results
+    search_results = [sr for sr in search_results if not sr['link'] in urlsOfRelevantBookmarks]
+    
+    # Get a list the all remaining Bing results that are already bookmarked
+    already_bookmarked_results = [sr for sr in search_results if sr['link'] in urlsOfUserBookmarks]
+    already_bookmarked_urls = [r['link'] for r in already_bookmarked_results]
+    
+    # From the Bing results, remove all remaining bookmarks
+    search_results = [sr for sr in search_results if not sr['link'] in already_bookmarked_urls]
+    
+    # For each Bing search result that is bookmarked by that we didn't find
+    # using simple text matching, add this bookmark to our (yellow) list of relevant bookmarks
+    for url in already_bookmarked_urls:
+        relevantBookmarks.append(userBookmarks.get(url=url))
+    
+    # Add YouTube IDs to search results
     for search_result in search_results:
-        if search_result['link'] in [b.url for b in relevantBookmarks]:
-            search_results.remove(search_result)
-        elif (search_result['link'] in [b.url for b in userBookmarks]) and (not search_result['link'] in relevantBookmarks):
-            search_result['video_id'] = get_youtube_id(search_result['link'], search_result['domain'])
-            relevantBookmarks.append(
-                {'url': search_result['link'],
-                'btitle': search_result['title'],
-                'bdomain': search_result['domain'],
-                'bdescr': search_result['summary'],
-                'video_id': search_result['video_id']
-                })
+        search_result['video_id'] = get_youtube_id(search_result['link'], search_result['domain'])
+
     # a list with the ranked relevant bookmarks
     ranks = list()
     # get the ranks if the relevant bookmarks and put them into the ranks list

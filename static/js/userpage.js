@@ -1,3 +1,6 @@
+// This will be used to prevent sorting and dropping of a bookmark at the same time
+var hoveringOverDroppable = false;
+
 $(function() {
 
     // Set the height of the folder list in the first column
@@ -46,17 +49,6 @@ $(function() {
     $(".btn-primary-folder").click(function() {addBtnMessage($(this), "Adding..."); });
     $(".btn-primary-search").click(function() {addBtnMessage($(this), "Searching..."); });   
  
-    // Only allow re-ordering of bookmarks if the user isn't
-    // about to drop onto a folder or the bin
-    $(".droppable")
-        .mouseover(function() {
-            
-            $( "#sortable" ).sortable( "option", "disabled", true );
-        })
-        .mouseout(function() {
-            $( "#sortable" ).sortable( "option", "disabled", false );
-        })
- 
     // Filter folder names based on typed text
     $( "#folder-filter" ).keyup(function() {
         $( ".droppable" ).each (function() {
@@ -96,24 +88,30 @@ $(function() {
     // Save changes when a bookmark is moved to a new position on the list
     var sortStop = function(event, ui) {
         dragStop(event, ui);
-        var prevBmRank = ui.item.prev().attr('data-bfrank');
-        var nextBmRank = ui.item.next().attr('data-bfrank');
-        var thisBmRank = ui.item.attr('data-bfrank');
-        // Set the rank (a floating-point value) to be between the ranks of the
-        // bookmarks above and below. If the bookmark is dropped at the top or bottom
-        // of the list, set its rank highest or lowest, respectively.
-        if (thisBmRank < nextBmRank) {
-            if (typeof prevBmRank === 'undefined') {
-                changeBookmarkRank(ui.item, +nextBmRank + 1);
-            } else {
-                changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+        
+        // Only change order if not hovering over a folder or bin
+        if (hoveringOverDroppable) { // We've just dropped to a folder, so don't change rank
+            $(this).sortable('cancel');
+        } else {
+            var prevBmRank = ui.item.prev().attr('data-bfrank');
+            var nextBmRank = ui.item.next().attr('data-bfrank');
+            var thisBmRank = ui.item.attr('data-bfrank');
+            // Set the rank (a floating-point value) to be between the ranks of the
+            // bookmarks above and below. If the bookmark is dropped at the top or bottom
+            // of the list, set its rank highest or lowest, respectively.
+            if (thisBmRank < nextBmRank) {
+                if (typeof prevBmRank === 'undefined') {
+                    changeBookmarkRank(ui.item, +nextBmRank + 1);
+                } else {
+                    changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+                }
+            } else if (thisBmRank > prevBmRank) {
+                if (typeof nextBmRank === 'undefined') {
+                    changeBookmarkRank(ui.item, +prevBmRank - 1);
+                } else {
+                    changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
+                }       
             }
-        } else if (thisBmRank > prevBmRank) {
-            if (typeof nextBmRank === 'undefined') {
-                changeBookmarkRank(ui.item, +prevBmRank - 1);
-            } else {
-                changeBookmarkRank(ui.item, (+prevBmRank + (+nextBmRank)) / 2);
-            }       
         }
     }
  
@@ -212,7 +210,6 @@ $(function() {
                                        },
                             function() {alert("There was a problem adding to the folder.")});
         } else {
-            console.log(url);
             ajaxAddToBin(url,
                             function() {dropDownButton.text("Added!");
                                         window.setTimeout(function() {
@@ -223,6 +220,33 @@ $(function() {
                             function() {alert("There was a problem adding to the bin folder.")});
         }
     });
+    
+    
+    // If a bookmark has just been added by pasting URL, make it glow
+    var bgOpacity = 0.15;
+    var decInterval, incInterval;
+    var decreaseOpacity = function () {
+        if (bgOpacity > 0.7) {
+            bgOpacity -= 0.02;
+        } else {
+            bgOpacity -= 0.05;
+        }
+        $(".just-added").css("background-color", "rgba(255,255,50," + bgOpacity + ")");
+        if (bgOpacity < 0.2) {
+            $(".just-added").css("background-color", "rgba(255,255,50,.15)");
+            clearInterval(decInterval);
+        }
+    }
+    var increaseOpacity = function () {
+        bgOpacity += 0.05;
+        $(".just-added").css("background-color", "rgba(255,255,50," + bgOpacity + ")");
+        if (bgOpacity > 0.9) {
+            console.log("true")
+            clearInterval(incInterval);
+            decInterval = setInterval(decreaseOpacity, 30);
+        }
+    }
+    var incInterval = setInterval(increaseOpacity, 30);
 });
  
  
@@ -370,6 +394,8 @@ function deleteFolder(folderName, deleteButton) {
         });
 }
 
+
+
 // Set up folders to receive dropped bookmarks and to call
 // the Ajax POST functions
 function makeDroppable() {
@@ -379,12 +405,16 @@ function makeDroppable() {
                 .removeClass( "glyphicon-folder-close" )
                 .addClass( "glyphicon-folder-open" );
             $( this ).find(".glyphicon").addClass("highlight-droppable-hover");
+            // We will only allow re-ordering of bookmarks if the user isn't
+            // about to drop onto a folder or the bin
+            hoveringOverDroppable = true;
         },
         out: function( event, ui ) {
             $( this ).find(".dd-folder-icon").not(".keep-folder-open")
                 .removeClass( "glyphicon-folder-open" )
                 .addClass( "glyphicon-folder-close" );
             $( this ).find(".glyphicon").removeClass("highlight-droppable-hover");
+            hoveringOverDroppable = false;
         },
         tolerance: "pointer",
         drop: function( event, ui ) {
@@ -394,11 +424,15 @@ function makeDroppable() {
             if (dropTarget.hasClass("bin")) {
                 ajaxDropToBin(dropTarget, ui);
             } else {
-                ajaxDropToFolder(dropTarget, ui);
+                ajaxDropToFolder(dropTarget, ui); 
             }
+            // Wait a moment before allowing sorting of bookmarks.
+            // This will prevent accidentally re-ordering when the user drops to a folder
+            setTimeout(function() {hoveringOverDroppable = false}, 200)
         }
     });
 }
+
  
 // Saved the changed bookmark rank in the HTML element's data attribute and in the database
 function changeBookmarkRank(bookmarkDiv, newRank) {

@@ -70,7 +70,11 @@ margin-bottom: 10px;
 
 /* Embedded YouTube player */
 iframe {
-  margin: 10px;
+  display:block;
+  margin-top: 10px;
+  margin-bottom:10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 	
@@ -499,6 +503,15 @@ clear: both;
 padding-top: 10px;
 }
 
+
+/**  Small link to folder in bookmarked search results on user page  **/
+.small-button-to-folder {
+  position: relative;
+  top: 2px;
+  margin-bottom:8px;
+}
+
+
 /* top navigation - user details */
 .navbar-inverse {
   background-color: #EBE6ED;
@@ -605,10 +618,12 @@ color: #B1B1B1
 
 a.delete-bookmark :hover {
 color: red;
+opacity: 0.8;
 }
 
 .delete-folder {
-color: #B1B1B1;
+color: white;
+opacity: 0.4;
 font-size: 1.5em;
 display:none;
 float:right;
@@ -620,6 +635,7 @@ cursor: pointer;
 
 .delete-folder:hover {
 color: red;
+opacity: 0.8;
 }
 
 
