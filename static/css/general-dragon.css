@@ -264,8 +264,7 @@ User page stylesheet
       margin-top:2px;
     }
     .twitter-share-link img {
-      padding-top: 4px;
-      padding-right:4px;
+      padding: 4px;
       opacity:0.4;
       width:24px;
     }
@@ -590,9 +589,8 @@ padding-top: 10px;
 }
 
 a.delete-bookmark {
-
 float: right;
-font-size: 1.9em;
+font-size: 1.5em;
 padding: 0 5px 0 5px;
 color: #B1B1B1
 }
