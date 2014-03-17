@@ -38,12 +38,13 @@ $(function() {
         var btnWidth = button.css("width");
         button.addClass("disabled");
         button.text(message);
-        if (!keepWidth) {
+        if (keepWidth) {
             button.css("width", btnWidth);
         }
     }
+    $(".btn-primary-add").click(function() {addBtnMessage($(this), "Adding..."); });
     $(".btn-primary-folder").click(function() {addBtnMessage($(this), "Adding..."); });
-    $(".btn-primary-search").click(function() {addBtnMessage($(this), "Searching...", true); });   
+    $(".btn-primary-search").click(function() {addBtnMessage($(this), "Searching..."); });   
  
     // Only allow re-ordering of bookmarks if the user isn't
     // about to drop onto a folder or the bin
@@ -138,11 +139,14 @@ $(function() {
     // request to create the folder
     $("#add-folder-button")
         .click(function() {
-             var folderName = $("#new-folder-name-input").val();     
+             var folderName = $("#new-folder-name-input").val();
+             var addFolderButton = $(this);             
              $.post("/ajax-create-folder/",
              { folderName: folderName },
              function(data) {
                 $("#folder-add-message").text(data);
+                addFolderButton.removeClass("disabled");
+                addFolderButton.html('<span class="glyphicon glyphicon-plus"/>');
                 if (data === "Folder created") {
                     $("#folder-list").append(makeNewFolderElement(folderName));
                     makeDroppable();
@@ -153,7 +157,9 @@ $(function() {
                 .fail(function() {
                    $("#folder-add-message")
                        .text("An error occurred when attempting to add the folder. Please try again.");
-                });
+                        addFolderButton.removeClass("disabled");
+                        addFolderButton.html('<span class="glyphicon glyphicon-plus"/>');
+                   });
     });
  
  
