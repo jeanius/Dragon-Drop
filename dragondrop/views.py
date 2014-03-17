@@ -13,6 +13,7 @@ from dragondrop.url_utilities import get_youtube_id
 from urlparse import urlparse
 from operator import itemgetter
 import urllib
+import bisect
 
 def index(request):
     context = RequestContext(request)
@@ -32,7 +33,7 @@ def index(request):
                    return HttpResponseRedirect('userpage')
             
             else:
-                 return render_to_response('register.html', {'login_form': LoginForm}, context)
+                 return render_to_response('register.html', {'login_form': LoginForm}, context) #Return Register page if user not recognised
           
         else:
             return render_to_response('index.html', {'login_form': LoginForm}, context) 
@@ -58,42 +59,18 @@ def userpage(request):
                 # Run our Bing function to get the results list
                 search_results = run_query(query)
                 search_results = map(add_domain_to_search_result, search_results)
-                (relevantBookmarks, userBookmarkUrls) = get_matching_bookmarks(request, query)
-                relevantBookmarkUrls = [b.url for b in relevantBookmarks]
-                for search_result in search_results:
-                    search_result['video_id'] = get_youtube_id(search_result['link'], search_result['domain'])
-                    if search_result['link'] in userBookmarkUrls:
-                        search_results.remove(search_result)
-                        if not search_result['link'] in relevantBookmarkUrls:
-                            relevantBookmarks.append(
-                                {'url': search_result['link'],
-                                 'btitle': search_result['title'],
-                                 'bdomain': search_result['domain'],
-                                 'bdescr': search_result['summary'],
-                                 'video_id': search_result['video_id']
-                                })
-                        
-                try:
-                    bin_folder = request.user.binfolder
-                    bin_bookmarks = bin_folder.bbmID_fk.all()
-                    bin_urls = [b.url for b in bin_bookmarks]
-                    search_results = [r for r in search_results if not r['link'] in bin_urls]
-                except BinFolder.DoesNotExist:
-                    pass
-
+                # get relevant bookmarks and search results in sorted ranks order
+                (relevantBookmarks, search_results) = get_relevant_bookmarks_and_search_results(request, query, search_results)
+                
                 for r in relevantBookmarks:
                     containingFolders = [f.foldername for f in list(r.fname.filter(fusername_fk=request.user))]
                     r.containingFolders = \
                         [{'name':f, 'underscored_name':encode_url(f)} for f in containingFolders]
 
-                # add [rank] to each search_result
-                search_results = map(add_rank_to_search_result, search_results)
-                # sort the ranking out
-                search_results = sorted(search_results, key=itemgetter('rank'))
-
                 context_dict['search_results'] = search_results
                 request.session['search_results'] = search_results
                 context_dict['user_search_results'] = relevantBookmarks
+                #print context_dict[]
 
         return render_to_response('userpage.html', context_dict, context)
 
@@ -222,7 +199,7 @@ def ajaxDropToFolder(request):
     if request.method == 'POST' and request.user.is_authenticated():
         url = request.POST['url']
         bookmark, bookmark_was_created = Bookmark.objects.get_or_create(url=url)
-
+        print "created??? " + str(bookmark_was_created)
         bookmark.saved_times += 1
 
         if bookmark_was_created:    # If bookmark didn't already exist, set its properties
@@ -370,23 +347,49 @@ def add_domain_to_search_result(search_result):
     search_result['domain'] = getDomain(search_result['link'])
     return search_result
 
-def get_matching_bookmarks(request, query):
+# get relevant bookmarks and search results in sorted ranks order
+def get_relevant_bookmarks_and_search_results(request, query, search_results):
     userBookmarks = Bookmark.objects.filter(fname__fusername_fk=request.user).distinct()
     relevantBookmarks = list(userBookmarks.filter( Q(url__icontains=query)    |
                                                   Q(bdescr__icontains=query) |
                                                   Q(btitle__icontains=query)))
-    userBookmarkUrls = [b.url for b in userBookmarks]
-    return (relevantBookmarks, userBookmarkUrls)
-
-    return (userBookmarks, relevantBookmarks)
+    # make bookmarks that are in user bookmarks from the search results and append 
+    # them - if necessary and not already in - to relevantBookmarks
+    for search_result in search_results:
+        print "WOOHOO " + search_result['link']
+        if search_result['link'] in [b.url for b in relevantBookmarks]:
+            search_results.remove(search_result)
+        elif (search_result['link'] in [b.url for b in userBookmarks]) and (not search_result['link'] in relevantBookmarks):
+            search_result['video_id'] = get_youtube_id(search_result['link'], search_result['domain'])
+            relevantBookmarks.append(
+                {'url': search_result['link'],
+                'btitle': search_result['title'],
+                'bdomain': search_result['domain'],
+                'bdescr': search_result['summary'],
+                'video_id': search_result['video_id']
+                })
+    for search_result in relevantBookmarks:
+        print "BBBBOOHOO " + search_result.url
+    # a list with the ranked relevant bookmarks
+    ranks = list()
+    # get the ranks if the relevant bookmarks and put them into the ranks list
+    for r in relevantBookmarks:
+        ranks.append(BookmarkToFolder.objects.filter(bffolder__fusername_fk = request.user, bfbookmark = r).values('bfrank')[0]['bfrank'])
+    # sort the ranks list
+    sorted(range(len(ranks)), reverse=True, key=lambda x:ranks[x])
+    # sort the relevant bookmarks according to the sorted ranks
+    relevantBookmarks = list(zip(*sorted(zip(ranks,relevantBookmarks)))[1])
+    relevantBookmarks.reverse()
+    # remove bookmarks in bin from search results
+    bin_urls = [b.url for b in request.user.binfolder.bbmID_fk.all()]
+    search_results = [r for r in search_results if not r['link'] in bin_urls]
+    return (relevantBookmarks, search_results)
 
 def bookmarksFoldersUsers(request):
     context = RequestContext(request)
 
     if request.user.is_authenticated():
-
         current_user = request.user
-                 
         try:
             context_dict = {'bookmarklist': topten(request),
                             'user':         current_user,
@@ -396,24 +399,7 @@ def bookmarksFoldersUsers(request):
         
     return context_dict
 
+# get top ten saved bookmarks to display to users
 def topten(request):
      topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
      return topbookmark
-
-# add rank number for each search_result
-def add_rank_to_search_result(search_result):
-    search_result['rank'] = getRank(search_result['link'])
-    return search_result
-
-# find rank number for each search_result
-def getRank(thisUrl):
-    thisBookmark = Bookmark.objects.filter(url=thisUrl)
-    totalSavedTimes = [b.saved_times for b in thisBookmark]
-    totalSavedTimes = totalSavedTimes[0] if totalSavedTimes else 1
-    
-    positiveSavedTimes = BookmarkToFolder.objects.filter(bfbookmark=thisBookmark).count()
-    
-    negativeSavedTimes = BinFolder.objects.filter(bbmID_fk=thisBookmark).count()
-    
-    rankNumber = 1 - (positiveSavedTimes-negativeSavedTimes)/(10 * totalSavedTimes)
-    return rankNumber
