@@ -11,10 +11,10 @@ $(function() {
             var folderBoxHeight = $("#folder-box").height();
             var resultsBoxHeight = $(".results").height();
             var folderListTop = $("#scrollable").position().top;
-            $("#scrollable").css("height", (folderBoxHeight - folderListTop - 80) + "px");
+            $("#scrollable").css("height", (folderBoxHeight - folderListTop - 93) + "px");
             if ($("#scrollable-bookmarks").length > 0) {
                 var bookmarkListTop = $("#scrollable-bookmarks").position().top;
-                $("#scrollable-bookmarks").css("height", (resultsBoxHeight - bookmarkListTop - 69) + "px");
+                $("#scrollable-bookmarks").css("height", (resultsBoxHeight - bookmarkListTop - 82) + "px");
             }
         } else {
             $("#scrollable").css("height", "");
@@ -60,15 +60,26 @@ $(function() {
         });
     });
  
+    
     // Filter bookmarks in folder based on typed text
     $( "#bookmarks-filter" ).keyup(function() {
+        $("#folder-page-search-button").removeClass("disabled");
+        var nMatches = 0;
         $( ".draggable" ).each (function() {
             if (textAppearsIn($("#bookmarks-filter").val(), $(this).text())) {
                 $(this).show();
+                nMatches++
             } else {
                 $(this).hide();
             }
         });
+        if (nMatches == 0) {  // If no matches were found
+            $("#folder-page-search-button-div").css("display", "block");
+            $("#folder-search-query").text($("#bookmarks-filter").val());
+            $("#folder-page-search-button").attr("href", "/userpage/" + encodeURIComponent($("#bookmarks-filter").val()));
+        } else {
+            $("#folder-page-search-button-div").css("display", "none");
+        }
     });
  
     var elementsToHighlightOnDrag = $(".bin span, .dd-folder-icon");
@@ -419,7 +430,7 @@ function makeDroppable() {
         tolerance: "pointer",
         drop: function( event, ui ) {
             var dropTarget = $(this);
-            dropTarget.find(".folder-message").text( "Adding link..." );                         
+            dropTarget.find(".folder-message").text( "<br>Adding link..." );                         
             dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
             if (dropTarget.hasClass("bin")) {
                 ajaxDropToBin(dropTarget, ui);

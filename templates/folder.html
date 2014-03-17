@@ -16,10 +16,19 @@
           </div>
 	   {% endif %}
       
-	  <!-- bookmark filtering text box-->
-	   <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
-		
-      <div id="scrollable-bookmarks">
+          {% if bookmarks %}
+	        <!-- bookmark filtering text box-->
+	        <input type="text" class="form-control" placeholder="Type to filter the list" name="bookmarks-filter" id="bookmarks-filter">
+	        <div class="hidden-on-load" id="folder-page-search-button-div">
+	            <p>
+	                Nothing in this folder matches what you typed.
+	                Would you like to search the web and all of your bookmarks
+	                for <i id="folder-search-query"></i>?<br>
+	                <a href="#" id="folder-page-search-button" class="btn btn-primary-search btn-lg active" role="button">Search</a>
+	            </p>
+	        </div>
+		  {% endif %}
+          <div id="scrollable-bookmarks">
           {% if bookmarks %}
              
               <!-- Display search results in an ordered list -->
@@ -44,8 +53,27 @@
                    </div>
                 {% endfor %}
               </div>
-          {% endif %}          
-      </div>
+
+            {% elif hideUrlInputBox %}
+              <p>
+                This is your Bin Folder, where you can drag links that you never want to see again.
+                We&apos;ll make sure they don&apos;t appear in your search results.
+              </p>
+              <p>
+                <a href="/userpage">Click to return to your user page</a>
+              </p>  
+            {% else %}
+              <p>
+                Welcome to your new folder! There are two ways to begin filling it with bookmarks.
+              </p>
+              <ol>
+                <li>Paste a web link in the box below</li>
+                <li>Click on the dragon logo
+                to visit your search page, then drag search results to this folder</li>
+              </ol>
+            {% endif %}      
+         </div>
+
 	  
 	        {% if hideUrlInputBox == None %}
           <form method="post" >

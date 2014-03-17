@@ -5,7 +5,6 @@ GENERAL stylesheet
 ***********/
 
 
-
 body {
   padding-top: 20px;
   padding-bottom: 60px;
@@ -67,6 +66,9 @@ h3  {
 h3.results {
 margin-bottom: 10px;
 }
+#results-from-web-heading {
+  margin-top:20px;
+}
 
 /* Embedded YouTube player */
 iframe {
@@ -96,6 +98,13 @@ img {
 	}
 	
 
+#folder-page-search-button-div {
+    display:none;
+    margin-top: 30px;
+}
+#folder-page-search-button {
+    margin-top:10px;
+}
 
 /* footer navigation bar */
 
@@ -322,22 +331,34 @@ User page stylesheet
 		color: #fff;
 	   }
 	   
-
+	   .btn-primary-search:hover,
+	   .btn-primary-delete:hover,
+	   .btn-primary-folder:hover,
+		.btn-primary-add:hover,
+	   .btn-primary-search:focus,
+	   .btn-primary-delete:focus,
+	   .btn-primary-folder:focus,
+		.btn-primary-add:focus
+	   {
+		color: #fff;
+	   }
 	  
 
        .draggable {
           color: #412f41;
-          background-color: rgba(40,0,70,0.26); /*#DBD0DD;*/
+          background-color: rgba(255,255,255,0.85); /*#DBD0DD;*/
           margin-bottom: 4px;
+          padding-left:2px;
        }
 
        .draggable.saved-bookmark {
-          background-color: rgba(255,255,50,0.15); /*#DBD0DD;*/
+          background-color: rgba(255,255,30,0.15); /*#DBD0DD;*/
        }
 	   
-	   .draggable a,
-	   .draggable a:hover {
-	   color: #412f41;
+	   .draggable strong a,
+	   .draggable strong a:hover {
+	     /*color: #412f41;*/
+	     color: #43b;
 	   }
        
        .droppable {
@@ -421,10 +442,6 @@ z-index: 1;
 color:#412f41;
 }
 
-.top-bookmarks ol{
-font-weight: bold;
-}
-
 .bin {
 padding: 5px 20px;
 border-top: 10px solid #EBE6ED;
@@ -450,7 +467,7 @@ margin-top: 30px;
 .bin span {
 
 display: block;
-font-size: 120px;
+font-size: 80px;
 color: #5F4864;
 padding-top: 70px;
 text-align:center;

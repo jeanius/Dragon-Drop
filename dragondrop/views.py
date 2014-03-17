@@ -38,6 +38,13 @@ def index(request):
         else:
             return render_to_response('index.html', {'login_form': LoginForm}, context) 
 
+
+def userpageWithQuery(request, query_in_url):
+    request.query_in_url = query_in_url
+    print query_in_url
+    return userpage(request)
+
+
 def userpage(request):
      context = RequestContext(request)
   
@@ -52,25 +59,28 @@ def userpage(request):
         except User.DoesNotExist:
                pass
      
+        query = False
         if request.method == 'POST':
-            
             query = request.POST['query'].strip()
-            if query:
-                # Run our Bing function to get the results list
-                search_results = run_query(query)
-                search_results = map(add_domain_to_search_result, search_results)
-                # get relevant bookmarks and search results in sorted ranks order
-                (relevantBookmarks, search_results) = get_relevant_bookmarks_and_search_results(request, query, search_results)
-                
-                for r in relevantBookmarks:
-                    containingFolders = [f.foldername for f in list(r.fname.filter(fusername_fk=request.user))]
-                    r.containingFolders = \
-                        [{'name':f, 'underscored_name':encode_url(f)} for f in containingFolders]
+        elif hasattr(request, "query_in_url"):
+            query = request.query_in_url.strip()
+            
+        if query:
+            # Run our Bing function to get the results list
+            search_results = run_query(query)
+            search_results = map(add_domain_to_search_result, search_results)
+            # get relevant bookmarks and search results in sorted ranks order
+            (relevantBookmarks, search_results) = get_relevant_bookmarks_and_search_results(request, query, search_results)
+            
+            for r in relevantBookmarks:
+                containingFolders = [f.foldername for f in list(r.fname.filter(fusername_fk=request.user))]
+                r.containingFolders = \
+                    [{'name':f, 'underscored_name':encode_url(f)} for f in containingFolders]
 
-                context_dict['search_results'] = search_results
-                request.session['search_results'] = search_results
-                context_dict['user_search_results'] = relevantBookmarks
-                #print context_dict[]
+            context_dict['search_results'] = search_results
+            request.session['search_results'] = search_results
+            context_dict['user_search_results'] = relevantBookmarks
+            context_dict['search_query'] = query
 
         return render_to_response('userpage.html', context_dict, context)
 
@@ -93,7 +103,10 @@ def register(request):
                bin_folder = BinFolder.objects.create(busername_fk = user)
                user.save()
                username = request.POST['username']
-               registered = True
+               password = request.POST['password']
+               user = authenticate(username=username, password=password)
+               login(request, user)
+               return HttpResponseRedirect('/userpage')
 
           else:
                return render_to_response(
@@ -299,6 +312,8 @@ def ajaxCreateFolder(request):
         folderName = request.POST['folderName']
         if folderName == "":
             return HttpResponse("Enter a folder name")
+        if folderName.lower() in ["about", "privacy", "help", "log_out", "userpage", "register"]:
+            return HttpResponse("Sorry, that name isn't available.")
         if folderName == "bin-folder" or folderName == "bin_folder" or folderName == "bin folder":
             return HttpResponse("You already have a bin folder!")		
         folder, folder_was_created = Folder.objects.get_or_create(foldername=folderName, fusername_fk=request.user)
