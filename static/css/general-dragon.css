@@ -270,7 +270,9 @@ User page stylesheet
       width: 24px;
       opacity: 0.4;
     }
-
+    .twitter-share-link img:hover {
+      opacity: 0.9;
+    }
     .draggable-helper {
         width: 140px;
         background: yellow;
