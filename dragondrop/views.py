@@ -356,7 +356,6 @@ def get_relevant_bookmarks_and_search_results(request, query, search_results):
     # make bookmarks that are in user bookmarks from the search results and append 
     # them - if necessary and not already in - to relevantBookmarks
     for search_result in search_results:
-        print "WOOHOO " + search_result['link']
         if search_result['link'] in [b.url for b in relevantBookmarks]:
             search_results.remove(search_result)
         elif (search_result['link'] in [b.url for b in userBookmarks]) and (not search_result['link'] in relevantBookmarks):
@@ -368,8 +367,6 @@ def get_relevant_bookmarks_and_search_results(request, query, search_results):
                 'bdescr': search_result['summary'],
                 'video_id': search_result['video_id']
                 })
-    for search_result in relevantBookmarks:
-        print "BBBBOOHOO " + search_result.url
     # a list with the ranked relevant bookmarks
     ranks = list()
     # get the ranks if the relevant bookmarks and put them into the ranks list
