@@ -8,7 +8,7 @@ GENERAL stylesheet
 body {
   padding-top: 20px;
   padding-bottom: 60px;
-  background-color: #EBE6ED;
+  background-color: #FFF;
   font-family: Verdana;
 }
 
@@ -70,6 +70,7 @@ h3.top-five-heading {
 
 h3.results {
 margin-bottom: 10px;
+font-weight: bold;
 }
 #results-from-web-heading {
   margin-top:20px;
@@ -100,6 +101,7 @@ img {
 	display: block;
     margin-left: auto;
     margin-right: auto;
+	opacity: 0.89;
 	}
 	
 
@@ -134,7 +136,7 @@ border-color: #B3B3B3;
 .form-control:focus {
   border-color: #5f3c5f; 
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(65, 47, 65, .6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(65, 47, 65, .6); /* #412F41: */
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(65, 47, 65, .6);
 }
 
@@ -298,7 +300,7 @@ User page stylesheet
     .draggable-helper {
         width: 140px;
         background: yellow;
-        box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3)
+        box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.3) /* #fff */
     }
 
 	
@@ -350,12 +352,13 @@ User page stylesheet
 	  
 
        .draggable {
-          color: #412f41;
-          background-color: rgba(255,255,255,0.35); /*#DBD0DD;*/
-          border: 1px solid #d2d2d2;
-          margin-bottom: 4px;
-          padding-left:2px;
-          padding-right:2px;
+        color: #412f41;
+		background-color: rgba(180, 180, 180, 0.35); /* #B4B4B4:*/
+		border: 1px solid #AFAFAF;
+        margin-bottom: 4px;
+        padding-left:2px;
+        padding-right:2px;
+		min-height: 30px;
        }
 
        .draggable.saved-bookmark {
@@ -422,7 +425,7 @@ margin-top: 10px;
 
 
 .add-url {
-border-top: 10px solid #EBE6ED;
+border-top: 10px solid #FFF;
  font-family: Verdana;
 }
 
@@ -437,7 +440,7 @@ width:100%;
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-background-color: rgba(40, 0, 70, 0.22);
+background-color: rgba(40, 0, 70, 0.36); /*#280046:*/
 padding-top: 10px;
 
 }
