@@ -260,15 +260,18 @@
 					{% block right_column_bin_bookmarks %}
 					
 						<div class="top-bookmarks">
-							{% if latestfive %}
-							    <h3 class="top-five-heading">Your latest bookmarks</h3>
-									<ol id="latest-five">
-										{% for bookmark in latestfive %}
-									<li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
-										{% endfor %}
-									</ol>			
+							
+							<h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
+						    
+                                <ol id="latest-five">
+                                  {% if latestfive %}
+                                    {% for bookmark in latestfive %}
+                                <li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
+                                    {% endfor %}
+                                  {% endif %}
+                                </ol>			
 							    <p></p>
-						    {% endif %}
+						    
 							<h3 class="top-five-heading">Top Bookmarks</h3>
 								{% if bookmarklist %}
 									<ol>

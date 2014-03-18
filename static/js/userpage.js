@@ -325,10 +325,19 @@ function ajaxDropToFolder(dropTarget, ui) {
                           .addClass( "glyphicon-folder-close" );
                       ui.draggable.addClass("saved-bookmark");
                       // Add to list of latest bookmarks
-                      if ($('#latest-five').find('a[href="' + url + '"]').length==0) {
-                          $('<li><a href="' + url + '" target="_blank">' + title + '</a></li>')
-                              .insertBefore($('#latest-five').find("li").first());
-                          $('#latest-five').find('li').last().remove();
+                      if ($('#latest-five').find('a[href="' + url + '"]').length == 0) {
+                          if ($('#latest-five').find('li').length == 0) {
+                              var new_li = $('<li></li>')
+                              $('#latest-five').append(new_li);
+                              new_li.append('<a href="' + url + '" target="_blank">' + title + '</a>');
+                          } else {
+                              $('<li><a href="' + url + '" target="_blank">' + title + '</a></li>')
+                                  .insertBefore($('#latest-five').find("li").first());   
+                            if ($('#latest-five').find('li').length > 5) {
+                              $('#latest-five').find('li').last().remove();
+                            }                
+                          }
+                          $('.top-five-heading').css('display', 'block');
                       }
                       removeMessageAfterShortDelay(dropTarget);
                     },
