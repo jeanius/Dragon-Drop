@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../static/favicon.ico">
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}">
 
     <title>{% block title %}{% endblock %}</title>
 
@@ -217,7 +217,7 @@
 									<h3 class="results">Welcome to Dragon Drop!</h3>
 
 									<p>
-									    Dragon Drop is search, made better.
+									    Dragon Drop is search, done better.
 									</p>
 									<p>
 									    To get started:
@@ -260,7 +260,16 @@
 					{% block right_column_bin_bookmarks %}
 					
 						<div class="top-bookmarks">
-							<h3>Top Bookmarks</h3>
+							<h3 class="top-five-heading">Your latest bookmarks</h3>
+								{% if latestfive %}
+									<ol id="latest-five">
+										{% for bookmark in latestfive %}
+									<li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
+										{% endfor %}
+									</ol>			
+								{% endif %}
+							<p></p>
+							<h3 class="top-five-heading">Top Bookmarks</h3>
 								{% if bookmarklist %}
 									<ol>
 										{% for bookmark in bookmarklist %}

@@ -14,6 +14,7 @@ from urlparse import urlparse
 from operator import itemgetter
 import urllib
 import bisect
+from collections import OrderedDict
 
 def index(request):
     context = RequestContext(request)
@@ -53,7 +54,8 @@ def userpage(request):
         current_user = request.user
                  
         try:
-            context_dict = {'bookmarklist': topten(request)}
+            context_dict = {'bookmarklist': topfive(request),
+                            'latestfive'  : latestfive(request)}
             context_dict['user'] = current_user
             context_dict['folders'] = getFolderList(current_user, None)   
         except User.DoesNotExist:
@@ -126,7 +128,7 @@ def folder(request, folder_page_url):
         folder_name = decode_url(folder_page_url)
         context_dict = {'folder_name': folder_name}
         current_user = request.user
-        context_dict['bookmarklist'] = topten(request)
+        context_dict['bookmarklist'] = topfive(request)
 
         try:
             this_folder = current_user.folder_set.get(foldername = folder_name)
@@ -174,6 +176,7 @@ def folder(request, folder_page_url):
         except Folder.DoesNotExist:
             pass
 
+        context_dict['latestfive'] = latestfive(request)
         return render_to_response('folder.html', context_dict, context)
 
     else:
@@ -185,8 +188,9 @@ def binFolder(request):
     if request.user.is_authenticated():
         context_dict = {'folder_name': "Bin Folder"}
         current_user = request.user
-        bookmarklist = topten(request)
+        bookmarklist = topfive(request)
         context_dict['bookmarklist'] = bookmarklist
+        context_dict['latestfive'] = latestfive(request)
         bin_folder = request.user.binfolder
         context_dict['folders'] = getFolderList(current_user, None)
         context_dict['bookmarks'] = bin_folder.bbmID_fk.all()
@@ -403,7 +407,7 @@ def get_relevant_bookmarks_and_search_results(request, query, search_results):
 
     # a list with the ranked relevant bookmarks
     ranks = list()
-    # get the ranks if the relevant bookmarks and put them into the ranks list
+    # get the ranks of the relevant bookmarks and put them into the ranks list
     for r in relevantBookmarks:
         ranks.append(BookmarkToFolder.objects.filter(bffolder__fusername_fk = request.user, bfbookmark = r).values('bfrank')[0]['bfrank'])
     # sort the ranks list
@@ -425,7 +429,8 @@ def bookmarksFoldersUsers(request):
     if request.user.is_authenticated():
         current_user = request.user
         try:
-            context_dict = {'bookmarklist': topten(request),
+            context_dict = {'bookmarklist': topfive(request),
+                            'latestfive':   latestfive(request),
                             'user':         current_user,
                             'folders':      getFolderList(current_user, None)}
         except User.DoesNotExist:
@@ -434,6 +439,14 @@ def bookmarksFoldersUsers(request):
     return context_dict
 
 # get top ten saved bookmarks to display to users
-def topten(request):
-     topbookmark = Bookmark.objects.order_by('-saved_times')[:10]
+def topfive(request):
+     topbookmark = Bookmark.objects.order_by('-saved_times')[:5]
      return topbookmark
+     
+def latestfive(request):
+    # Get latest 10 BookmarkToFolder objects
+    latestBF = BookmarkToFolder.objects.filter(bffolder__fusername_fk=request.user).order_by('-datecreated')[:10]
+    latestBookmarks = [bf.bfbookmark for bf in latestBF]
+    latestBookmarks = list(OrderedDict.fromkeys(latestBookmarks)) # Get unique items
+    return latestBookmarks[:5]
+    

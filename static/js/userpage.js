@@ -252,7 +252,6 @@ $(function() {
         bgOpacity += 0.05;
         $(".just-added").css("background-color", "rgba(255,255,50," + bgOpacity + ")");
         if (bgOpacity > 0.9) {
-            console.log("true")
             clearInterval(incInterval);
             decInterval = setInterval(decreaseOpacity, 30);
         }
@@ -314,14 +313,23 @@ function ajaxAddToFolder(url, folder_name, success_function, failure_function) {
 // An Ajax POST request is made, and success or failure messages are shown 
 function ajaxDropToFolder(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
-    ajaxAddToFolder(ui.draggable.find("strong").find("a").attr("href"),
-                    dropTarget.find(".folder-name").first().text(),
+    var url = ui.draggable.find("strong").find("a").attr("href");
+    var title = ui.draggable.find("strong").find("a").text();
+    var folderName = dropTarget.find(".folder-name").first().text();
+    ajaxAddToFolder(url,
+                    folderName,
                     function(messageFromPython) {
                       dropTarget.find(".folder-message").html( "<br>" + messageFromPython );
                       folderIcon
                           .removeClass( "glyphicon-folder-open" )  
                           .addClass( "glyphicon-folder-close" );
                       ui.draggable.addClass("saved-bookmark");
+                      // Add to list of latest bookmarks
+                      if ($('#latest-five').find('a[href="' + url + '"]').length==0) {
+                          $('<li><a href="' + url + '" target="_blank">' + title + '</a></li>')
+                              .insertBefore($('#latest-five').find("li").first());
+                          $('#latest-five').find('li').last().remove();
+                      }
                       removeMessageAfterShortDelay(dropTarget);
                     },
                     function() {
@@ -350,11 +358,14 @@ function ajaxAddToBin(url, success_function, failure_function) {
 // An Ajax POST request is made, and success or failure messages are shown  
 function ajaxDropToBin(dropTarget, ui) {
     var folderIcon = dropTarget.find(".dd-folder-icon").not(".keep-folder-open");
-    ajaxAddToBin(ui.draggable.find("strong").find("a").attr("href"),
+    var url = ui.draggable.find("strong").find("a").attr("href");
+    ajaxAddToBin(url,
                  function(messageFromPython) {
                       dropTarget.find(".folder-message").text( messageFromPython );
                       ui.draggable.addClass("saved-bookmark")
                       ui.draggable.slideUp();
+                      // Remove from list of latest bookmarks
+                      $('#latest-five').find('a[href="' + url + '"]').parent().remove();
                       removeMessageAfterShortDelay(dropTarget);
                  },
                  function() {

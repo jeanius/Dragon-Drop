@@ -27,7 +27,9 @@ class Bookmark(models.Model):
         return get_youtube_id(self.url, self.bdomain())
 
     def niceName(self):
-        return self.btitle or self.url       
+        if self.btitle=="--- Title not found ---" or not self.btitle:
+            return self.url
+        return self.btitle
     
     def __unicode__(self):
         return self.url
@@ -36,7 +38,7 @@ class BookmarkToFolder(models.Model):
     bffolder = models.ForeignKey(Folder)
     bfbookmark = models.ForeignKey(Bookmark)
     bfrank = models.FloatField(default=0)
-
+    datecreated = models.DateTimeField(auto_now_add=True)
         
 class BinFolder(models.Model):
     busername_fk = models.OneToOneField(User)
