@@ -346,19 +346,26 @@ User page stylesheet
 
        .draggable {
           color: #412f41;
-          background-color: rgba(255,255,255,0.85); /*#DBD0DD;*/
+          background-color: rgba(255,255,255,0.35); /*#DBD0DD;*/
+          border: 1px solid #d2d2d2;
           margin-bottom: 4px;
           padding-left:2px;
+          padding-right:2px;
        }
 
        .draggable.saved-bookmark {
-          background-color: rgba(255,255,30,0.15); /*#DBD0DD;*/
+          /*background-color: rgba(255,255,30,0.15);*/ /*#DBD0DD;*/
        }
 	   
 	   .draggable strong a,
 	   .draggable strong a:hover {
 	     /*color: #412f41;*/
 	     color: #43b;
+	   }
+	   .draggable.saved-bookmark strong a,
+	   .draggable.saved-bookmark strong a:hover {
+	     /*color: #412f41;*/
+	     color: #c84;
 	   }
        
        .droppable {
@@ -425,8 +432,9 @@ width:100%;
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-background-color: rgba(40, 0, 70, 0.26);
+background-color: rgba(40, 0, 70, 0.22);
 padding-top: 10px;
+
 }
 
 .col-md-6{
