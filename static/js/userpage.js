@@ -450,7 +450,7 @@ function makeDroppable() {
         tolerance: "pointer",
         drop: function( event, ui ) {
             var dropTarget = $(this);
-            dropTarget.find(".folder-message").text( "<br>Adding link..." );                         
+            dropTarget.find(".folder-message").html( "<br>Adding link..." );                         
             dropTarget.find(".glyphicon").removeClass("highlight-droppable-hover");
             if (dropTarget.hasClass("bin")) {
                 ajaxDropToBin(dropTarget, ui);
