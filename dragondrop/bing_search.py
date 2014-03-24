@@ -1,5 +1,6 @@
 import json
 import urllib, urllib2
+from dragondrop.key import BING_API_KEY
 
 def run_query(search_terms):
     # Specify the base
@@ -29,11 +30,10 @@ def run_query(search_terms):
     # Setup authentication with the Bing servers.
     # The username MUST be a blank string, and put in your API key!
     username = ''
-    bing_api_key = 'eNElDYl3c+CgxVF6A0liWJhCwcq+Ez+7RfYIlTjpydg'
 
     # Create a 'password manager' which handles authentication for us.
     password_mgr = urllib2.HTTPPasswordMgrWithDefaultRealm()
-    password_mgr.add_password(None, search_url, username, bing_api_key)
+    password_mgr.add_password(None, search_url, username, BING_API_KEY)
 
     # Create our results list which we'll populate.
     results = []
