@@ -99,52 +99,11 @@
                         <div >
                             <div class="row" id="folder-list">
 
-                            <!-- special folders -->
-                            <div class="special-folders">
+                            {% include "special-folders.html" %}
 
-                                    <a href="/popular">
-                                        <span class="glyphicon glyphicon-star dd-folder-icon"></span>
-                                        <span class="folder-name">Popular</span>
-                                    </a>
+                            {% include "suggested-folders.html" %}
 
-                                    <a href="/history">
-                                        <span class="glyphicon glyphicon-time dd-folder-icon"></span>
-                                        <span class="folder-name">History</span>
-                                    </a>
-
-                                    <a href="/latest">
-                                        <span class="glyphicon glyphicon-flash dd-folder-icon"></span>
-                                        <span class="folder-name">Latest</span>
-                                    </a>
-
-                                    <a href="/bin-folder">
-                                        <span class="glyphicon glyphicon-trash dd-folder-icon"></span>
-                                        <span class="folder-name">Bin</span>
-                                    </a>
-
-                            </div> <!--/.special-folders-->
-
-
-
-                                {% if folders %}
-
-                                    {% for folder in folders %}
-                                      <div class="col-md-12 droppable">
-                                        {% if folder.url %}
-                                          <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
-                                          <a href="/{{folder.url}}/">
-                                            <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>                
-                                            <span class="folder-name">{{ folder }}</span>                
-                                          </a>
-                                        {% else %}
-                                          <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
-                                          <span class="folder-name">{{ folder }}</span>
-                                        {% endif %}
-                                        <span class="folder-message"></span>
-                                      </div>                                        
-                                    {% endfor %} 
-                                {% endif %}
-                                {% include "auto-added-folder.html" %}
+                            {% include "all-folders.html" %}
 
                             </div>
                        </div> 
@@ -209,155 +168,26 @@
 								</div>
         
 							  </form>
+
+
+                    {% include "results.html" %}
 			
-					<div id="search-results">
-					
-						
-						
-                              {% if user_search_results %}
-                                <h3 class="results">Results from your folders</h3>
-                                    <!-- Display search results in an ordered list -->
-                                    <div class="main-link-list" style="clear: both;">
-    
-                                    {% for result in user_search_results %}
-                                        <div class="draggable search-result saved-bookmark">
-                                            {% include "dropdown-include.html" %}
-                                            <a class="twitter-share-link"
-                                               href="https://twitter.com/intent/tweet?url={{result.url}}&via=dragondropping">
-                                              <img src="{% static "twitter_bird_black_32.png" %}"></img>
-                                            </a>
-                                            <strong><a href="{{ result.url }}" target="_blank">{{ result.niceName }}</a></strong>
-                                            <span class="domain-name">({{ result.bdomain }})</span><br>
-                                                {{ result.bdescr }}<br />
-                                        <!-- added folder name -->
-                                            <span class="result-folder-name">
-                                        In
-                                        {% for folder in result.containingFolders %}
-                                           <a class="btn btn-default btn-xs small-button-to-folder"
-                                              role="button" 
-                                              href="/{{ folder.underscored_name }}">{{ folder.name }}
-                                           </a>
-                                           {% if not forloop.last %},{% endif %}  
-                                        {% endfor %}
-                                            </span> 
-                                        {% if result.video_id %}
-                                            <br />
-                                    <iframe id="ytplayer" type="text/html" width="327" height="200"
-                                    src="http://www.youtube.com/embed/{{result.video_id}}"
-                                    frameborder="0"></iframe>
-                                            {% endif %} 				
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                              {% endif %}
-						
-						
-						     {% if search_results %}
-								<!-- Display search results in an ordered list -->
-									<h3 class="results" id="results-from-web-heading">Results from the web</h3>
-                                    <div class="main-link-list" style="clear: both;">
-                                        {% for result in search_results %}
-                                        <div class="draggable search-result">
-                            
-                                            {% include "dropdown-include.html" %}
-                                            <a class="twitter-share-link"
-                                               href="https://twitter.com/intent/tweet?url={{result.link}}&via=dragondropping">
-                                              <img src="{% static "twitter_bird_black_32.png" %}"></img>
-                                            </a>                          
-                                            <strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong>
-                                            <span class="domain-name">({{ result.domain }})</span><br>
-                                            {{ result.summary }}
-                                            {% if result.video_id %}
-                                            <br />
-                                            
-                                            <iframe id="ytplayer" type="text/html" width="327" height="200"
-                                            src="http://www.youtube.com/embed/{{result.video_id}}"
-                                            frameborder="0"></iframe>
-                                            {% endif %}   
+				{% endblock %}
 
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-										
-							 {% else %}
-									<h3 class="results">Welcome to Dragon Drop!</h3>
 
-									<p>
-									    Dragon Drop is search, done better.
-									</p>
-									<p>
-									    To get started:
-									</p>
-									<ul>
-									    <li>Type anything in the box above to search the web with Bing</li>
-									    {% if not folders %}
-									        <li>Add some folders to organise your bookmarks</li>
-									    {% endif %}
-									</ul>
-									<p>
-									    With Dragon Drop, it's easy to save the links
-									    you love&mdash;simply drag them to your folders.
-									    And if you find something that you just can't stand, drag it to the
-									    bin folder. We promise that it will never appear again!
-									</p>
-									<p>
-									    Each time you save a bookmark, you are doing a little bit more to
-									    train your dragon. The more
-									    you bookmark, the better the search results will be. 
-									</p>
-									<p>
-									    Have fun drag &apos;n&apos; dropping!
-									</p>
-							 
-							 {% endif %} 
-						
-
-					
-					</div>
-					{% endblock %}
 
 					
 					
 				</div>
 	   
-	   <!-- right hand-side column - BIN -->
+	   <!-- right hand-side column -->
 				<div class="col-md-3 ">
 		
 					{% block right_column_bin_bookmarks %}
 					
-						<div class="top-bookmarks">
-							
-							<!--<h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
-						    
-                                <ol id="latest-five">
-                                  {% if latestfive %}
-                                    {% for bookmark in latestfive %}
-                                <li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
-                                    {% endfor %}
-                                  {% endif %}
-                                </ol>			
-							    -->
-						    
-							<h3 class="top-five-heading">Top Bookmarks</h3>
-								{% if bookmarklist %}
-									{% for bookmark in bookmarklist %}
-
-                                        <div class="draggable search-result">
-                                             <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a>
-                                        </div>
-
-										{% endfor %}
-
-								{% endif %}
-							<p></p>
-						</div>
+                        {%  include "right-results.html" %}
 		
-						<!--<div class="bin droppable">
-							<a href="/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
-								<div class="bin-message">Never show me this again!</div>
-									<p class="folder-message"></p>
-						</div>
-						-->
+
 					
 					{% endblock %}
 		
