@@ -1,12 +1,30 @@
 {% load static %}
 
+
 <!-- special folders -->
-                            <div class="suggested-folders">
 
-                                    <a href="/popular">
-                                        <span class="glyphicon glyphicon-star dd-folder-icon"></span>
-                                        <span class="folder-name">Place holder suggested topic</span>
-                                    </a>
+    {% if suggested_folders %}
 
+    <div class="suggested-folders">
 
-                            </div> <!--/.special-folders-->
+        {% for folder in suggested_folders %}
+
+                                      <div class="col-md-12 droppable">
+                                        {% if folder.url %}
+                                          <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
+                                          <a href="/{{folder.url}}/">
+                                            <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                            <span class="folder-name">{{ folder }}</span>
+                                          </a>
+                                        {% else %}
+                                          <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                          <span class="folder-name">{{ folder }}</span>
+                                        {% endif %}
+                                        <span class="folder-message"></span>
+                                      </div>
+
+        {% endfor %}
+
+<!-- TODO: Delinate between suggested folders and normal folders -->
+    </div> <!--/.special-folders-->
+    {% endif %}
