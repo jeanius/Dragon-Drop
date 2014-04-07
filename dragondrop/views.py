@@ -70,7 +70,7 @@ def userpage(request):
             
         if query:
 
-            context_dict['sugg_folders'] = simple_match.search(query)
+            context_dict['suggested_folders'] = simple_match.search(query, request.user)
 
             # Run our Bing function to get the results list
             search_results = run_query(query)

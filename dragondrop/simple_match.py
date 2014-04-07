@@ -46,7 +46,7 @@ def get_query(query_string, search_fields):
             query = query & or_query
     return query
 
-def search(query_string):
+def search(query_string,user=None):
     """
     this function searches the bookmarks model's title and description for the given
     query_string
@@ -65,10 +65,12 @@ def search(query_string):
 
     for result in found_entries:
         for folder_res in result.fname.all():
-            if folder_res in context_dict:
-                context_dict[folder_res] += 1
-            else:
-                context_dict[folder_res] = 1
+            if folder_res.fusername_fk == user:
+                if folder_res in context_dict:
+                    context_dict[folder_res] += 1
+                else:
+                    context_dict[folder_res] = 1
+                folder_res.url = folder_res.foldername.replace(' ', '_')
 
     sorted_dict = sorted(context_dict.iteritems(), key=operator.itemgetter(1))[::-1]
 
