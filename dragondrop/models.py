@@ -23,7 +23,6 @@ class Bookmark(models.Model):
     bdescr = models.CharField(max_length=1024, null=True, unique=False)
     fname = models.ManyToManyField(Folder, through='BookmarkToFolder')
     saved_times = models.IntegerField(default=0)
-    clicks = models.IntegerField(default=0)
 
     def bdomain(self):
         return getDomain(self.url)
@@ -96,6 +95,7 @@ class BookmarkToFolder(models.Model):
     bfbookmark = models.ForeignKey(Bookmark)
     bfrank = models.FloatField(default=0)
     datecreated = models.DateTimeField(auto_now_add=True)
+    clicks = models.IntegerField(default=0)
 
 class BinFolder(models.Model):
     busername_fk = models.OneToOneField(User)
