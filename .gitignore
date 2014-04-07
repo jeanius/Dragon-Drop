@@ -1,3 +1,6 @@
 dragondrop/key.py
 dragondrop/key.pyc
+*.pyc
+*.db
+*.xml
 
