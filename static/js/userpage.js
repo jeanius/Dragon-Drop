@@ -140,7 +140,7 @@ $(function() {
  
     $( ".search-result" ).draggable({cursor: "move",
                                      cursorAt: { top: 0, left: -12 },
-                                     helper: draggableHelper,
+                                    // helper: draggableHelper,
                                      start: dragStart,
                                      stop: dragStop
                                     });

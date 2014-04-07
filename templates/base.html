@@ -101,37 +101,33 @@
 
                             <!-- special folders -->
                             <div class="special-folders">
-                                <div class="col-md-12 droppable">
+
                                     <a href="/popular">
                                         <span class="glyphicon glyphicon-star dd-folder-icon"></span>
                                         <span class="folder-name">Popular</span>
                                     </a>
-                                </div>
 
-                                <div class="col-md-12 droppable">
                                     <a href="/history">
                                         <span class="glyphicon glyphicon-time dd-folder-icon"></span>
                                         <span class="folder-name">History</span>
                                     </a>
-                                </div>
 
-                                <div class="col-md-12 droppable">
                                     <a href="/latest">
                                         <span class="glyphicon glyphicon-flash dd-folder-icon"></span>
                                         <span class="folder-name">Latest</span>
                                     </a>
-                                </div>
 
-                                <div class="col-md-12 droppable">
                                     <a href="/bin-folder">
                                         <span class="glyphicon glyphicon-trash dd-folder-icon"></span>
                                         <span class="folder-name">Bin</span>
                                     </a>
-                                </div>
+
                             </div> <!--/.special-folders-->
 
 
+
                                 {% if folders %}
+
                                     {% for folder in folders %}
                                       <div class="col-md-12 droppable">
                                         {% if folder.url %}
@@ -331,7 +327,7 @@
 					
 						<div class="top-bookmarks">
 							
-							<h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
+							<!--<h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
 						    
                                 <ol id="latest-five">
                                   {% if latestfive %}
@@ -340,15 +336,18 @@
                                     {% endfor %}
                                   {% endif %}
                                 </ol>			
-							    <p></p>
+							    -->
 						    
 							<h3 class="top-five-heading">Top Bookmarks</h3>
 								{% if bookmarklist %}
-									<ol>
-										{% for bookmark in bookmarklist %}
-									<li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
+									{% for bookmark in bookmarklist %}
+
+                                        <div class="draggable search-result">
+                                             <a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a>
+                                        </div>
+
 										{% endfor %}
-									</ol>			
+
 								{% endif %}
 							<p></p>
 						</div>
@@ -366,50 +365,15 @@
 				
 			</div> <!-- end of ROW div -->
 
+
+      <!-- bottom navigation panel could go here -->
+
+
+
+
+
 		</div> <!-- /container -->
 
-    <!-- bottom navigation panel -->
-
-      <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        {% block bottom_navbar %}
-		
-		<div class="container">
-          <div class="navbar-header">
-					
-					<!-- this is not visible unless the screen is small-->
-					<a class="navbar-brand visible-xs" href="/userpage">
-							<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
-					<a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
-					<!-- /not visible-->
-			
-		  
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-    
-          </div>
-         <div class="collapse navbar-collapse ">
-            <ul class="nav navbar-nav">
-              <li><a class="footer" href="/about">About</a></li>
-              <li><a href="/privacy">Privacy</a></li>
-              <li><a href="/help">Help</a></li>
-			  
-					<!-- these are visible unless the screen is small -->
-				<li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
-				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
-				</li>
-			</ul>
-     
-          </div><!--/.nav-collapse -->
-        </div><!--/.container -->
-		
-		
-		{% endblock %}
-      </div>
 
 
     <!-- Bootstrap core JavaScript
