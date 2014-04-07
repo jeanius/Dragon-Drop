@@ -95,43 +95,31 @@
 					    <p>To start creating folders for your favourite links, simply type a folder name in the box below.</p>
 					{% endif %}
                     -->
-                    <div class="row" id="scrollable">
-                        
+                 <div class="row" id="scrollable">                  
                         <div >
-                        
-                                <div class="row" id="folder-list">
-                                    {% if folders %}
-                                        {% for folder in folders %}
-                                        <div class="col-md-12 droppable">
+                            <div class="row" id="folder-list">
+                                {% if folders %}
+                                    {% for folder in folders %}
+                                      <div class="col-md-12 droppable">
+                                        {% if folder.url %}
+                                          <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
+                                          <a href="/{{folder.url}}/">
+                                            <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>                
+                                            <span class="folder-name">{{ folder }}</span>                
+                                          </a>
+                                        {% else %}
+                                          <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                          <span class="folder-name">{{ folder }}</span>
+                                        {% endif %}
+                                        <span class="folder-message"></span>
+                                      </div>                                        
+                                    {% endfor %} 
+                                {% endif %}
+                                {% include "auto-added-folder.html" %}
 
-                                        <!-- the folders are visible at all times -->
-                                                <div class="special-folders">
-                                                     <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
-                                                     <span class="folder-name">{{ folder }}</span>
-                                                </div>
-
-                                                {% if folder.url %}
-                                            <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
-                                                <a href="/{{folder.url}}/">
-                                                    <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>				
-                                                    <span class="folder-name">{{ folder }}</span>				
-                                                </a>
-                                                {% else %}
-                            
-                                                  <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
-                                                  <span class="folder-name">{{ folder }}</span>
-                          
-                
-                                                {% endif %}
-                                            <span class="folder-message"></span>
-                                        </div>
-                                        
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-                        </div> <!-- /hidden-lg -->	
-				</div>
-						
+                            </div>
+                       </div> 
+                </div>						
                 <div class="col-md-12 add-folder">      
                     <div class="input-group">
                         <input type="text" class="form-control" id="new-folder-name-input" placeholder="Add a folder">
