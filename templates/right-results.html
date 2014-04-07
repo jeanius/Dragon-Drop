@@ -1,0 +1,18 @@
+		{% load static %}
+										<div class="top-bookmarks">
+
+
+
+							<h3 class="top-five-heading">Top Bookmarks</h3>
+								{% if bookmarklist %}
+									{% for bookmark in bookmarklist %}
+
+                                        <div class="draggable search-result">
+                                             <strong><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></strong>
+                                        </div>
+
+										{% endfor %}
+
+								{% endif %}
+
+						</div>

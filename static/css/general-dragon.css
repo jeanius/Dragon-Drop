@@ -60,7 +60,7 @@ h3  {
 	}
 	
 h3.top-five-heading {
-    margin-top:4px;
+    padding-bottom:15px;
     margin-bottom:0px;
 }
 	
@@ -126,7 +126,10 @@ img {
 .navbar-static-top .navbar-nav > li > a {
     color: #fff;
     padding-left: 0;
+}
 
+.navbar-static-top .navbar-nav > li > a:hover {
+    color:#fff;
 }
 
 a.heading {
@@ -374,33 +377,33 @@ User page stylesheet
 
        .draggable {
         color: #412f41;
-		background-color: rgba(180, 180, 180, 0.35); /* #B4B4B4:*/
-		border: 1px solid #AFAFAF;
+        background-color: rgba(255, 255, 255, 0.14);
+        border: 1px solid #DFDFDF;
         margin-bottom: 4px;
-        padding-left:2px;
-        padding-right:2px;
+        padding: 5px;
 		min-height: 30px;
        }
 
        .draggable.saved-bookmark {
-          /*background-color: rgba(255,255,30,0.15);*/ /*#DBD0DD;*/
+          background-color: rgba(71, 42, 71, 0.15);
        }
 	   
 	   .draggable strong a,
 	   .draggable strong a:hover {
 	     /*color: #412f41;*/
-	     color: #43b;
+	     color: #452F45;
 	   }
 	   .draggable.saved-bookmark strong a,
 	   .draggable.saved-bookmark strong a:hover {
 	     /*color: #412f41;*/
-	     color: #c84;
+	     color: #452F45;
 	   }
        
        .droppable {
           padding-top:12px;
           width:100%;
           position:relative;
+           margin-left: 15px;
        }
        
        .f-drop {
@@ -439,7 +442,19 @@ overflow-x: hidden;
 }
 
 .special-folders {
-    border: 1px solid red;
+border: 1px solid #DFDFDF;
+margin-left: 15px;
+padding: 0 0 10px 13px;
+}
+
+.special-folders a {
+    display:block;
+    padding-top: 10px;
+}
+
+.special-folders a:hover {
+
+    text-decoration: none;
 }
 
 .row #scrollable {

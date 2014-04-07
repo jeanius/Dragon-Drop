@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %}{{ folder_name }} || {{user.username}} - Dragon Drop{% endblock %}
+    
+    {% block middle_column %}
+          <ol class="breadcrumb">
+            <li><a href="/users/">Users</a></li>
+            <li><a href="/users/{{folder_username_encoded}}/">{{folder_username}}</a></li>
+            <li class="active">{{ folder_name }}</li>
+          </ol> 
+
+          <h3>{{folder_username}}&apos;s folder <b id="current-folder-name">{{ folder_name }}</b></h3>
+
+
+          <div id="scrollable-bookmarks">
+          {% if bookmarks %}
+             
+              <!-- Display search results in an ordered list -->
+              <div>
+  
+                {% for bookmark in bookmarks %}
+                    <div class="draggable saved-bookmark{%if bookmark.justAdded%} just-added{%endif%}" data-bfrank="{{bookmark.bfrank}}">
+                        <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
+                        {% include "dropdown-include.html" %}
+                        <a class="twitter-share-link"
+                           href="https://twitter.com/intent/tweet?url={{bookmark.url}}&via=dragondropping">
+                          <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                        </a>  
+                        <strong><a href="/goto/?bm_id={{ bookmark.id }}" target="_blank">{{ bookmark.niceName }}</a></strong>
+                        <span class="domain-name">({{ bookmark.bdomain }})</span><br>
+                        <em>{{ bookmark.bdescr }}</em>
+                        {% if bookmark.video_id %}
+                            <br><iframe id="ytplayer" type="text/html" width="327" height="200"
+                            src="http://www.youtube.com/embed/{{bookmark.video_id}}"
+                            frameborder="0"></iframe>
+                        {% endif %}   
+                   </div>
+                {% endfor %}
+              </div>
+         {% endif %}
+         </div>
+	  
+	  
+    {% endblock %}
+    
+    

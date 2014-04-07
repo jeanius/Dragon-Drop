@@ -1,0 +1,105 @@
+{% load static %}
+<div id="search-results">
+
+
+
+                              {% if user_search_results %}
+                                <h3 class="results">Results from your folders</h3>
+                                    <!-- Display search results in an ordered list -->
+                                    <div class="main-link-list" style="clear: both;">
+
+                                    {% for result in user_search_results %}
+                                        <div class="draggable search-result saved-bookmark">
+                                            {% include "dropdown-include.html" %}
+                                            <a class="twitter-share-link"
+                                               href="https://twitter.com/intent/tweet?url={{result.url}}&via=dragondropping">
+                                              <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                                            </a>
+                                            <strong><a href="{{ result.url }}" target="_blank">{{ result.niceName }}</a></strong>
+                                            <span class="domain-name">({{ result.bdomain }})</span><br>
+                                                {{ result.bdescr }}<br />
+                                        <!-- added folder name -->
+                                            <span class="result-folder-name">
+                                        In
+                                        {% for folder in result.containingFolders %}
+                                           <a class="btn btn-default btn-xs small-button-to-folder"
+                                              role="button"
+                                              href="/{{ folder.underscored_name }}">{{ folder.name }}
+                                           </a>
+                                           {% if not forloop.last %},{% endif %}
+                                        {% endfor %}
+                                            </span>
+                                        {% if result.video_id %}
+                                            <br />
+                                    <iframe id="ytplayer" type="text/html" width="327" height="200"
+                                    src="http://www.youtube.com/embed/{{result.video_id}}"
+                                    frameborder="0"></iframe>
+                                            {% endif %}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                              {% endif %}
+
+
+						     {% if search_results %}
+								<!-- Display search results in an ordered list -->
+									<h3 class="results" id="results-from-web-heading">Results from the web</h3>
+                                    <div class="main-link-list" style="clear: both;">
+                                        {% for result in search_results %}
+                                        <div class="draggable search-result">
+
+                                            {% include "dropdown-include.html" %}
+                                            <a class="twitter-share-link"
+                                               href="https://twitter.com/intent/tweet?url={{result.link}}&via=dragondropping">
+                                              <img src="{% static "twitter_bird_black_32.png" %}"></img>
+                                            </a>
+                                            <strong><a href="{{ result.link }}" target="_blank">{{ result.title }}</a></strong>
+                                            <span class="domain-name">({{ result.domain }})</span><br>
+                                            {{ result.summary }}
+                                            {% if result.video_id %}
+                                            <br />
+
+                                            <iframe id="ytplayer" type="text/html" width="327" height="200"
+                                            src="http://www.youtube.com/embed/{{result.video_id}}"
+                                            frameborder="0"></iframe>
+                                            {% endif %}
+
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+							 {% else %}
+									<h3 class="results">Welcome to Dragon Drop!</h3>
+
+									<p>
+									    Dragon Drop is search, done better.
+									</p>
+									<p>
+									    To get started:
+									</p>
+									<ul>
+									    <li>Type anything in the box above to search the web with Bing</li>
+									    {% if not folders %}
+									        <li>Add some folders to organise your bookmarks</li>
+									    {% endif %}
+									</ul>
+									<p>
+									    With Dragon Drop, it's easy to save the links
+									    you love&mdash;simply drag them to your folders.
+									    And if you find something that you just can't stand, drag it to the
+									    bin folder. We promise that it will never appear again!
+									</p>
+									<p>
+									    Each time you save a bookmark, you are doing a little bit more to
+									    train your dragon. The more
+									    you bookmark, the better the search results will be.
+									</p>
+									<p>
+									    Have fun drag &apos;n&apos; dropping!
+									</p>
+
+							 {% endif %}
+
+
+
+					</div>
