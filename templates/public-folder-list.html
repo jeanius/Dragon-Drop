@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block title %}{{ folder_name }} || {{user.username}} - Dragon Drop{% endblock %}
+    
+    {% block middle_column %}
+        <h3><b id="current-folder-name">{{ folder_name }}</b></h3>
+
+
+
+          <div>
+            {% if public_folder_list %}
+
+              <h3>Folders belonging to {{username}}</h3>
+              <div id="public-folders">
+                {% for folder in public_folder_list %}
+                    <div>
+                        <a href="/users/{{username}}/{{folder.url_encoded_name}}/">{{folder.name}}</a>
+                    </div>
+                {% endfor %}
+              </div>
+            {% endif %}      
+         </div>
+	  
+	  
+    {% endblock %}
+    
+    

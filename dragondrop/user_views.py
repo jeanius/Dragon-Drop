@@ -1,3 +1,5 @@
+from dragondrop.views import decode_url, encode_url, topfive, getFolderList, latestfive
+
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
@@ -62,6 +64,64 @@ def goto_url(request):
 
 
 def user_folder_view(request, username, folder_page_url):
-    pass
+    context = RequestContext(request)
 
+    if request.user.is_authenticated():
+
+        folder_name = decode_url(folder_page_url)
+        context_dict = {'folder_name': folder_name,
+                        'folder_username': username,
+                        'folder_username_encoded': encode_url(username)}
+        current_user = request.user
+        folder_owner = User.objects.get(username=username)
+        context_dict['bookmarklist'] = topfive(request)
+
+        try:
+            this_folder = folder_owner.folder_set.get(foldername = folder_name)
+            context_dict['folders'] = getFolderList(current_user, folder_name, True)
+
+            bf = this_folder.bookmarktofolder_set.all().order_by('-bfrank')
+            
+            def bf_to_bookmark(bf):
+                bookmark = bf.bfbookmark
+                bookmark.bfrank = bf.bfrank
+                return bookmark
+                
+            context_dict['bookmarks'] = map(bf_to_bookmark, list(bf))
+
+        except Folder.DoesNotExist:
+            pass
+
+        context_dict['latestfive'] = latestfive(request)
+        return render_to_response('public-folder-temporary.html', context_dict, context)
+
+    else:
+        return render_to_response('index.html')
+
+
+
+
+
+def user_folder_list(request, username):
+    context = RequestContext(request)
+
+    if request.user.is_authenticated():
+
+        current_user = request.user
+        folder_owner = User.objects.get(username=username)
+        context_dict = {
+                         'bookmarklist': topfive(request),
+                         'username': username,
+                         'username_encoded': encode_url(username)
+                       }
+        
+        folder_list = getFolderList(folder_owner, None)
+        folder_list = [{"name":f.foldername, "url_encoded_name":encode_url(f.foldername)} for f in folder_list]
+        context_dict['public_folder_list'] = folder_list
+
+        context_dict['latestfive'] = latestfive(request)
+        return render_to_response('public-folder-list.html', context_dict, context)
+
+    else:
+        return render_to_response('index.html')
 
