@@ -84,7 +84,12 @@ def userpage(request):
             context_dict['user_search_results'] = relevantBookmarks
             context_dict['search_query'] = query
             context_dict['search_query_urlencoded'] = encode_url(query)
-
+            
+            # Only show auto-created folder if a folder of the same name does not already exist
+            context_dict['add_autocreated_folder'] = True
+            for folder in context_dict['folders']:
+                if folder.foldername.lower()==query.lower():
+                    context_dict['add_autocreated_folder'] = False
         return render_to_response('userpage.html', context_dict, context)
 
      else:
