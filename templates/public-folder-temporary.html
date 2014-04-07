@@ -4,18 +4,21 @@
     {% block title %}{{ folder_name }} || {{user.username}} - Dragon Drop{% endblock %}
     
     {% block middle_column %}
-        <h3><b id="current-folder-name">{{ folder_name }}</b></h3>
+          <ol class="breadcrumb">
+            <li><a href="/users/">Users</a></li>
+            <li><a href="/users/{{folder_username_encoded}}/">{{folder_username}}</a></li>
+            <li class="active">{{ folder_name }}</li>
+          </ol> 
+
+          <h3>{{folder_username}}&apos;s folder <b id="current-folder-name">{{ folder_name }}</b></h3>
+
 
           <div id="scrollable-bookmarks">
           {% if bookmarks %}
              
               <!-- Display search results in an ordered list -->
               <div>
-                <ol class="breadcrumb">
-                    <li><a href="/users/">Users</a></li>
-                    <li><a href="/users/{{folder_username_encoded}}/">{{folder_username}}</a></li>
-                    <li class="active">{{ folder_name }}</li>
-                </ol>   
+  
                 {% for bookmark in bookmarks %}
                     <div class="draggable saved-bookmark{%if bookmark.justAdded%} just-added{%endif%}" data-bfrank="{{bookmark.bfrank}}">
                         <a href="#" alt="Delete Bookmark" class="delete-bookmark"> <span class="glyphicon glyphicon-remove "></span></a>
