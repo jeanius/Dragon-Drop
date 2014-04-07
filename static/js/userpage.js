@@ -1,3 +1,8 @@
+
+var encodeUrl = function(folderName) {
+    return folderName.split(" ").join("_");
+}
+
 // This will be used to prevent sorting and dropping of a bookmark at the same time
 var hoveringOverDroppable = false;
 
@@ -21,9 +26,9 @@ $(function() {
             $("#scrollable-bookmarks").css("height", "");
         }
         if ($(window).height() < 770) {
-            $(".glyphicon-trash").css("padding-top", "20px")
+            $(".glyphicon-trash").css("padding-top", "0px")
         } else {
-            $(".glyphicon-trash").css("padding-top", "70px")        
+            $(".glyphicon-trash").css("padding-top", "0px")
         }
     }
     setFolderListHeight();
@@ -388,7 +393,7 @@ function ajaxDropToBin(dropTarget, ui) {
 function makeNewFolderElement(folderName) {
 return '<div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 droppable">'
        + ' <span class="glyphicon glyphicon-remove-circle delete-folder"></span>'
-       + ' <a href="/' + folderName.split(" ").join("_") + '/">'
+       + ' <a href="/' + encodeUrl(folderName) + '/">'
        + '  <span class="glyphicon lighter-colour dd-folder-icon glyphicon-folder-close"></span>'
        + '  <span class="folder-name">' + folderName + '</span>'
        + ' </a>'

@@ -63,10 +63,10 @@
 			</ul>
 
           </div><!--/.nav-collapse -->
-        </div><!--/.container .top-navbar -->
+        </div><!--/.container  -->
 
 
-      </div>
+      </div><!-- /.navbar-static-top-->
 
 
       <div class="container">
@@ -98,6 +98,39 @@
                  <div class="row" id="scrollable">                  
                         <div >
                             <div class="row" id="folder-list">
+
+                            <!-- special folders -->
+                            <div class="special-folders">
+                                <div class="col-md-12 droppable">
+                                    <a href="/popular">
+                                        <span class="glyphicon glyphicon-star dd-folder-icon"></span>
+                                        <span class="folder-name">Popular</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-12 droppable">
+                                    <a href="/history">
+                                        <span class="glyphicon glyphicon-time dd-folder-icon"></span>
+                                        <span class="folder-name">History</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-12 droppable">
+                                    <a href="/latest">
+                                        <span class="glyphicon glyphicon-flash dd-folder-icon"></span>
+                                        <span class="folder-name">Latest</span>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-12 droppable">
+                                    <a href="/bin-folder">
+                                        <span class="glyphicon glyphicon-trash dd-folder-icon"></span>
+                                        <span class="folder-name">Bin</span>
+                                    </a>
+                                </div>
+                            </div> <!--/.special-folders-->
+
+
                                 {% if folders %}
                                     {% for folder in folders %}
                                       <div class="col-md-12 droppable">
@@ -320,11 +353,12 @@
 							<p></p>
 						</div>
 		
-						<div class="bin droppable">
+						<!--<div class="bin droppable">
 							<a href="/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
 								<div class="bin-message">Never show me this again!</div>
 									<p class="folder-message"></p>
 						</div>
+						-->
 					
 					{% endblock %}
 		

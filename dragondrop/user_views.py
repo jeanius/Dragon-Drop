@@ -9,7 +9,7 @@ from dragondrop.models import Folder, Bookmark, BookmarkToFolder, BinFolder
 from dragondrop.get_domain_from_url import getDomain
 from dragondrop.get_web_page_title import getHtmlTitle
 from django.contrib.auth import authenticate, login, logout
-
+from django.shortcuts import redirect
 
 def register(request):
      context = RequestContext(request)
@@ -43,4 +43,25 @@ def register(request):
 
 
 def goto_url(request):
+    context = RequestContext(request)
+    bm_id = None
+    url = '/'
+    if request.method == 'GET':
+        if 'bm_id' in request.GET:
+            bm_id = request.GET['bm_id']
+            try:
+                bm = Bookmark.objects.get(id=bm_id)
+                bm.clicks = bm.clicks + 1
+                bm.save()
+                url = bm.url
+            except:
+                pass
+
+    return redirect(url)
+
+
+
+def user_folder_view(request, username, folder_page_url):
     pass
+
+
