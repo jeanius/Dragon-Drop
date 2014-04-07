@@ -83,6 +83,7 @@ def userpage(request):
             request.session['search_results'] = search_results
             context_dict['user_search_results'] = relevantBookmarks
             context_dict['search_query'] = query
+            context_dict['search_query_urlencoded'] = encode_url(query)
 
         return render_to_response('userpage.html', context_dict, context)
 
