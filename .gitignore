@@ -3,4 +3,4 @@ dragondrop/key.pyc
 *.pyc
 *.db
 *.xml
-
+.idea/*
