@@ -42,7 +42,7 @@
                            href="https://twitter.com/intent/tweet?url={{bookmark.url}}&via=dragondropping">
                           <img src="{% static "twitter_bird_black_32.png" %}"></img>
                         </a>  
-                        <strong><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName }}</a></strong>
+                        <strong><a href="/goto/?bm_id={{ bookmark.id }}" target="_blank">{{ bookmark.niceName }}</a></strong>
                         <span class="domain-name">({{ bookmark.bdomain }})</span><br>
                         <em>{{ bookmark.bdescr }}</em>
                         {% if bookmark.video_id %}
