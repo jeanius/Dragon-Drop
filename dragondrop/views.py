@@ -15,6 +15,7 @@ from operator import itemgetter
 import urllib
 import bisect
 from collections import OrderedDict
+import simple_match
 
 def index(request):
     context = RequestContext(request)
@@ -42,7 +43,6 @@ def index(request):
 
 def userpageWithQuery(request, query_in_url):
     request.query_in_url = query_in_url
-    print query_in_url
     return userpage(request)
 
 
@@ -57,7 +57,8 @@ def userpage(request):
             context_dict = {'bookmarklist': topfive(request),
                             'latestfive'  : latestfive(request)}
             context_dict['user'] = current_user
-            context_dict['folders'] = getFolderList(current_user, None)   
+            context_dict['folders'] = getFolderList(current_user, None)
+
         except User.DoesNotExist:
                pass
      
@@ -68,6 +69,9 @@ def userpage(request):
             query = request.query_in_url.strip()
             
         if query:
+
+            context_dict['sugg_folders'] = simple_match.search(query)
+
             # Run our Bing function to get the results list
             search_results = run_query(query)
             search_results = map(add_domain_to_search_result, search_results)
