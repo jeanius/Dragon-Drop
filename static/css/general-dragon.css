@@ -6,7 +6,7 @@ GENERAL stylesheet
 
 
 body {
-  padding-top: 20px;
+  /*padding-top: 20px;*/
   padding-bottom: 60px;
   background-color: #FFF;
   font-family: Verdana;
@@ -111,6 +111,27 @@ img {
 }
 #folder-page-search-button {
     margin-top:10px;
+}
+
+/* top navigation bar */
+
+.navbar-static-top{
+    background-color: #301830;
+}
+
+/*.navbar-static-top .container {*/
+    /*padding-left:0;*/
+/*}*/
+
+.navbar-static-top .navbar-nav > li > a {
+    color: #fff;
+    padding-left: 0;
+
+}
+
+a.heading {
+    font-family: Cambria;
+    font-size: 30px;
 }
 
 /* footer navigation bar */
@@ -417,10 +438,12 @@ overflow-y: auto;
 overflow-x: hidden;
 }
 
-
+.special-folders {
+    border: 1px solid red;
+}
 
 .row #scrollable {
-margin-top: 10px;
+/*margin-top: 10px;*/
 }
 
 
@@ -440,9 +463,9 @@ width:100%;
 }
 /* columns for the user, folder pages */
 .col-md-3 {
-background-color: rgba(40, 0, 70, 0.36); /*#280046:*/
+/*background-color: rgba(40, 0, 70, 0.36); /*#280046:
 padding-top: 10px;
-
+*/
 }
 
 .col-md-6{

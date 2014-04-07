@@ -21,9 +21,9 @@ $(function() {
             $("#scrollable-bookmarks").css("height", "");
         }
         if ($(window).height() < 770) {
-            $(".glyphicon-trash").css("padding-top", "20px")
+            $(".glyphicon-trash").css("padding-top", "0px")
         } else {
-            $(".glyphicon-trash").css("padding-top", "70px")        
+            $(".glyphicon-trash").css("padding-top", "0px")
         }
     }
     setFolderListHeight();
