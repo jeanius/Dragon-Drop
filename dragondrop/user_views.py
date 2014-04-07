@@ -104,9 +104,7 @@ def user_folder_view(request, username, folder_page_url):
 
 def user_folder_list(request, username):
     context = RequestContext(request)
-
     if request.user.is_authenticated():
-
         current_user = request.user
         folder_owner = User.objects.get(username=username)
         context_dict = {
@@ -121,6 +119,24 @@ def user_folder_list(request, username):
 
         context_dict['latestfive'] = latestfive(request)
         return render_to_response('public-folder-list.html', context_dict, context)
+
+    else:
+        return render_to_response('index.html')
+
+
+
+def list_of_users(request):
+    context = RequestContext(request)
+    if request.user.is_authenticated():
+        current_user = request.user
+        all_users = User.objects.all()
+        context_dict = {
+                         'bookmarklist': topfive(request),
+                         "all_users": all_users,
+                       }
+        print context_dict['all_users']
+        context_dict['latestfive'] = latestfive(request)
+        return render_to_response('list-of-users.html', context_dict, context)
 
     else:
         return render_to_response('index.html')

@@ -9,9 +9,13 @@
 
 
           <div>
+            <ol class="breadcrumb">
+                <li><a href="/users/">Users</a></li>
+                <li class="active">{{username}}</li>
+            </ol> 
+            <h3>Folders belonging to {{username}}</h3>
             {% if public_folder_list %}
-
-              <h3>Folders belonging to {{username}}</h3>
+              
               <div id="public-folders">
                 {% for folder in public_folder_list %}
                     <div>
@@ -19,6 +23,11 @@
                     </div>
                 {% endfor %}
               </div>
+              
+            {% else %}  
+               <div>
+                   <b>{{username}}</b> doesn't have any folders yet.
+               </div>
             {% endif %}      
          </div>
 	  
