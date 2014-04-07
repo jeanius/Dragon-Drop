@@ -27,8 +27,50 @@
 	<body>
 
 
+
+
+
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+
 		<div class="container">
-	
+          <div class="navbar-header">
+
+					<!-- this is not visible unless the screen is small-->
+					<a class="navbar-brand visible-xs" href="/userpage">
+							<span class="glyphicon glyphicon-user"></span> {{user.username}} </a>
+					<a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
+					<!-- /not visible-->
+
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          </div>
+         <div class="collapse navbar-collapse ">
+            <ul class="nav navbar-nav">
+              <li><a class="footer heading" href="/userpage">Dragon Drop</a></li>
+
+
+					<!-- these are visible unless the screen is small -->
+				<li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
+				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a>
+				</li>
+			</ul>
+
+          </div><!--/.nav-collapse -->
+        </div><!--/.container .top-navbar -->
+
+
+      </div>
+
+
+      <div class="container">
+
       <!-- 3 EQUAL columns -->
 	  
 			<div class="row">
@@ -37,22 +79,22 @@
 				<div class="col-md-3" id="folder-box">
 					{% block left_column %}
 					
-						<!-- Dragon logo -->
-					<a href="/userpage"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
-		
-						  
-						<!-- Dragon Drop header -->
-					<h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>
+{#						<!-- Dragon logo -->#}
+{#					<a href="/userpage"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>#}
+{#		#}
+{#						  #}
+{#						<!-- Dragon Drop header -->#}
+{#					<h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>#}
 		
 						
 					<!-- folder area -->	
-					<h3 class="folders">Your folders</h3>
+					<!-- <h3 class="folders">Your folders</h3>
 					{% if folders %}
 					   <input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
 					{% else %}
 					    <p>To start creating folders for your favourite links, simply type a folder name in the box below.</p>
 					{% endif %}
-
+                    -->
                     <div class="row" id="scrollable">
                         
                         <div >
@@ -61,6 +103,13 @@
                                     {% if folders %}
                                         {% for folder in folders %}
                                         <div class="col-md-12 droppable">
+
+                                        <!-- the folders are visible at all times -->
+                                                <div class="special-folders">
+                                                     <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                                     <span class="folder-name">{{ folder }}</span>
+                                                </div>
+
                                                 {% if folder.url %}
                                             <span class="glyphicon glyphicon-remove-circle delete-folder"></span>
                                                 <a href="/{{folder.url}}/">
