@@ -19,5 +19,5 @@ urlpatterns = patterns('',
             url(r'^help', views.help, name='help'),
             url(r'^about', views.about, name='about'),
             url(r'^goto', user_views.goto_url, name='goto'),
-            
+
 )
