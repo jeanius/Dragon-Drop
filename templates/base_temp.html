@@ -24,78 +24,36 @@
         
   </head>
 
-	<body>
+    <body>
 
 
-
-
-
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-
-		<div class="container">
-          <div class="navbar-header">
-
-					<!-- this is not visible unless the screen is small-->
-					<a class="navbar-brand visible-xs" href="/userpage">
-							<span class="glyphicon glyphicon-user"></span> {{user.username}} </a>
-					<a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
-					<!-- /not visible-->
-
-
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-          </div>
-         <div class="collapse navbar-collapse ">
-            <ul class="nav navbar-nav">
-              <li><a class="footer heading" href="/userpage">Dragon Drop</a></li>
-
-
-					<!-- these are visible unless the screen is small -->
-				<li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
-				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a>
-				</li>
-			</ul>
-
-          </div><!--/.nav-collapse -->
-        </div><!--/.container .top-navbar -->
-
-
-      </div>
-
-
-      <div class="container">
-
+        <div class="container">
+    
       <!-- 3 EQUAL columns -->
-	  
-			<div class="row">
-	  
-	  <!-- left hand-side column-->
-				<div class="col-md-3" id="folder-box">
-					{% block left_column %}
-					
-{#						<!-- Dragon logo -->#}
-{#					<a href="/userpage"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>#}
-{#		#}
-{#						  #}
-{#						<!-- Dragon Drop header -->#}
-{#					<h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>#}
-		
-						
-					<!-- folder area -->	
-					<!-- <h3 class="folders">Your folders</h3>
-					{% if folders %}
-					   <input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
-					{% else %}
-					    <p>To start creating folders for your favourite links, simply type a folder name in the box below.</p>
-					{% endif %}
-                    -->
-                 <div class="row" id="scrollable">                  
+      
+            <div class="row">
+      
+      <!-- left hand-side column-->
+                <div class="col-md-3" id="folder-box">
+                    {% block left_column %}
+                    
+                        <!-- Dragon logo -->
+                    <a href="/userpage"> <img src="{% static "dragon-logo-small.png" %}" alt="Dragon Drop" class="subpage"> </a>
+        
+                          
+                        <!-- Dragon Drop header -->
+                    <h1 class="header"><a alt="Dragon Drop">Dragon Drop</a></h1>
+        
+                        
+                    <!-- folder area -->    
+                    <h3 class="folders">Your folders</h3>
+                    {% if folders %}
+                       <input type="text" class="form-control" placeholder="Type to filter the list" name="folder-filter" id="folder-filter">
+                    {% else %}
+                        <p>To start creating folders for your favourite links, simply type a folder name in the box below.</p>
+                    {% endif %}
+
+                    <div class="row" id="scrollable">                  
                         <div >
                             <div class="row" id="folder-list">
                                 {% if folders %}
@@ -128,7 +86,8 @@
                                 {% endif %}
                             </div>
                        </div> 
-                </div>						
+                </div>
+                        
                 <div class="col-md-12 add-folder">      
                     <div class="input-group">
                         <input type="text" class="form-control" id="new-folder-name-input" placeholder="Add a folder">
@@ -142,58 +101,59 @@
                     </div>
                     <div id="folder-add-message"></div>
                 </div>
-		<!-- Modal -->
-		<div class="modal fade" id="confirm-folder-deletion-modal" tabindex="-1" role="dialog" aria-labelledby="Confirm Folder Deletion" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Confirm Folder Deletion</h4>
-					</div>
-						<div class="modal-body">
-							Do you want to delete the folder &ldquo;<span id="delete-folder-name"></span>&rdquo; and all the bookmarks contained in it?
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" id="cancel-folder-deletion-button" data-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary-delete" id="confirm-folder-deletion-button" data-dismiss="modal">Delete</button>
-					</div>
-				</div>
-			</div>
-		</div>
+        <!-- Modal -->
+        <div class="modal fade" id="confirm-folder-deletion-modal" tabindex="-1" role="dialog" aria-labelledby="Confirm Folder Deletion" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Confirm Folder Deletion</h4>
+                    </div>
+                        <div class="modal-body">
+                            Do you want to delete the folder &ldquo;<span id="delete-folder-name"></span>&rdquo; and all the bookmarks contained in it?
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" id="cancel-folder-deletion-button" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary-delete" id="confirm-folder-deletion-button" data-dismiss="modal">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-					{% endblock %}
-				</div>
-		
-	   <!-- middle column-->
-				<div class="col-md-6 results">
-					{% block middle_column %}
-					
-					<!-- Search box -->
-					          <form role="search" method="post" action="/userpage">
-								{% csrf_token %}
-								<div class="input-group">
-									<input type="text" 
-									       class="form-control"
-									       placeholder="Search your bookmarks and the web"
-									       name="query"
-									       {% if search_query %}value="{{search_query}}"{% endif %}
-									       >
-										<span class="input-group-btn">
-											<button type="submit" class="btn btn-primary-search" >
-												<a href="#">
-										<span class="glyphicon glyphicon-search"></span>
-												</a>
-											</button>
-										</span>
-								</div>
+                    {% endblock %}
+                </div>
         
-							  </form>
-			
-					<div id="search-results">
-					
-						
-						
+       <!-- middle column-->
+                <div class="col-md-6 results">
+                    {% block middle_column %}
+                    
+                    <!-- Search box -->
+                              <form role="search" method="post" action="/userpage">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <input type="text" 
+                                           class="form-control"
+                                           placeholder="Search your bookmarks and the web"
+                                           name="query"
+                                           id="search-box"
+                                           {% if search_query %}value="{{search_query}}"{% endif %}
+                                           >
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary-search" >
+                                                <a href="#">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                                </a>
+                                            </button>
+                                        </span>
+                                </div>
+        
+                              </form>
+            
+                    <div id="search-results">
+                    
+                        
+                        
                               {% if user_search_results %}
                                 <h3 class="results">Results from your folders</h3>
                                     <!-- Display search results in an ordered list -->
@@ -225,16 +185,16 @@
                                     <iframe id="ytplayer" type="text/html" width="327" height="200"
                                     src="http://www.youtube.com/embed/{{result.video_id}}"
                                     frameborder="0"></iframe>
-                                            {% endif %} 				
+                                            {% endif %}                 
                                         </div>
                                         {% endfor %}
                                     </div>
                               {% endif %}
-						
-						
-						     {% if search_results %}
-								<!-- Display search results in an ordered list -->
-									<h3 class="results" id="results-from-web-heading">Results from the web</h3>
+                        
+                        
+                             {% if search_results %}
+                                <!-- Display search results in an ordered list -->
+                                    <h3 class="results" id="results-from-web-heading">Results from the web</h3>
                                     <div class="main-link-list" style="clear: both;">
                                         {% for result in search_results %}
                                         <div class="draggable search-result">
@@ -258,106 +218,106 @@
                                         </div>
                                         {% endfor %}
                                     </div>
-										
-							 {% else %}
-									<h3 class="results">Welcome to Dragon Drop!</h3>
+                                        
+                             {% else %}
+                                    <h3 class="results">Welcome to Dragon Drop!</h3>
 
-									<p>
-									    Dragon Drop is search, done better.
-									</p>
-									<p>
-									    To get started:
-									</p>
-									<ul>
-									    <li>Type anything in the box above to search the web with Bing</li>
-									    {% if not folders %}
-									        <li>Add some folders to organise your bookmarks</li>
-									    {% endif %}
-									</ul>
-									<p>
-									    With Dragon Drop, it's easy to save the links
-									    you love&mdash;simply drag them to your folders.
-									    And if you find something that you just can't stand, drag it to the
-									    bin folder. We promise that it will never appear again!
-									</p>
-									<p>
-									    Each time you save a bookmark, you are doing a little bit more to
-									    train your dragon. The more
-									    you bookmark, the better the search results will be. 
-									</p>
-									<p>
-									    Have fun drag &apos;n&apos; dropping!
-									</p>
-							 
-							 {% endif %} 
-						
+                                    <p>
+                                        Dragon Drop is search, done better.
+                                    </p>
+                                    <p>
+                                        To get started:
+                                    </p>
+                                    <ul>
+                                        <li>Type anything in the box above to search the web with Bing</li>
+                                        {% if not folders %}
+                                            <li>Add some folders to organise your bookmarks</li>
+                                        {% endif %}
+                                    </ul>
+                                    <p>
+                                        With Dragon Drop, it's easy to save the links
+                                        you love&mdash;simply drag them to your folders.
+                                        And if you find something that you just can't stand, drag it to the
+                                        bin folder. We promise that it will never appear again!
+                                    </p>
+                                    <p>
+                                        Each time you save a bookmark, you are doing a little bit more to
+                                        train your dragon. The more
+                                        you bookmark, the better the search results will be. 
+                                    </p>
+                                    <p>
+                                        Have fun drag &apos;n&apos; dropping!
+                                    </p>
+                             
+                             {% endif %} 
+                        
 
-					
-					</div>
-					{% endblock %}
+                    
+                    </div>
+                    {% endblock %}
 
-					
-					
-				</div>
-	   
-	   <!-- right hand-side column - BIN -->
-				<div class="col-md-3 ">
-		
-					{% block right_column_bin_bookmarks %}
-					
-						<div class="top-bookmarks">
-							
-							<h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
-						    
+                    
+                    
+                </div>
+       
+       <!-- right hand-side column - BIN -->
+                <div class="col-md-3 ">
+        
+                    {% block right_column_bin_bookmarks %}
+                    
+                        <div class="top-bookmarks">
+                            
+                            <h3 class="top-five-heading" {% if not latestfive %}style="display:none;"{% endif %}>Your latest bookmarks</h3>
+                            
                                 <ol id="latest-five">
                                   {% if latestfive %}
                                     {% for bookmark in latestfive %}
                                 <li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
                                     {% endfor %}
                                   {% endif %}
-                                </ol>			
-							    <p></p>
-						    
-							<h3 class="top-five-heading">Top Bookmarks</h3>
-								{% if bookmarklist %}
-									<ol>
-										{% for bookmark in bookmarklist %}
-									<li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
-										{% endfor %}
-									</ol>			
-								{% endif %}
-							<p></p>
-						</div>
-		
-						<div class="bin droppable">
-							<a href="/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
-								<div class="bin-message">Never show me this again!</div>
-									<p class="folder-message"></p>
-						</div>
-					
-					{% endblock %}
-		
-				</div>
-				
-			</div> <!-- end of ROW div -->
+                                </ol>            
+                                <p></p>
+                            
+                            <h3 class="top-five-heading">Top Bookmarks</h3>
+                                {% if bookmarklist %}
+                                    <ol>
+                                        {% for bookmark in bookmarklist %}
+                                    <li><a href="{{ bookmark.url }}" target="_blank">{{ bookmark.niceName}}</a></li>
+                                        {% endfor %}
+                                    </ol>            
+                                {% endif %}
+                            <p></p>
+                        </div>
+        
+                        <div class="bin droppable">
+                            <a href="/bin-folder"><span class="glyphicon glyphicon-trash"></span></a>
+                                <div class="bin-message">Never show me this again!</div>
+                                    <p class="folder-message"></p>
+                        </div>
+                    
+                    {% endblock %}
+        
+                </div>
+                
+            </div> <!-- end of ROW div -->
 
-		</div> <!-- /container -->
+        </div> <!-- /container -->
 
     <!-- bottom navigation panel -->
 
       <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
         {% block bottom_navbar %}
-		
-		<div class="container">
+        
+        <div class="container">
           <div class="navbar-header">
-					
-					<!-- this is not visible unless the screen is small-->
-					<a class="navbar-brand visible-xs" href="/userpage">
-							<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
-					<a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
-					<!-- /not visible-->
-			
-		  
+                    
+                    <!-- this is not visible unless the screen is small-->
+                    <a class="navbar-brand visible-xs" href="/userpage">
+                            <span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
+                    <a href="/log_out" class="navbar-brand visible-xs">Log out  <span class="glyphicon glyphicon-log-out logout"></span></a>
+                    <!-- /not visible-->
+            
+          
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -371,19 +331,19 @@
               <li><a class="footer" href="/about">About</a></li>
               <li><a href="/privacy">Privacy</a></li>
               <li><a href="/help">Help</a></li>
-			  
-					<!-- these are visible unless the screen is small -->
-				<li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
-				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
-				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
-				</li>
-			</ul>
+              
+                    <!-- these are visible unless the screen is small -->
+                <li class="user-details hidden-xs"><a href="/log_out" >Log out  <span class="glyphicon glyphicon-log-out logout"></span></a></li>
+                <li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
+                <span class="glyphicon glyphicon-user"></span> {{user.username}} </a> 
+                </li>
+            </ul>
      
           </div><!--/.nav-collapse -->
         </div><!--/.container -->
-		
-		
-		{% endblock %}
+        
+        
+        {% endblock %}
       </div>
 
 
@@ -396,7 +356,7 @@
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     
     <script src="{% static "js/userpage.js" %}"></script>
-	<script src="{% static "js/bootstrap.min.js" %}"></script>
+    <script src="{% static "js/bootstrap.min.js" %}"></script>
     <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
 
