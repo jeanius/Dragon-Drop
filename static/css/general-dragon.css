@@ -18,9 +18,9 @@ body {
 
 h1, h2{
 
-	font-family: Cambria;
+	font-family: Verdana;
 	font-weight: bold;
-	color: #301830;
+	color: #5A1786;
 	text-align: center;
 	margin-right:auto;
 	margin-left:auto;
@@ -53,9 +53,9 @@ h2 {
 	
 	
 h3  {
-	font-family: Cambria;
-	font-size: 28px;
-	color: #301830;
+	font-family: Verdana;
+	font-size: 24px;
+	color: #5A1786;
 	margin: 0 0 20px 0;
 	}
 	
@@ -116,7 +116,7 @@ img {
 /* top navigation bar */
 
 .navbar-static-top{
-    background-color: #301830;
+    background-color: #5A1786;
 }
 
 /*.navbar-static-top .container {*/
@@ -133,8 +133,8 @@ img {
 }
 
 a.heading {
-    font-family: Cambria;
-    font-size: 30px;
+    font-family: Verdana;
+    font-size: 34px;
 }
 
 /* footer navigation bar */
@@ -218,7 +218,7 @@ border-color: #B3B3B3;
 
 .btn-primary-register a {
 	text-decoration: none;
-	color: #301830;
+	color: #5A1786;
 	}
 
 .btn-primary-register:hover,
@@ -350,14 +350,14 @@ User page stylesheet
        /* For Dragon Drop */
        .dd-folder-icon	   {
            font-size: 2.5em;
-		   color: #412f41;
+		   color: #5A1786;
        }
 	   
 	   .btn-primary-search,
 	   .btn-primary-delete,
 	   .btn-primary-folder,
 		.btn-primary-add	   {
-		background-color: #412f41;
+		background-color: #5A1786;
 		border-color: #382f41;
 		color: #fff;
 	   }
@@ -376,7 +376,7 @@ User page stylesheet
 	  
 
        .draggable {
-        color: #412f41;
+        color: #5A1786;
         background-color: rgba(255, 255, 255, 0.14);
         border: 1px solid #DFDFDF;
         margin-bottom: 4px;
@@ -385,7 +385,7 @@ User page stylesheet
        }
 
        .draggable.saved-bookmark {
-          background-color: rgba(71, 42, 71, 0.15);
+          border: 1px solid #5A1786;
        }
 	   
 	   .draggable strong a,
@@ -410,7 +410,7 @@ User page stylesheet
           color: #79697A;
        }
        .folder-name{
-		  color: #301830;
+		  color: #5A1786;
           font-size: 16px;
 		  position: relative;
 		  top:-0.3em;
@@ -441,21 +441,28 @@ overflow-y: auto;
 overflow-x: hidden;
 }
 
-.special-folders {
+.special-folders, .suggested-folders {
 border: 1px solid #DFDFDF;
 margin-left: 15px;
 padding: 0 0 10px 13px;
 }
 
-.special-folders a {
+.special-folders a, .suggested-folders a {
     display:block;
     padding-top: 10px;
 }
 
-.special-folders a:hover {
+.special-folders a:hover,
+.suggested a:hover {
 
     text-decoration: none;
 }
+
+.bin {
+margin-left: 0;
+}
+
+
 
 .row #scrollable {
 /*margin-top: 10px;*/
@@ -493,14 +500,10 @@ z-index: 1;
 
 .top-bookmarks a,
 .top-bookmarks a:hover{
-color:#412f41;
+color:#5A1786;
 }
 
-.bin {
-padding: 5px 20px;
-border-top: 10px solid #EBE6ED;
-margin-top: 30px;
-}
+
 
 .highlight-droppable {
   text-shadow: 0 0 0.2em #f00, 0 0 0.2em #FFFFFD;
@@ -518,22 +521,7 @@ margin-top: 30px;
   text-shadow: 0 0 15px yellow, 0 0 0.4em #FFFFFD;
 }
 */
-.bin span {
 
-display: block;
-font-size: 80px;
-color: #5F4864;
-padding-top: 70px;
-text-align:center;
-}
-
-.bin .bin-message {
-margin: 30px auto 0 auto;
-font-size: 1em;
-display: none;
-text-align: center;
-padding: 0;
-}
 
 #search-results {
 height: 90%;

@@ -1,4 +1,19 @@
 {% load static %}
+
+
+{% if add_autocreated_folder %}
+    <a href="/{{search_query_urlencoded}}/">
+        <div class="col-md-12 droppable">
+            <span class="autocreated-folder lighter-colour">
+              <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-open"}} dd-folder-icon"></span>
+              <span id="autocreated-folder-name" class="folder-name">{{search_query}}</span>
+            </span>
+            <span class="folder-message"></span>
+        </div>
+    </a>
+{% endif %}
+
+
 {% if folders %}
 
                                     {% for folder in folders %}
@@ -17,4 +32,3 @@
                                       </div>
                                     {% endfor %}
                                 {% endif %}
-                                {% include "auto-added-folder.html" %}
