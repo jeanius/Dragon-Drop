@@ -1,0 +1,11 @@
+                                {% if search_query %}
+                                    <a href="/{{search_query_urlencoded}}/">
+                                        <div class="col-md-12 droppable">
+                                            <span class="autocreated-folder">
+                                              <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-close"}} dd-folder-icon"></span>
+                                              <span id="autocreated-folder-name" class="folder-name">{{search_query}}</span>
+                                            </span>
+                                            <span class="folder-message"></span>
+                                        </div>
+                                    </a>
+                                {% endif %}
