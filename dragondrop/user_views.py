@@ -60,11 +60,8 @@ def goto_url(request):
     return redirect(url)
 
 
-def user_search_all(request, username):
-    pass
 
-
-def user_topic(request, username, folder_url):
+def user_folder_view(request, username, folder_page_url):
     pass
 
 

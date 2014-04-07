@@ -19,5 +19,7 @@ urlpatterns = patterns('',
             url(r'^help', views.help, name='help'),
             url(r'^about', views.about, name='about'),
             url(r'^goto', user_views.goto_url, name='goto'),
+            url(r'^users/(?P<username>\w+)/(?P<folder_page_url>\w+)/$', user_views.user_folder_view, name='user_folder_view'),
+
 
 )
