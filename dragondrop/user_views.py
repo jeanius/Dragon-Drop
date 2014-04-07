@@ -40,3 +40,7 @@ def register(request):
 
      return render_to_response(
                'register.html', {'registered': registered, 'username': username, 'user_form': user_form}, context)
+
+
+def goto_url(request):
+    pass
