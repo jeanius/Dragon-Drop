@@ -1,6 +1,6 @@
 {% load static %}
 
-
+<div class="css-autocreated-folders">
 {% if add_autocreated_folder %}
     <a href="/{{search_query_urlencoded}}/">
         <div class="col-md-12 droppable">
@@ -12,9 +12,11 @@
         </div>
     </a>
 {% endif %}
-
+</div>
 
 {% if folders %}
+
+<div class="all-folders">
 
                                     {% for folder in folders %}
                                       <div class="col-md-12 droppable">
@@ -32,3 +34,5 @@
                                       </div>
                                     {% endfor %}
                                 {% endif %}
+
+</div>
