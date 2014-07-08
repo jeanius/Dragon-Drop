@@ -20,7 +20,7 @@ h1, h2{
 
 	font-family: Verdana;
 	font-weight: bold;
-	color: #5A1786;
+	color: #36095A;
 	text-align: center;
 	margin-right:auto;
 	margin-left:auto;
@@ -55,7 +55,7 @@ h2 {
 h3  {
 	font-family: Verdana;
 	font-size: 24px;
-	color: #5A1786;
+	color: #36095A;
 	margin: 0 0 20px 0;
 	}
 	
@@ -103,7 +103,13 @@ img {
     margin-right: auto;
 	opacity: 0.89;
 	}
-	
+
+.white-dragon {
+    float: left;
+    opacity:1;
+    width:7%;
+
+}
 
 #folder-page-search-button-div {
     display:none;
@@ -116,7 +122,7 @@ img {
 /* top navigation bar */
 
 .navbar-static-top{
-    background-color: #5A1786;
+    background-color: #36095A;
 }
 
 /*.navbar-static-top .container {*/
@@ -218,7 +224,7 @@ border-color: #B3B3B3;
 
 .btn-primary-register a {
 	text-decoration: none;
-	color: #5A1786;
+	color: #36095A;
 	}
 
 .btn-primary-register:hover,
@@ -350,14 +356,14 @@ User page stylesheet
        /* For Dragon Drop */
        .dd-folder-icon	   {
            font-size: 2.5em;
-		   color: #5A1786;
+		   color: #36095A;
        }
 	   
 	   .btn-primary-search,
 	   .btn-primary-delete,
 	   .btn-primary-folder,
 		.btn-primary-add	   {
-		background-color: #5A1786;
+		background-color: #36095A;
 		border-color: #382f41;
 		color: #fff;
 	   }
@@ -379,11 +385,11 @@ User page stylesheet
         color: #545454;
         background-color: rgba(255, 255, 255, 0.14);
         /*border: 1px solid #DFDFDF;*/
-        margin-bottom: 30px;
+        margin-bottom: 18px;
 		min-height: 23px;
         font-family: arial, sans-serif;
         font-size: small;
-         padding:5px;
+        padding:5px;
 
        }
 
@@ -396,27 +402,31 @@ User page stylesheet
 
 
        .draggable.saved-bookmark {
-          border: 1px solid #5A1786;
+          border: 1px solid #36095A;
        }
 	   
 	   .draggable strong a,
 	   .draggable strong a:hover {
 	     /*color: #412f41;*/
 	     color: #1a0dab;
-           font-family: arial, sans-serif;
-            font-size: 18px;
+         font-family: arial, sans-serif;
+         font-size: 18px;
 	   }
 	   .draggable.saved-bookmark strong a,
 	   .draggable.saved-bookmark strong a:hover {
 	     /*color: #412f41;*/
 	     color: #452F45;
+         padding: 5px;
 	   }
+
+       .draggable.saved-bookmark:hover{
+           padding:5px;
+       }
        
        .droppable {
-          padding-top:12px;
-          width:100%;
-          position:relative;
-           margin-left: 15px;
+			padding: 12px 0 0 0px;
+			width: 100%;
+			position: relative;
 
        }
        
@@ -424,7 +434,7 @@ User page stylesheet
           color: #79697A;
        }
        .folder-name{
-		  color: #5A1786;
+		  color: #36095A;
           font-size: 16px;
 		  position: relative;
 		  top:-0.3em;
@@ -443,12 +453,18 @@ User page stylesheet
        }
 	   
 	   .add-folder {
-	       padding: 20px 0;
+	        padding: 20px 30px 0 0;
+            position: absolute;
+            bottom: 0;
+            margin: 0 35px 0 0;
 	   }
 	   
 	   
 
 /* folder area - user page and folder pages */
+
+
+.clear { clear: both; }
 
 #scrollable, #scrollable-bookmarks {
 margin-left: auto;
@@ -460,13 +476,34 @@ overflow-x: hidden;
 .special-folders, .suggested-folders {
 border: 1px solid #DFDFDF;
 margin-left: 15px;
-padding: 0 0 10px 13px;
+margin-top: 10px;
+padding: 10px 0 10px 13px;
+}
+
+.special-folders-title, .suggested-folders-title, .all-folders-title{
+
+    font-size: 13px;
+    color: #868686;
+    float: right;
+    padding: 2px 7px;
+    margin: -1px 10px 0 0;
+    background-color: #fff;
+
 }
 
 .suggested-folders {
-    overflow: auto;
-
+    margin-top: 30px;
+    padding-top: 0;
 }
+
+ .suggested-folders-title {
+
+     margin-top: 18px;
+ }
+
+ .all-folders-title{
+     margin-top: 18px;
+ }
 
 .special-folders a, .suggested-folders a {
     display:block;
@@ -479,12 +516,26 @@ padding: 0 0 10px 13px;
     text-decoration: none;
 }
 
+.suggested-folders .css-autocreated-folders {
+	margin: 0;
+	padding: 0;
+}
+
+.css-autocreated-folders {
+    margin-left: 15px;
+    padding: 10px;
+}
+
 
 .all-folders{
-   border: 1px solid #DFDFDF;
-    margin: 15px 0 0 15px;
-    overflow: auto;
-    padding: 0 0 10px 13px;
+border: 1px solid #DFDFDF;
+margin: 30px 0 0 15px;
+padding: 0 0 10px 13px;
+}
+
+.all-folders .folder-name {
+
+    font-size: 1.1em;
 }
 
 
@@ -530,7 +581,7 @@ z-index: 1;
 
 .top-bookmarks a,
 .top-bookmarks a:hover{
-color:#5A1786;
+color:#36095A;
 }
 
 
@@ -695,7 +746,6 @@ padding-top: 10px;
     }
     #folder-box {
        height:100%;
-       margin-left:-20px;
     }
 }
 
@@ -718,7 +768,7 @@ font-size: 1.5em;
 display:none;
 float:right;
 margin-top:0.5em;
-margin-right: -25px;
+margin-right: 11px;
 height:100%;
 cursor: pointer;
 }

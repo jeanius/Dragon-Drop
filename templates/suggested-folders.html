@@ -5,6 +5,8 @@
 
     {% if suggested_folders %}
 
+                            <div class="suggested-folders-title">Suggested Folders</div>
+
     <div class="suggested-folders">
 
         {% for folder in suggested_folders %}
@@ -25,6 +27,39 @@
 
         {% endfor %}
 
+
+
+
+
+
+                <div class="css-autocreated-folders">
+                {% if add_autocreated_folder %}
+                    <a href="/{{search_query_urlencoded}}/">
+                        <div class="col-md-12 droppable">
+                            <span class="autocreated-folder lighter-colour">
+                              <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-open"}} dd-folder-icon"></span>
+                              <span id="autocreated-folder-name" class="folder-name">{{search_query}}</span>
+                            </span>
+                            <span class="folder-message"></span>
+                        </div>
+                    </a>
+                {% endif %}
+
+                                <br class="clear" />
+
+
+                </div> <!--/.css-autocreated-folders-->
+
+
+
+
+    <br class="clear" />
+
 <!-- TODO: Delinate between suggested folders and normal folders -->
     </div> <!--/.special-folders-->
+
+
+
+
+
     {% endif %}

@@ -487,10 +487,10 @@ function changeBookmarkRank(bookmarkDiv, newRank) {
  
 
 // Show the delete folder buttons only on hover 
-$( "#folder-box" ).mouseover(function() {
+$( ".all-folders" ).mouseover(function() {
   $( ".delete-folder" ).show();
 });
-$( "#folder-box" ).mouseout(function() {
+$( ".all-folders" ).mouseout(function() {
   $( ".delete-folder" ).hide();
 });
  

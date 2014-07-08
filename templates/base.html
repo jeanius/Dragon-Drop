@@ -26,14 +26,12 @@
 
 	<body>
 
-
-
-
-
         <div class="navbar navbar-default navbar-static-top" role="navigation">
 
 		<div class="container">
           <div class="navbar-header">
+
+
 
 					<!-- this is not visible unless the screen is small-->
 					<a class="navbar-brand visible-xs" href="/userpage">
@@ -51,8 +49,17 @@
 
           </div>
          <div class="collapse navbar-collapse ">
+
+
+
+
             <ul class="nav navbar-nav">
-              <li><a class="footer heading" href="/userpage">Dragon Drop</a></li>
+
+              <li>
+
+                  <a class="footer heading" href="/userpage">Dragon Drop</a>
+
+              </li>
 
 
 					<!-- these are visible unless the screen is small -->
@@ -60,9 +67,14 @@
 				<li class="user-details hidden-xs"> <a class="navbar-brand " href="/userpage">
 				<span class="glyphicon glyphicon-user"></span> {{user.username}} </a>
 				</li>
+
+
+                <!-- the dragon logo could maybe go here -->
+               <!-- <li><img src="../static/inverted-dragon-purple.png" class="white-dragon"/></li> -->
 			</ul>
 
-          </div><!--/.nav-collapse -->
+
+            </div><!--/.nav-collapse -->
         </div><!--/.container  -->
 
 
@@ -96,7 +108,7 @@
 					{% endif %}
                     -->
                  <div class="row" id="scrollable">                  
-                        <div >
+
                             <div class="row" id="folder-list">
 
                             {% include "special-folders.html" %}
@@ -106,7 +118,7 @@
                             {% include "all-folders.html" %}
 
                             </div>
-                       </div> 
+
                 </div>						
                 <div class="col-md-12 add-folder">      
                     <div class="input-group">

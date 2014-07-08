@@ -1,22 +1,36 @@
 {% load static %}
 
-<div class="css-autocreated-folders">
-{% if add_autocreated_folder %}
-    <a href="/{{search_query_urlencoded}}/">
-        <div class="col-md-12 droppable">
-            <span class="autocreated-folder lighter-colour">
-              <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-open"}} dd-folder-icon"></span>
-              <span id="autocreated-folder-name" class="folder-name">{{search_query}}</span>
-            </span>
-            <span class="folder-message"></span>
-        </div>
-    </a>
-{% endif %}
-</div>
+
+
+
+
+
+                <div class="css-autocreated-folders">
+                {% if add_autocreated_folder %}
+                    <a href="/{{search_query_urlencoded}}/">
+                        <div class="col-md-12 droppable">
+                            <span class="autocreated-folder lighter-colour">
+                              <span class="glyphicon {{folder.glyphicon_name|default:"glyphicon-folder-open"}} dd-folder-icon"></span>
+                              <span id="autocreated-folder-name" class="folder-name">{{search_query}}</span>
+                            </span>
+                            <span class="folder-message"></span>
+                        </div>
+                    </a>
+                {% endif %}
+
+                                <br class="clear" />
+
+
+                </div> <!--/.css-autocreated-folders-->
 
 {% if folders %}
 
-<div class="all-folders">
+         <div class="all-folders-title">All Folders</div>
+
+                <div class="all-folders">
+
+
+
 
                                     {% for folder in folders %}
                                       <div class="col-md-12 droppable">
@@ -35,4 +49,7 @@
                                     {% endfor %}
                                 {% endif %}
 
-</div>
+
+                <br class="clear" />
+
+                </div>
